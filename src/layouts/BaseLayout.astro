@@ -24,20 +24,32 @@ const waUrl = createGeneralInquiryUrl();
 
 const schemaJson = {
   "@context": "https://schema.org",
-  "@type": "Bakery",
+  "@type": ["Bakery", "FoodEstablishment"],
   "name": siteConfig.brandName,
+  "alternateName": "Rasanesia Solo",
   "description": siteConfig.description,
   "telephone": siteConfig.whatsappDisplay,
-  "areaServed": siteConfig.serviceAreas,
+  "areaServed": siteConfig.serviceAreas.map(area => ({
+    "@type": "AdministrativeArea",
+    "name": area
+  })),
   "servesCuisine": "Indonesian Traditional Food & Snack Box",
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": siteConfig.locationAddress || "Surakarta & Sukoharjo",
     "addressLocality": "Surakarta",
     "addressRegion": "Jawa Tengah",
     "addressCountry": "ID"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -7.56847,
+    "longitude": 110.77668
+  },
   "url": "https://rasanesia.com",
-  "priceRange": "Rp 3.500 - Rp 75.000"
+  "hasMap": siteConfig.locationMapDirectUrl || "https://maps.google.com/?q=Surakarta",
+  "priceRange": "Rp 3.500 - Rp 75.000",
+  "openingHours": "Mo-Su 07:00-18:00"
 };
 ---
 
@@ -52,10 +64,20 @@ const schemaJson = {
     <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content="snack box solo, snack box surakarta, snack box sukoharjo, jajanan pasar solo, katering solo, kue basah solo, snack box murah solo, custom snack box solo, rasanesia" />
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Geo Local SEO Meta Tags -->
+    <meta name="geo.region" content="ID-JT" />
+    <meta name="geo.placename" content="Surakarta" />
+    <meta name="geo.position" content="-7.56847;110.77668" />
+    <meta name="ICBM" content="-7.56847, 110.77668" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.brandName} />
+    <meta property="og:locale" content="id_ID" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

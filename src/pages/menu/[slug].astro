@@ -14,6 +14,25 @@ const waOrderUrl = createProductInquiryUrl(
   product.name, 
   product.price ? `Rp ${product.price.toLocaleString('id-ID')} / ${product.priceUnit || 'pcs'}` : 'Harga Menyesuaikan Jumlah Pesanan'
 );
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": product.name,
+  "description": product.description,
+  "image": product.image,
+  "brand": {
+    "@type": "Brand",
+    "name": "Rasanesia"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "IDR",
+    "price": product.price || 0,
+    "availability": product.available !== false ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+    "url": Astro.url.href
+  }
+};
 ---
 
 <BaseLayout 
@@ -21,6 +40,7 @@ const waOrderUrl = createProductInquiryUrl(
   description={product.description}
   image={product.image}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-xs text-brand-muted mb-8" aria-label="Breadcrumb">

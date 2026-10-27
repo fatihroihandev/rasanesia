@@ -15,6 +15,25 @@ const waOrderUrl = createSnackBoxOrderUrl(
   box.price ? `Rp ${box.price.toLocaleString('id-ID')} / ${box.priceUnit || 'box'}` : 'Hubungi via WhatsApp',
   box.minOrder
 );
+
+const packageSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": box.name,
+  "description": box.description,
+  "image": box.image,
+  "brand": {
+    "@type": "Brand",
+    "name": "Rasanesia"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "IDR",
+    "price": box.price || 0,
+    "availability": "https://schema.org/InStock",
+    "url": Astro.url.href
+  }
+};
 ---
 
 <BaseLayout 
@@ -22,6 +41,7 @@ const waOrderUrl = createSnackBoxOrderUrl(
   description={box.description}
   image={box.image}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(packageSchema)} />
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-xs text-brand-muted mb-8" aria-label="Breadcrumb">
