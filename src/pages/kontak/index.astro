@@ -74,13 +74,27 @@ const waUrl = createGeneralInquiryUrl();
           </div>
 
           <!-- Notice Box -->
-          <div class="p-6 rounded-3xl bg-brand-white border-2 border-brand-cream-dark shadow-xs space-y-2">
+          <div class="p-6 rounded-3xl bg-brand-white border-2 border-brand-cream-dark shadow-xs space-y-3">
             <h3 class="font-serif font-bold text-sm text-brand-brown flex items-center gap-2">
-              <span>ℹ️</span> Kebijakan Kunjungan Dapur Produksi
+              <span>📍</span> Titik Dapur Produksi
             </h3>
-            <p class="text-xs text-brand-muted leading-relaxed">
-              {siteConfig.addressNotice}
+            <p data-sync-address class="text-xs text-brand-dark font-semibold leading-relaxed">
+              {siteConfig.locationAddress || 'Dapur Produksi Rasanesia, Surakarta & Sukoharjo'}
             </p>
+            <div class="pt-1">
+              <a 
+                href={siteConfig.locationMapDirectUrl || 'https://maps.google.com/?q=Surakarta'}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-sync-map-link
+                class="inline-flex items-center gap-2 bg-brand-cream hover:bg-brand-cream-dark text-brand-brown font-bold text-xs px-4 py-2 rounded-full border border-brand-cream-dark transition-all"
+              >
+                <span>🗺️ Buka Rute di Google Maps</span>
+              </a>
+            </div>
+            <div class="pt-2 border-t border-brand-cream-dark/60 text-[11px] text-brand-muted leading-relaxed">
+              <span class="font-bold text-brand-brown">Kebijakan Kunjungan:</span> {siteConfig.addressNotice}
+            </div>
           </div>
         </div>
 
@@ -88,6 +102,7 @@ const waUrl = createGeneralInquiryUrl();
         <div class="lg:col-span-7">
           <div class="overflow-hidden rounded-3xl border border-brand-cream-dark shadow-card bg-brand-cream h-[450px]">
             <iframe 
+              data-sync-map
               src={siteConfig.locationMapEmbedUrl}
               width="100%" 
               height="100%" 
@@ -99,7 +114,7 @@ const waUrl = createGeneralInquiryUrl();
             ></iframe>
           </div>
           <p class="text-[11px] text-brand-muted text-center mt-3">
-            Peta referensi area cakupan pengiriman Rasanesia di Surakarta & Sukoharjo.
+            Peta referensi area cakupan pengiriman & titik dapur produksi Rasanesia di Surakarta & Sukoharjo.
           </p>
         </div>
 
@@ -107,3 +122,8 @@ const waUrl = createGeneralInquiryUrl();
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import { initClientSync } from '../../utils/clientSync';
+  initClientSync();
+</script>

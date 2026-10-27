@@ -97,7 +97,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           data-tab-target="tab-kontak" 
           class="admin-tab-btn px-4 py-2.5 rounded-full text-xs font-bold whitespace-nowrap bg-brand-brown text-brand-white shadow-xs transition-all flex items-center gap-1.5"
         >
-          <span>📱 Kontak & Profil</span>
+          <span>📱 Kontak & Lokasi Toko</span>
         </button>
         <button 
           type="button"
@@ -205,13 +205,115 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           </div>
         </div>
 
+        <!-- PENGATURAN LOKASI & GOOGLE MAPS -->
+        <div class="pt-6 border-t border-brand-cream-dark space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 class="font-serif text-lg font-bold text-brand-dark flex items-center gap-2">
+                <span>📍</span> Titik Lokasi Google Maps & Dapur Produksi
+              </h3>
+              <p class="text-xs text-brand-muted mt-0.5">
+                Atur koordinat / embed peta Google Maps yang tampil di Beranda, halaman Kontak, dan Area Layanan.
+              </p>
+            </div>
+            <a 
+              id="admin-preview-maps-link"
+              href="https://maps.google.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-brown hover:text-brand-brown-dark underline"
+            >
+              <span>Buka Google Maps</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Alamat Lengkap / Patokan -->
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-brand-dark mb-1.5">Alamat Lengkap / Patokan Titik Dapur</label>
+              <input 
+                type="text" 
+                id="cfg-location-address" 
+                placeholder="Contoh: Jl. Slamet Riyadi No. 123, Laweyan, Surakarta (Dapur Produksi Rasanesia)" 
+                class="w-full text-sm font-semibold p-3 rounded-2xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
+              />
+              <p class="text-[11px] text-brand-muted mt-1">
+                Alamat teks ini akan terbaca oleh calon pelanggan sebagai referensi titik jemput (pick-up) dan pengantaran.
+              </p>
+            </div>
+
+            <!-- Tautan Embed Google Maps -->
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-brand-dark mb-1.5">
+                Embed Peta Google Maps (URL Peta atau Kode &lt;iframe&gt;)
+              </label>
+              <textarea 
+                id="cfg-map-embed-url" 
+                rows="2"
+                placeholder="Tempelkan URL embed https://www.google.com/maps/embed?... atau kode <iframe> dari Google Maps" 
+                class="w-full text-xs font-mono p-3 rounded-2xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
+              ></textarea>
+              <div class="mt-1.5 flex flex-wrap items-center justify-between gap-2 text-[11px] text-brand-muted">
+                <span>💡 <em>Tips: Di Google Maps, klik <strong>Bagikan (Share)</strong> ➡️ pilih tab <strong>Sematkan Peta (Embed a map)</strong> ➡️ Salin HTML dan tempel di sini.</em></span>
+                <button 
+                  type="button" 
+                  id="btn-paste-default-map"
+                  class="text-brand-brown hover:underline font-bold"
+                >
+                  Gunakan Peta Default Solo
+                </button>
+              </div>
+            </div>
+
+            <!-- Link Langsung Navigasi GPS Google Maps -->
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-brand-dark mb-1.5">Tautan Buka di Aplikasi Google Maps (Arah GPS Pelanggan)</label>
+              <input 
+                type="text" 
+                id="cfg-map-direct-url" 
+                placeholder="https://maps.app.goo.gl/... atau https://maps.google.com/?q=Surakarta" 
+                class="w-full text-sm p-3 rounded-2xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
+              />
+              <p class="text-[11px] text-brand-muted mt-1">
+                Ketika pelanggan mengklik tombol "Buka Petunjuk Arah", tautan ini akan langsung membuka aplikasi Google Maps di smartphone mereka.
+              </p>
+            </div>
+          </div>
+
+          <!-- Live Preview Peta Langsung di Admin -->
+          <div class="p-4 rounded-2xl bg-brand-cream/60 border border-brand-cream-dark">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-brand-brown flex items-center gap-1.5">
+                <span>👁️</span> Pratinjau Langsung Peta Google Maps:
+              </span>
+              <span id="map-preview-status" class="text-[11px] text-brand-green font-semibold">Terkoneksi</span>
+            </div>
+            <div class="overflow-hidden rounded-xl border border-brand-cream-dark bg-brand-white h-[260px] relative">
+              <iframe 
+                id="admin-map-preview-iframe"
+                src=""
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Pratinjau Peta"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
         <div class="pt-4 border-t border-brand-cream-dark flex justify-end">
           <button 
             type="button" 
             id="save-config-btn" 
             class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-bold py-3 px-8 rounded-full text-xs shadow-soft transition-all active:scale-98"
           >
-            Simpan Perubahan Kontak Toko
+            Simpan Perubahan Kontak & Lokasi
           </button>
         </div>
       </div>
@@ -955,6 +1057,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     (document.getElementById('cfg-areas') as HTMLInputElement).value = (cfg.serviceAreas || []).join(', ');
     (document.getElementById('cfg-notice') as HTMLTextAreaElement).value = cfg.addressNotice || '';
 
+    // Location & Google Maps
+    (document.getElementById('cfg-location-address') as HTMLInputElement).value = cfg.locationAddress || '';
+    (document.getElementById('cfg-map-embed-url') as HTMLTextAreaElement).value = cfg.locationMapEmbedUrl || '';
+    (document.getElementById('cfg-map-direct-url') as HTMLInputElement).value = cfg.locationMapDirectUrl || '';
+    updateMapPreview(cfg.locationMapEmbedUrl || '');
+
     // 2. Products
     renderAdminProducts();
 
@@ -968,6 +1076,71 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     renderAdminCatering();
   }
 
+  // Map helper utilities
+  function extractMapUrl(raw: string): string {
+    const trimmed = (raw || '').trim();
+    if (!trimmed) return '';
+    // If iframe code was pasted: <iframe ... src="https://..." ...>
+    const match = trimmed.match(/src=["']([^"']+)["']/i);
+    if (match && match[1]) {
+      return match[1];
+    }
+    return trimmed;
+  }
+
+  function updateMapPreview(url: string) {
+    const previewIframe = document.getElementById('admin-map-preview-iframe') as HTMLIFrameElement | null;
+    const previewLink = document.getElementById('admin-preview-maps-link') as HTMLAnchorElement | null;
+    const previewStatus = document.getElementById('map-preview-status');
+    const cleanUrl = extractMapUrl(url);
+
+    if (previewIframe) {
+      if (cleanUrl) {
+        previewIframe.src = cleanUrl;
+        if (previewStatus) {
+          previewStatus.textContent = 'Terkoneksi';
+          previewStatus.className = 'text-[11px] text-brand-green font-semibold';
+        }
+      } else {
+        previewIframe.src = 'about:blank';
+        if (previewStatus) {
+          previewStatus.textContent = 'Belum Diatur';
+          previewStatus.className = 'text-[11px] text-amber-600 font-semibold';
+        }
+      }
+    }
+
+    if (previewLink) {
+      const directUrl = (document.getElementById('cfg-map-direct-url') as HTMLInputElement | null)?.value;
+      previewLink.href = directUrl || cleanUrl || 'https://maps.google.com';
+    }
+  }
+
+  // Real-time listener for map embed URL textarea
+  const mapEmbedInput = document.getElementById('cfg-map-embed-url') as HTMLTextAreaElement | null;
+  mapEmbedInput?.addEventListener('input', (e) => {
+    const val = (e.target as HTMLTextAreaElement).value;
+    const extracted = extractMapUrl(val);
+    if (val.includes('<iframe') && extracted) {
+      (e.target as HTMLTextAreaElement).value = extracted;
+    }
+    updateMapPreview(extracted);
+  });
+
+  // Default Solo Map button
+  document.getElementById('btn-paste-default-map')?.addEventListener('click', () => {
+    const defaultUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63273.74416738596!2d110.77668615414603!3d-7.568472911295353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a16627ad11ab1%3A0xe7fe4e0454f809d4!2sSurakarta%2C%20Kota%20Surakarta%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid';
+    if (mapEmbedInput) {
+      mapEmbedInput.value = defaultUrl;
+    }
+    const directInput = document.getElementById('cfg-map-direct-url') as HTMLInputElement | null;
+    if (directInput && !directInput.value) {
+      directInput.value = 'https://maps.google.com/?q=Surakarta,+Jawa+Tengah';
+    }
+    updateMapPreview(defaultUrl);
+    showToast('Peta default Surakarta dipasang ke kolom pratinjau');
+  });
+
   // Save Config Tab
   document.getElementById('save-config-btn')?.addEventListener('click', () => {
     const rawNum = (document.getElementById('cfg-wa-number') as HTMLInputElement).value.replace(/[^0-9]/g, '');
@@ -975,15 +1148,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     const hours = (document.getElementById('cfg-hours') as HTMLInputElement).value;
     const areas = (document.getElementById('cfg-areas') as HTMLInputElement).value.split(',').map(s => s.trim()).filter(Boolean);
     const notice = (document.getElementById('cfg-notice') as HTMLTextAreaElement).value;
+    const locationAddr = (document.getElementById('cfg-location-address') as HTMLInputElement).value.trim();
+    const mapEmbed = extractMapUrl((document.getElementById('cfg-map-embed-url') as HTMLTextAreaElement).value);
+    const mapDirect = (document.getElementById('cfg-map-direct-url') as HTMLInputElement).value.trim();
 
     saveStoredConfig({
       whatsappNumber: rawNum,
       whatsappDisplay: display,
       operationalHours: hours,
       serviceAreas: areas,
-      addressNotice: notice
+      addressNotice: notice,
+      locationAddress: locationAddr,
+      locationMapEmbedUrl: mapEmbed,
+      locationMapDirectUrl: mapDirect
     });
-    showToast('Kontak WhatsApp & toko berhasil diperbarui!');
+    updateMapPreview(mapEmbed);
+    showToast('Kontak WhatsApp & titik lokasi Google Maps berhasil disimpan!');
   });
 
   // ==========================================

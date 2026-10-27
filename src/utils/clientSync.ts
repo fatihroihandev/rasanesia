@@ -33,6 +33,28 @@ export function initClientSync(): void {
       });
     }
 
+    // 1b. Sync Google Maps embed URL, address, and direct map links
+    if (config) {
+      if (config.locationMapEmbedUrl) {
+        document.querySelectorAll('iframe[data-sync-map], iframe[src*="google.com/maps"]').forEach(el => {
+          const iframe = el as HTMLIFrameElement;
+          if (iframe.getAttribute('src') !== config.locationMapEmbedUrl) {
+            iframe.setAttribute('src', config.locationMapEmbedUrl);
+          }
+        });
+      }
+      if (config.locationAddress) {
+        document.querySelectorAll('[data-sync-address]').forEach(el => {
+          el.textContent = config.locationAddress!;
+        });
+      }
+      if (config.locationMapDirectUrl) {
+        document.querySelectorAll('a[data-sync-map-link]').forEach(el => {
+          (el as HTMLAnchorElement).setAttribute('href', config.locationMapDirectUrl!);
+        });
+      }
+    }
+
     // 2. Sync Products (Jajanan Pasar)
     const productGrid = document.getElementById('product-grid');
     const storedProducts = getStoredProducts();
