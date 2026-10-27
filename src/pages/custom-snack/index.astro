@@ -283,14 +283,15 @@ const products = await getProducts();
   </section>
 </BaseLayout>
 
-<script define:vars={{ whatsappNumber: siteConfig.whatsappNumber }}>
+<script>
   import { initClientSync } from '../../utils/clientSync';
+  import { siteConfig } from '../../data/siteConfig';
 
   // Run live sync
   initClientSync();
 
   const form = document.getElementById('custom-snack-form');
-  const qtyInput = document.getElementById('custom-qty');
+  const qtyInput = document.getElementById('custom-qty') as HTMLInputElement | null;
   const totalDisplay = document.getElementById('estimated-total');
 
   function calculateEstimate() {
@@ -320,7 +321,7 @@ const products = await getProducts();
       if (parsed.packagingOptions && Array.isArray(parsed.packagingOptions) && parsed.packagingOptions.length > 0) {
         const grid = document.getElementById('custom-packaging-grid');
         if (grid) {
-          grid.innerHTML = parsed.packagingOptions.map((pack, idx) => `
+          grid.innerHTML = parsed.packagingOptions.map((pack: any, idx: number) => `
             <label class="cursor-pointer border-2 ${idx === 0 ? 'border-brand-brown' : 'border-brand-cream-dark'} rounded-2xl p-4 bg-brand-white flex flex-col justify-between hover:border-brand-brown transition-all packaging-radio-label">
               <div>
                 <div class="flex items-center justify-between">
@@ -370,21 +371,21 @@ const products = await getProducts();
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const customerName = form.querySelector('#customer-name')?.value || '';
-    const customerPhone = form.querySelector('#customer-phone')?.value || '';
-    const boxTypeEl = form.querySelector('input[name="boxType"]:checked');
+    const customerName = (form.querySelector('#customer-name') as HTMLInputElement)?.value || '';
+    const customerPhone = (form.querySelector('#customer-phone') as HTMLInputElement)?.value || '';
+    const boxTypeEl = form.querySelector('input[name="boxType"]:checked') as HTMLInputElement | null;
     const boxType = boxTypeEl ? boxTypeEl.value : 'Kraft Box';
 
     const selectedSnacks = Array.from(form.querySelectorAll('input[name="selectedSnacks"]:checked'))
-      .map(cb => cb.value);
+      .map(cb => (cb as HTMLInputElement).value);
 
-    const qty = parseInt(form.querySelector('#custom-qty')?.value || '1', 10);
-    const eventDate = form.querySelector('#custom-date')?.value || '';
-    const fulfillmentMethod = form.querySelector('#custom-fulfillment')?.value || '';
-    const area = form.querySelector('#custom-area')?.value || '';
-    const eventType = form.querySelector('#event-type')?.value || '';
-    const budget = form.querySelector('#custom-budget')?.value || '';
-    const notes = form.querySelector('#custom-notes')?.value || '';
+    const qty = parseInt((form.querySelector('#custom-qty') as HTMLInputElement)?.value || '1', 10);
+    const eventDate = (form.querySelector('#custom-date') as HTMLInputElement)?.value || '';
+    const fulfillmentMethod = (form.querySelector('#custom-fulfillment') as HTMLSelectElement)?.value || '';
+    const area = (form.querySelector('#custom-area') as HTMLSelectElement)?.value || '';
+    const eventType = (form.querySelector('#event-type') as HTMLInputElement)?.value || '';
+    const budget = (form.querySelector('#custom-budget') as HTMLInputElement)?.value || '';
+    const notes = (form.querySelector('#custom-notes') as HTMLTextAreaElement)?.value || '';
 
     if (qty <= 0) {
       alert('Jumlah pesanan box harus lebih besar dari nol.');
@@ -416,7 +417,7 @@ const products = await getProducts();
     }
     message += `\nMohon informasi ketersediaan slot produksi dan konfirmasi rincian penawarannya. Terima kasih!`;
 
-    let activePhone = whatsappNumber;
+    let activePhone = siteConfig.whatsappNumber;
     try {
       const storedConfig = localStorage.getItem('rasanesia_store_config');
       if (storedConfig) {

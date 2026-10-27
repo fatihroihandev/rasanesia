@@ -233,8 +233,9 @@ import { defaultCateringPackages } from '../../data/catering';
   </section>
 </BaseLayout>
 
-<script define:vars={{ whatsappNumber: siteConfig.whatsappNumber }}>
+<script>
   import { initClientSync } from '../../utils/clientSync';
+  import { siteConfig } from '../../data/siteConfig';
 
   // Run live sync with localStorage
   initClientSync();
@@ -242,9 +243,9 @@ import { defaultCateringPackages } from '../../data/catering';
   // Quick select package button
   document.querySelectorAll('[data-select-catering]').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const target = e.currentTarget;
+      const target = e.currentTarget as HTMLElement | null;
       const pkgName = target ? target.getAttribute('data-select-catering') : '';
-      const selectEl = document.getElementById('catering-service-type');
+      const selectEl = document.getElementById('catering-service-type') as HTMLSelectElement | null;
       if (selectEl && pkgName) {
         let found = false;
         for (let i = 0; i < selectEl.options.length; i++) {
@@ -270,14 +271,14 @@ import { defaultCateringPackages } from '../../data/catering';
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const name = form.querySelector('#catering-name')?.value || '';
-    const phone = form.querySelector('#catering-phone')?.value || '';
-    const serviceType = form.querySelector('#catering-service-type')?.value || '';
-    const eventType = form.querySelector('#catering-event-type')?.value || '';
-    const portions = form.querySelector('#catering-portions')?.value || '';
-    const eventDate = form.querySelector('#catering-date')?.value || '';
-    const location = form.querySelector('#catering-location')?.value || '';
-    const notes = form.querySelector('#catering-notes')?.value || '';
+    const name = (form.querySelector('#catering-name') as HTMLInputElement)?.value || '';
+    const phone = (form.querySelector('#catering-phone') as HTMLInputElement)?.value || '';
+    const serviceType = (form.querySelector('#catering-service-type') as HTMLSelectElement)?.value || '';
+    const eventType = (form.querySelector('#catering-event-type') as HTMLInputElement)?.value || '';
+    const portions = (form.querySelector('#catering-portions') as HTMLInputElement)?.value || '';
+    const eventDate = (form.querySelector('#catering-date') as HTMLInputElement)?.value || '';
+    const location = (form.querySelector('#catering-location') as HTMLInputElement)?.value || '';
+    const notes = (form.querySelector('#catering-notes') as HTMLTextAreaElement)?.value || '';
 
     let message = `Halo Rasanesia, saya ingin mengajukan Permintaan Penawaran Katering:\n\n`;
     message += `• Nama Pemesan: ${name}\n`;
@@ -292,7 +293,7 @@ import { defaultCateringPackages } from '../../data/catering';
     }
     message += `\nMohon kirimkan daftar pilihan menu dan proposal penawarannya. Terima kasih!`;
 
-    let activePhone = whatsappNumber;
+    let activePhone = siteConfig.whatsappNumber;
     try {
       const storedConfig = localStorage.getItem('rasanesia_store_config');
       if (storedConfig) {
