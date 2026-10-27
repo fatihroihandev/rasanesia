@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/siteConfig';
+---
+
+<BaseLayout 
+  title="Ketentuan Pemesanan & Pembayaran | Rasanesia"
+  description="Ketentuan resmi seputar batas waktu pemesanan, kebijakan uang muka, pembatalan, dan pengiriman di Rasanesia."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <nav class="flex items-center gap-2 text-xs text-brand-muted mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-brand-brown">Beranda</a>
+      <span>/</span>
+      <span class="text-brand-brown font-semibold">Ketentuan Pemesanan</span>
+    </nav>
+
+    <h1 class="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-8">
+      Ketentuan Pemesanan & Pembayaran
+    </h1>
+
+    <div class="prose prose-brand text-sm text-brand-dark/90 space-y-6 leading-relaxed">
+      <p>
+        Ketentuan ini dibuat untuk memastikan standar kesegaran, kebersihan, dan ketepatan waktu pengiriman seluruh pesanan jajanan dan snack box <strong>{siteConfig.brandName}</strong>.
+      </p>
+
+      <h2 class="font-serif text-xl font-bold text-brand-dark pt-4">1. Waktu Pemesanan (Lead Time)</h2>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>Pesanan reguler (snack box di bawah 50 box atau kue satuan) wajib dikonfirmasi minimal <strong>H-2</strong> sebelum tanggal acara.</li>
+        <li>Pesanan partai besar (di atas 100 box, paket tampah besar, atau katering) disarankan dikonfirmasi minimal <strong>H-4 sampai H-7</strong>.</li>
+        <li>Pesanan mendadak (<em>urgent order</em>) hanya dapat dilayani jika ketersediaan slot produksi di dapur memungkinkan dan telah disetujui staf admin kami via WhatsApp.</li>
+      </ul>
+
+      <h2 class="font-serif text-xl font-bold text-brand-dark pt-4">2. Kebijakan Pembayaran</h2>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>Seluruh transaksi dikoordinasikan secara transparan melalui WhatsApp Business resmi Rasanesia.</li>
+        <li>Pesanan dianggap masuk ke jadwal antrean produksi setelah pembayaran uang muka (DP minimal 50%) atau pelunasan terkonfirmasi oleh staf kami.</li>
+        <li>Pelunasan sisa pembayaran dapat diselesaikan paling lambat H-1 sebelum jadwal pengantaran atau saat serah terima pesanan sesuai kesepakatan tertulis.</li>
+      </ul>
+
+      <h2 class="font-serif text-xl font-bold text-brand-dark pt-4">3. Perubahan & Pembatalan Pesanan</h2>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>Perubahan jumlah porsi atau varian isian kue dapat dilakukan maksimal H-2 sebelum hari H pukul 12.00 WIB.</li>
+        <li>Pembatalan sepihak setelah bahan baku dipersiapkan akan dikenakan pemotongan biaya produksi sesuai progres pengerjaan di dapur.</li>
+      </ul>
+
+      <h2 class="font-serif text-xl font-bold text-brand-dark pt-4">4. Pengiriman & Pengambilan Mandiri</h2>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>Pengantaran dilakukan tepat waktu ke alamat yang tercantum pada rincian WhatsApp.</li>
+        <li>Pelanggan wajib memastikan ada penerima di lokasi acara pada jam estimasi kedatangan kurir.</li>
+        <li>Pengambilan mandiri (<em>self pick-up</em>) dapat dilakukan di titik dapur produksi setelah melakukan janji temu dengan staf admin.</li>
+      </ul>
+    </div>
+  </div>
+</BaseLayout>

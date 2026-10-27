@@ -1,0 +1,150 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import CartDrawer from '../components/CartDrawer.astro';
+import { siteConfig } from '../data/siteConfig';
+import { createGeneralInquiryUrl } from '../utils/whatsapp';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title = `${siteConfig.brandName} - ${siteConfig.tagline}`,
+  description = siteConfig.description,
+  image = '/images/hero/hero-banner.jpg',
+  canonicalUrl = Astro.url.href
+} = Astro.props;
+
+const waUrl = createGeneralInquiryUrl();
+
+const schemaJson = {
+  "@context": "https://schema.org",
+  "@type": "Bakery",
+  "name": siteConfig.brandName,
+  "description": siteConfig.description,
+  "telephone": siteConfig.whatsappDisplay,
+  "areaServed": siteConfig.serviceAreas,
+  "servesCuisine": "Indonesian Traditional Food & Snack Box",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Surakarta",
+    "addressRegion": "Jawa Tengah",
+    "addressCountry": "ID"
+  },
+  "url": "https://rasanesia.com",
+  "priceRange": "Rp 3.500 - Rp 75.000"
+};
+---
+
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href="/images/logo.jpg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400&display=swap" 
+      rel="stylesheet" 
+    />
+
+    <!-- Structured Data JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaJson)} />
+  </head>
+  <body class="bg-brand-white text-brand-dark flex flex-col min-h-screen selection:bg-brand-gold selection:text-brand-dark">
+    <!-- Skip to Content Accessibility Link -->
+    <a 
+      href="#main-content" 
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 bg-brand-brown text-brand-white px-4 py-2 rounded-md font-medium shadow-md"
+    >
+      Lewati ke konten utama
+    </a>
+
+    <!-- Main Navigation -->
+    <Navbar />
+
+    <!-- Page Main Content Slot -->
+    <main id="main-content" class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+
+    <!-- Client-side Cart Slideover Drawer -->
+    <CartDrawer />
+
+    <!-- Mobile Sticky Floating WhatsApp Quick Button -->
+    <aside 
+      class="sm:hidden fixed bottom-4 right-4 z-30" 
+      aria-label="Kontak Cepat WhatsApp"
+    >
+      <a 
+        id="floating-wa-btn"
+        href={waUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center justify-center w-14 h-14 bg-brand-green text-brand-white rounded-full shadow-hover border-2 border-brand-white active:scale-95 transition-transform"
+        aria-label="Pesan via WhatsApp"
+      >
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.06-1.57-.327-.992-.41-1.63-1.424-1.679-1.489-.048-.066-.405-.538-.405-1.026 0-.487.256-.728.347-.827.091-.099.198-.124.264-.124.066 0 .132.001.19.005.061.004.143-.023.223.17.083.199.282.686.307.736.025.05.041.108.008.174-.033.066-.05.107-.099.165-.05.057-.105.128-.15.172-.05.049-.102.102-.044.202.058.099.258.426.554.69.381.339.702.445.801.494.099.05.157.042.215-.025.058-.066.248-.289.314-.388.066-.099.132-.083.223-.05.091.033.578.273.677.322.099.05.165.075.19.116.025.041.025.24-.119.645z" />
+        </svg>
+      </a>
+    </aside>
+
+    <!-- UMKM In-Website Client Sync Script -->
+    <script>
+      try {
+        const storedConfig = localStorage.getItem('rasanesia_store_config');
+        if (storedConfig) {
+          const cfg = JSON.parse(storedConfig);
+          if (cfg.whatsappNumber) {
+            const clean = String(cfg.whatsappNumber).replace(/[^0-9]/g, '');
+            // Update all wa.me links
+            document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+              const currentHref = link.getAttribute('href') || '';
+              const url = new URL(currentHref);
+              const text = url.searchParams.get('text') || '';
+              link.setAttribute('href', `https://wa.me/${clean}?text=${encodeURIComponent(text)}`);
+            });
+          }
+          if (cfg.operationalHours) {
+            const hoursEl = document.getElementById('footer-operational-hours');
+            if (hoursEl) hoursEl.textContent = cfg.operationalHours;
+          }
+        }
+      } catch (e) {
+        // Safe silent fallback
+      }
+    </script>
+  </body>
+</html>

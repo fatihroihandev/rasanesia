@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSnackBoxes } from '../../lib/sanity';
+
+const snackBoxes = await getSnackBoxes();
+---
+
+<BaseLayout 
+  title="Katalog Paket Snack Box | Rasanesia"
+  description="Pilihan paket snack box rapat, seminar, arisan, dan syukuran dengan kemasan modern ramah lingkungan di Surakarta & Sukoharjo."
+>
+  <!-- Header -->
+  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-brand-brown">Beranda</a>
+        <span>/</span>
+        <span class="text-brand-brown font-semibold">Snack Box</span>
+      </nav>
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+        Paket Snack Box Acara
+      </h1>
+      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+        Kombinasi jajanan favorit pilihan yang dikemas higienis, praktis, dan elegan untuk segala kebutuhan acara Anda.
+      </p>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <section class="py-16 bg-brand-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {snackBoxes.map(item => (
+          <div class="bg-brand-white border border-brand-cream-dark rounded-3xl overflow-hidden shadow-card flex flex-col justify-between group hover:border-brand-gold/60 transition-all duration-300">
+            <div>
+              <!-- Image -->
+              <div class="aspect-[16/10] overflow-hidden bg-brand-cream relative">
+                <a href={`/snack-box/${item.slug}/`}>
+                  <img 
+                    src={item.image} 
+                    alt={item.name} 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    width="500"
+                    height="320"
+                  />
+                </a>
+                <span data-sync-snackbox-min={item.id} class="absolute top-3 right-3 bg-brand-white/95 text-brand-brown text-xs font-bold px-3 py-1 rounded-full shadow-xs">
+                  Min {item.minOrder || 15} box
+                </span>
+              </div>
+
+              <!-- Content -->
+              <div class="p-6">
+                <a href={`/snack-box/${item.slug}/`} class="hover:text-brand-brown transition-colors">
+                  <h3 class="font-serif text-xl font-bold text-brand-dark mb-2">
+                    {item.name}
+                  </h3>
+                </a>
+                <p class="text-xs text-brand-muted leading-relaxed mb-4">
+                  {item.description}
+                </p>
+
+                <!-- What's included -->
+                {item.includes && item.includes.length > 0 && (
+                  <div class="space-y-1.5 mb-5 p-3.5 bg-brand-cream-light rounded-xl border border-brand-cream-dark">
+                    <p class="text-[11px] font-bold text-brand-brown uppercase tracking-wider">Isian Dalam Box:</p>
+                    <ul class="text-xs text-brand-dark/90 space-y-1">
+                      {item.includes.map(inc => (
+                        <li class="flex items-center gap-1.5">
+                          <span class="text-brand-green font-bold">✓</span>
+                          <span>{inc}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <!-- Price & Button -->
+            <div class="px-6 pb-6 pt-2 border-t border-brand-cream-dark/60 flex items-center justify-between gap-4">
+              <div>
+                <span class="text-[11px] text-brand-muted block">Harga per box:</span>
+                {item.price ? (
+                  <span data-sync-snackbox-price={item.id} class="font-serif text-xl font-bold text-brand-brown">
+                    Rp {item.price.toLocaleString('id-ID')}
+                  </span>
+                ) : (
+                  <span data-sync-snackbox-price={item.id} class="text-xs font-semibold text-brand-brown">Tanya via WA</span>
+                )}
+              </div>
+
+              <div class="flex items-center gap-2">
+                <a 
+                  href={`/snack-box/${item.slug}/`} 
+                  class="text-xs font-semibold text-brand-brown hover:bg-brand-cream border border-brand-cream-dark px-3 py-2 rounded-full transition-colors"
+                >
+                  Detail
+                </a>
+                {item.price ? (
+                  <button 
+                    type="button"
+                    data-add-to-cart
+                    data-id={item.id}
+                    data-name={item.name}
+                    data-price={item.price}
+                    data-unit={item.priceUnit || 'box'}
+                    data-image={item.image}
+                    class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white text-xs font-semibold px-4 py-2 rounded-full shadow-xs hover:shadow-soft transition-all"
+                  >
+                    + Keranjang
+                  </button>
+                ) : null}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { initClientSync } from '../../utils/clientSync';
+
+  // Run live sync with localStorage (from UMKM Admin)
+  initClientSync();
+
+  document.querySelectorAll('[data-add-to-cart]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const id = target.getAttribute('data-id');
+      const name = target.getAttribute('data-name');
+      const price = parseInt(target.getAttribute('data-price') || '0', 10);
+      const unit = target.getAttribute('data-unit') || 'box';
+      const image = target.getAttribute('data-image') || '';
+
+      window.dispatchEvent(new CustomEvent('add-to-cart', {
+        detail: { id, name, price, unit, image, quantity: 1 }
+      }));
+    });
+  });
+</script>

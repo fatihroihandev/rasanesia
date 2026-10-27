@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/siteConfig';
+import { createGeneralInquiryUrl } from '../../utils/whatsapp';
+
+const waUrl = createGeneralInquiryUrl();
+---
+
+<BaseLayout 
+  title="Kontak & Lokasi Layanan | Rasanesia"
+  description="Hubungi tim Rasanesia untuk pemesanan jajanan tradisional, konsultasi snack box, dan catering di Surakarta & Sukoharjo."
+>
+  <!-- Header -->
+  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-brand-brown">Beranda</a>
+        <span>/</span>
+        <span class="text-brand-brown font-semibold">Kontak</span>
+      </nav>
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+        Hubungi Tim Rasanesia
+      </h1>
+      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+        Kami siap mendengarkan kebutuhan konsumsi acara Anda dan memberikan rekomendasi terbaik.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content & Contact Details -->
+  <section class="py-16 bg-brand-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Left: Contact Cards -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="p-6 rounded-3xl bg-brand-cream-light border border-brand-cream-dark space-y-4">
+            <h2 class="font-serif text-xl font-bold text-brand-dark">Saluran Resmi</h2>
+            
+            <div class="space-y-4 text-sm text-brand-dark">
+              <div class="flex items-start gap-3">
+                <span class="w-10 h-10 rounded-xl bg-brand-green/20 text-brand-green flex items-center justify-center shrink-0 text-lg">
+                  💬
+                </span>
+                <div>
+                  <p class="text-xs text-brand-muted font-medium">WhatsApp Business Resmi:</p>
+                  <a href={waUrl} target="_blank" rel="noopener noreferrer" class="font-bold text-brand-brown hover:underline text-base">
+                    {siteConfig.whatsappDisplay}
+                  </a>
+                  <p class="text-[11px] text-brand-muted mt-0.5">Layanan chat responsif setiap hari</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="w-10 h-10 rounded-xl bg-brand-brown/10 text-brand-brown flex items-center justify-center shrink-0 text-lg">
+                  ⏰
+                </span>
+                <div>
+                  <p class="text-xs text-brand-muted font-medium">Jam Operasional Layanan:</p>
+                  <p class="font-semibold text-brand-dark">{siteConfig.operationalHours}</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="w-10 h-10 rounded-xl bg-brand-gold/20 text-brand-gold-dark flex items-center justify-center shrink-0 text-lg">
+                  📍
+                </span>
+                <div>
+                  <p class="text-xs text-brand-muted font-medium">Wilayah Jangkauan:</p>
+                  <p class="font-semibold text-brand-dark">Kota Surakarta, Kabupaten Sukoharjo, & Solo Raya</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notice Box -->
+          <div class="p-6 rounded-3xl bg-brand-white border-2 border-brand-cream-dark shadow-xs space-y-2">
+            <h3 class="font-serif font-bold text-sm text-brand-brown flex items-center gap-2">
+              <span>ℹ️</span> Kebijakan Kunjungan Dapur Produksi
+            </h3>
+            <p class="text-xs text-brand-muted leading-relaxed">
+              {siteConfig.addressNotice}
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Map Embed -->
+        <div class="lg:col-span-7">
+          <div class="overflow-hidden rounded-3xl border border-brand-cream-dark shadow-card bg-brand-cream h-[450px]">
+            <iframe 
+              src={siteConfig.locationMapEmbedUrl}
+              width="100%" 
+              height="100%" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Peta Wilayah Layanan Rasanesia Surakarta"
+            ></iframe>
+          </div>
+          <p class="text-[11px] text-brand-muted text-center mt-3">
+            Peta referensi area cakupan pengiriman Rasanesia di Surakarta & Sukoharjo.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>

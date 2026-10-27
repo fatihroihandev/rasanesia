@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Halaman Tidak Ditemukan | Rasanesia"
+  description="Halaman yang Anda cari tidak tersedia. Silakan kembali ke katalog menu lezat Rasanesia."
+>
+  <div class="min-h-[60vh] flex items-center justify-center py-20 px-4">
+    <div class="text-center max-w-md mx-auto space-y-6">
+      <div class="w-24 h-24 mx-auto rounded-full bg-brand-cream flex items-center justify-center text-4xl shadow-sm">
+        🥟
+      </div>
+      <h1 class="font-serif text-4xl sm:text-5xl font-bold text-brand-dark">
+        404
+      </h1>
+      <h2 class="font-serif text-xl font-bold text-brand-brown">
+        Halaman Tidak Ditemukan
+      </h2>
+      <p class="text-sm text-brand-muted leading-relaxed">
+        Maaf, halaman yang Anda tuju mungkin telah dipindahkan atau tautan yang dimasukkan tidak tepat. Mari kembali ke beranda untuk menikmati aneka jajanan tradisional lezat kami.
+      </p>
+      <div class="pt-2">
+        <a 
+          href="/" 
+          class="inline-flex items-center justify-center gap-2 bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-semibold px-8 py-3.5 rounded-full shadow-soft transition-all text-sm"
+        >
+          <span>Kembali ke Beranda</span>
+          <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

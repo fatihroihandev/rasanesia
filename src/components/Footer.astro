@@ -1,0 +1,109 @@
+---
+import { siteConfig } from '../data/siteConfig';
+import { createGeneralInquiryUrl } from '../utils/whatsapp';
+
+const waUrl = createGeneralInquiryUrl();
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-brand-dark text-brand-cream border-t border-brand-brown">
+  <!-- Main Footer Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      
+      <!-- Col 1: Brand Info -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <img 
+            src="/images/logo.jpg" 
+            alt="Logo Rasanesia" 
+            class="w-12 h-12 rounded-full object-cover border border-brand-gold/60"
+            width="48"
+            height="48"
+          />
+          <div>
+            <span class="font-serif text-2xl font-bold tracking-tight text-brand-white">
+              {siteConfig.brandName}
+            </span>
+            <p class="text-[10px] uppercase tracking-widest text-brand-gold font-medium">
+              {siteConfig.tagline}
+            </p>
+          </div>
+        </div>
+        <p class="text-sm text-brand-cream/80 leading-relaxed">
+          {siteConfig.description}
+        </p>
+        <div class="pt-2">
+          <span class="inline-block px-3 py-1 bg-brand-brown/60 text-brand-gold-light text-xs rounded-full border border-brand-gold/30">
+            📍 Wilayah Layanan: Kota Surakarta & Sukoharjo
+          </span>
+        </div>
+      </div>
+
+      <!-- Col 2: Navigation Links -->
+      <div>
+        <h3 class="font-serif text-lg font-bold text-brand-white mb-4">Menu Utama</h3>
+        <ul class="space-y-2 text-sm text-brand-cream/80">
+          {siteConfig.mainNavLinks.map(link => (
+            <li><a href={link.href} class="hover:text-brand-gold transition-colors">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Col 3: Informasi & Layanan Sekunder -->
+      <div>
+        <h3 class="font-serif text-lg font-bold text-brand-white mb-4">Informasi Bisnis</h3>
+        <ul class="space-y-2 text-sm text-brand-cream/80 mb-4">
+          {siteConfig.secondaryNavLinks.map(link => (
+            <li><a href={link.href} class="hover:text-brand-gold transition-colors">{link.label}</a></li>
+          ))}
+        </ul>
+        <div class="pt-2 border-t border-brand-brown/60 text-xs text-brand-cream/70 space-y-1">
+          <p class="font-semibold text-brand-gold">Jam Operasional:</p>
+          <p id="footer-operational-hours">{siteConfig.operationalHours}</p>
+        </div>
+      </div>
+
+      <!-- Col 4: WhatsApp CTA & Catatan Kunjungan -->
+      <div class="space-y-4">
+        <h3 class="font-serif text-lg font-bold text-brand-white">Pemesanan & Konsultasi</h3>
+        <p class="text-xs text-brand-cream/80 leading-relaxed">
+          Semua pesanan, ketersediaan slot, dan konfirmasi pembayaran dikoordinasikan langsung melalui WhatsApp Business resmi.
+        </p>
+        <a 
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 w-full bg-brand-gold hover:bg-brand-gold-dark text-brand-dark font-semibold px-5 py-3 rounded-full transition-all text-sm shadow-soft"
+        >
+          <svg class="w-5 h-5 text-brand-dark" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.06-1.57-.327-.992-.41-1.63-1.424-1.679-1.489-.048-.066-.405-.538-.405-1.026 0-.487.256-.728.347-.827.091-.099.198-.124.264-.124.066 0 .132.001.19.005.061.004.143-.023.223.17.083.199.282.686.307.736.025.05.041.108.008.174-.033.066-.05.107-.099.165-.05.057-.105.128-.15.172-.05.049-.102.102-.044.202.058.099.258.426.554.69.381.339.702.445.801.494.099.05.157.042.215-.025.058-.066.248-.289.314-.388.066-.099.132-.083.223-.05.091.033.578.273.677.322.099.05.165.075.19.116.025.041.025.24-.119.645z" />
+          </svg>
+          <span>Hubungi via WhatsApp</span>
+        </a>
+
+        <div class="p-3 rounded-xl bg-brand-brown/40 border border-brand-gold/20 text-[11px] text-brand-cream/80">
+          <p class="font-semibold text-brand-gold">Catatan Kunjungan Dapur:</p>
+          <p class="mt-0.5">{siteConfig.addressNotice}</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 pt-8 border-t border-brand-brown/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-brand-cream/60">
+      <p>© {currentYear} {siteConfig.brandName}. Semua hak dilindungi.</p>
+      
+      <div class="flex items-center gap-6">
+        <a href="/ketentuan-pemesanan/" class="hover:text-brand-gold transition-colors">Ketentuan Pemesanan</a>
+        <span class="text-brand-brown">|</span>
+        <a href="/kebijakan-privasi/" class="hover:text-brand-gold transition-colors">Kebijakan Privasi</a>
+        <span class="text-brand-brown">|</span>
+        <!-- Tautan khusus pengelola UMKM -->
+        <a href="/admin/" class="hover:text-brand-gold transition-colors font-semibold text-brand-gold/80 flex items-center gap-1">
+          <span>⚙️ Kelola Toko</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

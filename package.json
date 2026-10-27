@@ -1,0 +1,23 @@
+{
+  "name": "rasanesia",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Rasanesia - Rasa Tradisi, Cara Modern. Production-ready mobile-first culinary website.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "^10.4.2",
+    "@astrojs/tailwind": "^5.1.5",
+    "@sanity/client": "^8.11.0",
+    "@sanity/image-url": "^2.1.1",
+    "astro": "^4.16.18",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
+  }
+}

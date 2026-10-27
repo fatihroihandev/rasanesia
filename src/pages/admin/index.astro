@@ -1,0 +1,1851 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Admin Kelola Toko Mandiri | Rasanesia"
+  description="Dashboard mandiri pemilik UMKM Rasanesia untuk mengelola WhatsApp, harga jajanan pasar, paket snack box, custom pesanan, dan katering."
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 min-h-[80vh]">
+    
+    <!-- 1. LOGIN PIN GATE -->
+    <div id="admin-auth-gate" class="max-w-md mx-auto bg-brand-cream-light/80 border-2 border-brand-cream-dark p-8 rounded-3xl shadow-card text-center space-y-6">
+      <div class="w-16 h-16 mx-auto rounded-full bg-brand-brown text-brand-white flex items-center justify-center text-2xl shadow-sm">
+        🔒
+      </div>
+      <div>
+        <h1 class="font-serif text-2xl sm:text-3xl font-bold text-brand-dark">
+          Kelola Toko Rasanesia
+        </h1>
+        <p class="text-xs text-brand-muted mt-2 leading-relaxed">
+          Masukkan PIN pengelola untuk mengupdate kontak, jajanan, paket snack box, custom, dan katering.
+        </p>
+      </div>
+
+      <form id="pin-form" class="space-y-4">
+        <div>
+          <input 
+            type="password" 
+            id="admin-pin-input" 
+            maxlength="8"
+            placeholder="Masukkan 6 Digit PIN" 
+            class="w-full text-center tracking-widest text-xl font-bold p-3.5 rounded-2xl border-2 border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
+            required
+            autocomplete="current-password"
+          />
+          <p class="text-[11px] text-brand-muted mt-2">
+            PIN bawaan awal: <strong class="text-brand-brown">123456</strong>
+          </p>
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-bold py-3.5 rounded-full shadow-soft transition-all text-sm active:scale-98"
+        >
+          Buka Dashboard Toko
+        </button>
+      </form>
+    </div>
+
+    <!-- 2. MAIN ADMIN DASHBOARD -->
+    <div id="admin-dashboard" class="hidden space-y-6">
+      
+      <!-- Top Header & Actions -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-brand-white border border-brand-cream-dark rounded-3xl shadow-xs">
+        <div class="flex items-center gap-3">
+          <img src="/images/logo.jpg" alt="Logo" class="w-12 h-12 rounded-full object-cover border border-brand-gold/60" />
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="font-serif text-xl sm:text-2xl font-bold text-brand-dark">
+                Panel Pengelola UMKM
+              </h1>
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-green/20 text-brand-green text-[10px] font-bold">
+                Online & Aktif
+              </span>
+            </div>
+            <p class="text-xs text-brand-muted mt-0.5">
+              Kelola menu, paket, kemasan custom, dan kontak WhatsApp toko secara instan.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <a 
+            href="/" 
+            target="_blank" 
+            class="px-4 py-2 text-xs font-semibold rounded-full border border-brand-cream-dark hover:bg-brand-cream text-brand-dark transition-colors flex items-center gap-1.5"
+          >
+            <span>Lihat Website</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+          <button 
+            type="button" 
+            id="admin-logout-btn"
+            class="px-4 py-2 text-xs font-semibold rounded-full bg-brand-cream-light hover:bg-red-50 text-red-600 transition-colors"
+          >
+            Keluar (Kunci)
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Modern Pill Carousel) -->
+      <div class="flex overflow-x-auto gap-2 pb-2 scrollbar-none border-b border-brand-cream-dark/80">
+        <button 
+          type="button"
+          data-tab-target="tab-kontak" 
+          class="admin-tab-btn px-4 py-2.5 rounded-full text-xs font-bold whitespace-nowrap bg-brand-brown text-brand-white shadow-xs transition-all flex items-center gap-1.5"
+        >
+          <span>📱 Kontak & Profil</span>
+        </button>
+        <button 
+          type="button"
+          data-tab-target="tab-jajanan" 
+          class="admin-tab-btn px-4 py-2.5 rounded-full text-xs font-bold whitespace-nowrap bg-brand-white text-brand-dark border border-brand-cream-dark hover:border-brand-brown shadow-xs transition-all flex items-center gap-1.5"
+        >
+          <span>🥟 Menu Jajanan Pasar</span>
+        </button>
+        <button 
+          type="button"
+          data-tab-target="tab-snackbox" 
+          class="admin-tab-btn px-4 py-2.5 rounded-full text-xs font-bold whitespace-nowrap bg-brand-white text-brand-dark border border-brand-cream-dark hover:border-brand-brown shadow-xs transition-all flex items-center gap-1.5"
+        >
+          <span>🎁 Paket Snack Box</span>
+        </button>
+        <button 
+          type="button"
+          data-tab-target="tab-custom" 
+          class="admin-tab-btn px-4 py-2.5 rounded-full text-xs font-bold whitespace-nowrap bg-brand-white text-brand-dark border border-brand-cream-dark hover:border-brand-brown shadow-xs transition-all flex items-center gap-1.5"
+        >
+          <span>🍱 Custom Snack Box</span>
+        </button>
+        <button 
+          type="button"
+          data-tab-target="tab-catering" 
+          class="admin-tab-btn px-4 py-2.5 rounded-full text-xs font-bold whitespace-nowrap bg-brand-white text-brand-dark border border-brand-cream-dark hover:border-brand-brown shadow-xs transition-all flex items-center gap-1.5"
+        >
+          <span>🍛 Paket Catering</span>
+        </button>
+        <button 
+          type="button"
+          data-tab-target="tab-keamanan" 
+          class="admin-tab-btn px-4 py-2.5 rounded-full text-xs font-bold whitespace-nowrap bg-brand-white text-brand-dark border border-brand-cream-dark hover:border-brand-brown shadow-xs transition-all flex items-center gap-1.5"
+        >
+          <span>⚙️ Backup & PIN</span>
+        </button>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 1: KONTAK WHATSAPP & TOKO -->
+      <!-- ========================================== -->
+      <div id="tab-kontak" class="admin-tab-pane bg-brand-white border border-brand-cream-dark p-6 sm:p-8 rounded-3xl shadow-card space-y-6">
+        <div>
+          <h2 class="font-serif text-xl font-bold text-brand-dark">Kontak WhatsApp & Pengaturan Toko</h2>
+          <p class="text-xs text-brand-muted mt-1">
+            Nomor ini menerima seluruh rincian pesanan dari katalog, keranjang belanja, formulir custom, dan katering.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1.5">Nomor WhatsApp Business (Angka Saja)</label>
+            <div class="flex items-center">
+              <span class="px-3.5 py-3 rounded-l-2xl bg-brand-cream border border-r-0 border-brand-cream-dark text-xs font-bold text-brand-brown">
+                +62
+              </span>
+              <input 
+                type="text" 
+                id="cfg-wa-number" 
+                placeholder="81234567890" 
+                class="w-full text-sm font-semibold p-3 rounded-r-2xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
+              />
+            </div>
+            <p class="text-[11px] text-brand-muted mt-1">Contoh: Ketik <strong>81234567890</strong> (tanpa angka 0 di depan).</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1.5">Tampilan Nomor (Teks Label)</label>
+            <input 
+              type="text" 
+              id="cfg-wa-display" 
+              placeholder="+62 812-3456-7890" 
+              class="w-full text-sm font-semibold p-3 rounded-2xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
+            />
+            <p class="text-[11px] text-brand-muted mt-1">Format nomor yang terbaca di footer dan kontak pelanggan.</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1.5">Jam Operasional & Saran Pemesanan</label>
+            <input 
+              type="text" 
+              id="cfg-hours" 
+              placeholder="Setiap Hari: 07.00 - 18.00 WIB (Pemesanan disarankan H-2)" 
+              class="w-full text-sm p-3 rounded-2xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1.5">Cakupan Wilayah Layanan</label>
+            <input 
+              type="text" 
+              id="cfg-areas" 
+              placeholder="Kota Surakarta, Kabupaten Sukoharjo" 
+              class="w-full text-sm p-3 rounded-2xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
+            />
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold text-brand-dark mb-1.5">Catatan Dapur & Kunjungan</label>
+            <textarea 
+              id="cfg-notice" 
+              rows="2"
+              class="w-full text-sm p-3 rounded-2xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-brand-cream-dark flex justify-end">
+          <button 
+            type="button" 
+            id="save-config-btn" 
+            class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-bold py-3 px-8 rounded-full text-xs shadow-soft transition-all active:scale-98"
+          >
+            Simpan Perubahan Kontak Toko
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: MENU JAJANAN PASAR (CRUD + UPLOAD FOTO) -->
+      <!-- ========================================== -->
+      <div id="tab-jajanan" class="admin-tab-pane hidden bg-brand-white border border-brand-cream-dark p-6 sm:p-8 rounded-3xl shadow-card space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="font-serif text-xl font-bold text-brand-dark">Katalog Jajanan Tradisional</h2>
+            <p class="text-xs text-brand-muted mt-1">
+              Ubah harga kue secara instan, atur stok tersedia/habis, atau tambahkan jajanan baru dengan foto.
+            </p>
+          </div>
+          <button 
+            type="button" 
+            id="open-new-product-modal"
+            class="bg-brand-green hover:bg-brand-green-dark text-brand-white text-xs font-bold py-2.5 px-5 rounded-full shadow-soft transition-all flex items-center justify-center gap-2 active:scale-98"
+          >
+            <span>+ Tambah Jajanan Baru</span>
+          </button>
+        </div>
+
+        <!-- Product List Cards -->
+        <div id="admin-product-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <div class="pt-4 border-t border-brand-cream-dark flex justify-between items-center">
+          <span class="text-xs text-brand-muted">Ketik harga baru pada kotak input lalu klik tombol simpan.</span>
+          <button 
+            type="button" 
+            id="save-products-btn" 
+            class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-bold py-3 px-8 rounded-full text-xs shadow-soft transition-all active:scale-98"
+          >
+            Simpan Seluruh Harga Jajanan
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 3: PAKET SNACK BOX (FULL CRUD + UPLOAD FOTO) -->
+      <!-- ========================================== -->
+      <div id="tab-snackbox" class="admin-tab-pane hidden bg-brand-white border border-brand-cream-dark p-6 sm:p-8 rounded-3xl shadow-card space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="font-serif text-xl font-bold text-brand-dark">Paket Snack Box Acara</h2>
+            <p class="text-xs text-brand-muted mt-1">
+              Kelola paket siap pesan (tambah paket baru, ubah harga, ganti isian kue, minimal order, dan upload foto).
+            </p>
+          </div>
+          <button 
+            type="button" 
+            id="open-new-package-modal"
+            class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white text-xs font-bold py-2.5 px-5 rounded-full shadow-soft transition-all flex items-center justify-center gap-2 active:scale-98"
+          >
+            <span>+ Tambah Paket Baru</span>
+          </button>
+        </div>
+
+        <!-- Package List Container -->
+        <div id="admin-package-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <div class="pt-4 border-t border-brand-cream-dark flex justify-between items-center">
+          <span class="text-xs text-brand-muted">Setiap perubahan harga & isian paket otomatis tersinkronisasi ke katalog publik.</span>
+          <button 
+            type="button" 
+            id="save-packages-btn" 
+            class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-bold py-3 px-8 rounded-full text-xs shadow-soft transition-all active:scale-98"
+          >
+            Simpan Perubahan Paket
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: CUSTOM SNACK BOX SETTINGS -->
+      <!-- ========================================== -->
+      <div id="tab-custom" class="admin-tab-pane hidden bg-brand-white border border-brand-cream-dark p-6 sm:p-8 rounded-3xl shadow-card space-y-8">
+        <div>
+          <h2 class="font-serif text-xl font-bold text-brand-dark">Pengaturan Custom Snack Box</h2>
+          <p class="text-xs text-brand-muted mt-1">
+            Atur aturan jumlah kue per box, minimal order, dan pilihan kemasan wadah yang bisa dipilih pelanggan di formulir kustom.
+          </p>
+        </div>
+
+        <!-- Rules Setting -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 p-6 rounded-2xl bg-brand-cream-light/60 border border-brand-cream-dark">
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1.5">Batas Minimal Kue per Box</label>
+            <input 
+              type="number" 
+              id="custom-min-snacks" 
+              min="1" max="10"
+              class="w-full text-sm font-bold p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark"
+            />
+            <p class="text-[11px] text-brand-muted mt-1">Default: 2 kue.</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1.5">Batas Maksimal Kue per Box</label>
+            <input 
+              type="number" 
+              id="custom-max-snacks" 
+              min="2" max="12"
+              class="w-full text-sm font-bold p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark"
+            />
+            <p class="text-[11px] text-brand-muted mt-1">Default: 6 kue.</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1.5">Minimal Pemesanan (Min Order Box)</label>
+            <input 
+              type="number" 
+              id="custom-min-order" 
+              min="5" max="500"
+              class="w-full text-sm font-bold p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark"
+            />
+            <p class="text-[11px] text-brand-muted mt-1">Default: 20 box.</p>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label class="block text-xs font-bold text-brand-dark mb-1.5">Catatan / Kebijakan Custom Box</label>
+            <input 
+              type="text" 
+              id="custom-notes" 
+              class="w-full text-xs p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark"
+            />
+          </div>
+        </div>
+
+        <!-- Packaging Options Management -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif font-bold text-base text-brand-dark">Pilihan Kemasan & Wadah Box</h3>
+            <button 
+              type="button" 
+              id="add-packaging-btn"
+              class="text-xs font-bold text-brand-brown hover:text-brand-brown-dark bg-brand-cream px-3.5 py-1.5 rounded-full transition-colors"
+            >
+              + Tambah Jenis Kemasan
+            </button>
+          </div>
+
+          <div id="packaging-list-container" class="space-y-3">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-brand-cream-dark flex justify-end">
+          <button 
+            type="button" 
+            id="save-custom-config-btn" 
+            class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-bold py-3 px-8 rounded-full text-xs shadow-soft transition-all active:scale-98"
+          >
+            Simpan Pengaturan Custom Box
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 5: PAKET CATERING (FULL CRUD + UPLOAD FOTO) -->
+      <!-- ========================================== -->
+      <div id="tab-catering" class="admin-tab-pane hidden bg-brand-white border border-brand-cream-dark p-6 sm:p-8 rounded-3xl shadow-card space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="font-serif text-xl font-bold text-brand-dark">Layanan & Paket Catering</h2>
+            <p class="text-xs text-brand-muted mt-1">
+              Kelola paket prasmanan, nasi kotak, coffee break, atau tumpeng (tambah paket baru, ubah harga per pax, minimal order, dan upload foto).
+            </p>
+          </div>
+          <button 
+            type="button" 
+            id="open-new-catering-modal"
+            class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white text-xs font-bold py-2.5 px-5 rounded-full shadow-soft transition-all flex items-center justify-center gap-2 active:scale-98"
+          >
+            <span>+ Tambah Paket Catering</span>
+          </button>
+        </div>
+
+        <!-- Catering List Container -->
+        <div id="admin-catering-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <div class="pt-4 border-t border-brand-cream-dark flex justify-between items-center">
+          <span class="text-xs text-brand-muted">Perubahan harga per pax dan minimal porsi akan langsung tercermin di form inquiry katering.</span>
+          <button 
+            type="button" 
+            id="save-catering-btn" 
+            class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-bold py-3 px-8 rounded-full text-xs shadow-soft transition-all active:scale-98"
+          >
+            Simpan Seluruh Paket Catering
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 6: KEAMANAN & CADANGAN DATA (PIN & BACKUP) -->
+      <!-- ========================================== -->
+      <div id="tab-keamanan" class="admin-tab-pane hidden space-y-6">
+        
+        <!-- Ganti PIN -->
+        <div class="bg-brand-white border border-brand-cream-dark p-6 sm:p-8 rounded-3xl shadow-card space-y-4">
+          <h2 class="font-serif text-lg font-bold text-brand-dark">Keamanan: Ganti PIN Pengelola</h2>
+          <p class="text-xs text-brand-muted">
+            Ubah PIN 6-digit untuk menjaga akses panel admin dari perubahan yang tidak disengaja.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-3 max-w-md">
+            <input 
+              type="password" 
+              id="new-pin-input" 
+              placeholder="Ketik PIN Baru (min 4 digit)" 
+              class="w-full text-sm font-bold p-3 rounded-2xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
+            />
+            <button 
+              type="button" 
+              id="save-pin-btn"
+              class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-bold py-3 px-6 rounded-2xl text-xs whitespace-nowrap"
+            >
+              Perbarui PIN
+            </button>
+          </div>
+        </div>
+
+        <!-- Cadangan JSON (Backup & Restore) -->
+        <div class="bg-brand-white border border-brand-cream-dark p-6 sm:p-8 rounded-3xl shadow-card space-y-4">
+          <h2 class="font-serif text-lg font-bold text-brand-dark">Cadangan & Pemulihan Data (Backup & Restore)</h2>
+          <p class="text-xs text-brand-muted leading-relaxed">
+            Unduh salinan seluruh konfigurasi toko, harga jajanan, snack box, custom, dan catering ke dalam file JSON di HP/laptop Anda. File ini bisa di-upload kembali kapan saja jika berganti browser atau perangkat.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+            <button 
+              type="button" 
+              id="download-backup-btn"
+              class="bg-brand-green hover:bg-brand-green-dark text-brand-white font-bold py-3 px-6 rounded-full text-xs shadow-soft transition-all flex items-center justify-center gap-2"
+            >
+              <span>📥 Download Backup Toko (JSON)</span>
+            </button>
+
+            <label class="cursor-pointer bg-brand-cream hover:bg-brand-cream-dark text-brand-dark font-bold py-3 px-6 rounded-full text-xs transition-all flex items-center justify-center gap-2">
+              <span>📤 Upload File Restore</span>
+              <input type="file" id="upload-backup-file" accept=".json" class="hidden" />
+            </label>
+          </div>
+        </div>
+
+        <!-- Reset Bawaan Pabrik -->
+        <div class="bg-red-50/60 border border-red-200 p-6 sm:p-8 rounded-3xl space-y-4">
+          <h2 class="font-serif text-lg font-bold text-red-900">Setel Ulang ke Data Awal (Reset Default)</h2>
+          <p class="text-xs text-red-800 leading-relaxed">
+            Gunakan tombol ini jika Anda ingin mengembalikan seluruh harga, menu jajanan, snack box, custom, dan katering ke kondisi awal bawaan toko.
+          </p>
+          <button 
+            type="button" 
+            id="reset-all-btn"
+            class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded-full text-xs shadow-soft transition-all"
+          >
+            Reset Semua Data Toko
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL 1: TAMBAH JAJANAN BARU (+ FOTO UPLOAD) -->
+    <!-- ========================================== -->
+    <div id="new-product-modal" class="hidden fixed inset-0 z-50 bg-brand-dark/60 backdrop-blur-xs items-center justify-center p-4 overflow-y-auto">
+      <div class="bg-brand-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-brand-cream-dark shadow-2xl space-y-5 my-8">
+        <div class="flex items-center justify-between pb-3 border-b border-brand-cream-dark">
+          <h3 class="font-serif text-xl font-bold text-brand-dark">Tambah Jajanan Baru</h3>
+          <button type="button" id="close-modal-btn" class="p-2 text-brand-muted hover:text-brand-dark text-lg">✕</button>
+        </div>
+
+        <form id="new-product-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1">Nama Jajanan</label>
+            <input 
+              type="text" 
+              id="np-name" 
+              required 
+              placeholder="Misal: Kue Talam Pandan Asli" 
+              class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-brand-dark mb-1">Harga Satuan (Rp)</label>
+              <input 
+                type="number" 
+                id="np-price" 
+                required 
+                placeholder="Misal: 3500" 
+                class="w-full text-sm font-bold p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-brand-dark mb-1">Profil Rasa</label>
+              <select 
+                id="np-taste" 
+                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+              >
+                <option value="Manis">Manis</option>
+                <option value="Gurih">Gurih</option>
+                <option value="Manis & Gurih">Manis & Gurih</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1">Deskripsi Singkat Jajanan</label>
+            <textarea 
+              id="np-desc" 
+              rows="2" 
+              placeholder="Tekstur lembut harum pandan dengan santan gurih di bagian atas..." 
+              class="w-full text-xs p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+            ></textarea>
+          </div>
+
+          <!-- Foto: Upload File atau Masukkan URL -->
+          <div class="space-y-2 p-3.5 rounded-2xl bg-brand-cream-light/50 border border-brand-cream-dark">
+            <label class="block text-xs font-bold text-brand-dark">Foto Jajanan</label>
+            
+            <div class="flex items-center gap-3">
+              <label class="cursor-pointer bg-brand-brown hover:bg-brand-brown-dark text-brand-white text-xs font-semibold py-2 px-4 rounded-xl transition-colors flex items-center gap-1.5 shrink-0">
+                <span>📷 Upload Foto dari HP/Laptop</span>
+                <input type="file" id="np-file-input" accept="image/*" class="hidden" />
+              </label>
+              <span class="text-[11px] text-brand-muted">atau ketik URL:</span>
+            </div>
+
+            <input 
+              type="text" 
+              id="np-image" 
+              placeholder="/images/products/product-01.jpg" 
+              class="w-full text-xs p-2.5 rounded-xl border border-brand-cream-dark bg-brand-white focus:border-brand-brown outline-none"
+            />
+
+            <!-- Preview Image -->
+            <div id="np-preview-container" class="hidden items-center gap-3 pt-2">
+              <img id="np-preview-img" src="" alt="Preview Foto" class="w-14 h-14 object-cover rounded-xl border border-brand-cream-dark shadow-xs" />
+              <span class="text-[11px] text-brand-green font-medium">✓ Foto siap digunakan</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-brand-cream-dark flex gap-3 justify-end">
+            <button 
+              type="button" 
+              id="cancel-modal-btn" 
+              class="px-5 py-2.5 rounded-full border border-brand-cream-dark text-xs font-semibold text-brand-dark hover:bg-brand-cream"
+            >
+              Batal
+            </button>
+            <button 
+              type="submit" 
+              class="px-6 py-2.5 rounded-full bg-brand-brown hover:bg-brand-brown-dark text-white text-xs font-bold shadow-soft"
+            >
+              Simpan ke Menu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL 2: TAMBAH / EDIT PAKET SNACK BOX (+ FOTO) -->
+    <!-- ========================================== -->
+    <div id="package-modal" class="hidden fixed inset-0 z-50 bg-brand-dark/60 backdrop-blur-xs items-center justify-center p-4 overflow-y-auto">
+      <div class="bg-brand-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-brand-cream-dark shadow-2xl space-y-5 my-8">
+        <div class="flex items-center justify-between pb-3 border-b border-brand-cream-dark">
+          <h3 id="package-modal-title" class="font-serif text-xl font-bold text-brand-dark">Tambah Paket Snack Box</h3>
+          <button type="button" id="close-pkg-modal-btn" class="p-2 text-brand-muted hover:text-brand-dark text-lg">✕</button>
+        </div>
+
+        <form id="package-form" class="space-y-4">
+          <input type="hidden" id="pkg-edit-index" value="-1" />
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1">Nama Paket Snack Box</label>
+            <input 
+              type="text" 
+              id="pkg-name" 
+              required 
+              placeholder="Misal: Paket Rapat Arisan Komplit" 
+              class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-brand-dark mb-1">Harga per Box (Rp)</label>
+              <input 
+                type="number" 
+                id="pkg-price" 
+                required 
+                placeholder="Misal: 14000" 
+                class="w-full text-sm font-bold p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-brand-dark mb-1">Minimal Order (Box)</label>
+              <input 
+                type="number" 
+                id="pkg-min-order" 
+                required 
+                placeholder="Misal: 15" 
+                class="w-full text-sm font-bold p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1">Isian Kue dalam Box (Pisahkan tanda koma)</label>
+            <textarea 
+              id="pkg-includes" 
+              rows="2" 
+              placeholder="Lemper Ayam, Nagasari, Pastel Sayur, Air Mineral Cup" 
+              class="w-full text-xs p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1">Deskripsi Paket</label>
+            <textarea 
+              id="pkg-desc" 
+              rows="2" 
+              placeholder="Kombinasi jajanan manis dan gurih lengkap dengan air mineral untuk konsumsi pertemuan." 
+              class="w-full text-xs p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+            ></textarea>
+          </div>
+
+          <!-- Upload Foto Paket -->
+          <div class="space-y-2 p-3.5 rounded-2xl bg-brand-cream-light/50 border border-brand-cream-dark">
+            <label class="block text-xs font-bold text-brand-dark">Foto Paket</label>
+            <div class="flex items-center gap-3">
+              <label class="cursor-pointer bg-brand-brown hover:bg-brand-brown-dark text-brand-white text-xs font-semibold py-2 px-4 rounded-xl transition-colors flex items-center gap-1.5 shrink-0">
+                <span>📷 Upload Foto dari HP/Laptop</span>
+                <input type="file" id="pkg-file-input" accept="image/*" class="hidden" />
+              </label>
+              <span class="text-[11px] text-brand-muted">atau URL:</span>
+            </div>
+            <input 
+              type="text" 
+              id="pkg-image" 
+              placeholder="/images/categories/snack-box.jpg" 
+              class="w-full text-xs p-2.5 rounded-xl border border-brand-cream-dark bg-brand-white focus:border-brand-brown outline-none"
+            />
+            <div id="pkg-preview-container" class="hidden items-center gap-3 pt-2">
+              <img id="pkg-preview-img" src="" alt="Preview Foto" class="w-14 h-14 object-cover rounded-xl border border-brand-cream-dark shadow-xs" />
+              <span class="text-[11px] text-brand-green font-medium">✓ Foto siap digunakan</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-brand-cream-dark flex gap-3 justify-end">
+            <button 
+              type="button" 
+              id="cancel-pkg-modal-btn" 
+              class="px-5 py-2.5 rounded-full border border-brand-cream-dark text-xs font-semibold text-brand-dark hover:bg-brand-cream"
+            >
+              Batal
+            </button>
+            <button 
+              type="submit" 
+              class="px-6 py-2.5 rounded-full bg-brand-brown hover:bg-brand-brown-dark text-white text-xs font-bold shadow-soft"
+            >
+              Simpan Paket
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL 3: TAMBAH / EDIT PAKET CATERING (+ FOTO) -->
+    <!-- ========================================== -->
+    <div id="catering-modal" class="hidden fixed inset-0 z-50 bg-brand-dark/60 backdrop-blur-xs items-center justify-center p-4 overflow-y-auto">
+      <div class="bg-brand-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-brand-cream-dark shadow-2xl space-y-5 my-8">
+        <div class="flex items-center justify-between pb-3 border-b border-brand-cream-dark">
+          <h3 id="catering-modal-title" class="font-serif text-xl font-bold text-brand-dark">Tambah Paket Catering</h3>
+          <button type="button" id="close-cat-modal-btn" class="p-2 text-brand-muted hover:text-brand-dark text-lg">✕</button>
+        </div>
+
+        <form id="catering-form" class="space-y-4">
+          <input type="hidden" id="cat-edit-index" value="-1" />
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1">Nama Paket Catering</label>
+            <input 
+              type="text" 
+              id="cat-name" 
+              required 
+              placeholder="Misal: Prasmanan Tradisional Solo Komplit" 
+              class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-brand-dark mb-1">Kategori</label>
+              <select 
+                id="cat-category" 
+                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+              >
+                <option value="prasmanan">Prasmanan</option>
+                <option value="nasibox">Nasi Kotak / Bento</option>
+                <option value="coffeebreak">Coffee Break & Tampah</option>
+                <option value="tumpeng">Tumpeng Tradisional</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-brand-dark mb-1">Harga per Pax (Rp)</label>
+              <input 
+                type="number" 
+                id="cat-price" 
+                required 
+                placeholder="Misal: 35000" 
+                class="w-full text-sm font-bold p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1">Minimal Order (Pax/Porsi)</label>
+            <input 
+              type="number" 
+              id="cat-min-pax" 
+              required 
+              placeholder="Misal: 30" 
+              class="w-full text-sm font-bold p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1">Menu Hidangan (Pisahkan tanda koma)</label>
+            <textarea 
+              id="cat-includes" 
+              rows="3" 
+              placeholder="Nasi Liwet Solo, Ayam Goreng Lengkuas, Sambal Goreng Krecek, Telur Pindang, Es Teh Manis" 
+              class="w-full text-xs p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-brand-dark mb-1">Deskripsi Singkat</label>
+            <textarea 
+              id="cat-desc" 
+              rows="2" 
+              placeholder="Paket katering prasmanan lezat untuk syukuran, rapat dinas, dan hajatan keluarga." 
+              class="w-full text-xs p-3 rounded-xl border border-brand-cream-dark bg-brand-cream-light/30 focus:border-brand-brown outline-none"
+            ></textarea>
+          </div>
+
+          <!-- Upload Foto Catering -->
+          <div class="space-y-2 p-3.5 rounded-2xl bg-brand-cream-light/50 border border-brand-cream-dark">
+            <label class="block text-xs font-bold text-brand-dark">Foto Paket Catering</label>
+            <div class="flex items-center gap-3">
+              <label class="cursor-pointer bg-brand-brown hover:bg-brand-brown-dark text-brand-white text-xs font-semibold py-2 px-4 rounded-xl transition-colors flex items-center gap-1.5 shrink-0">
+                <span>📷 Upload Foto dari HP/Laptop</span>
+                <input type="file" id="cat-file-input" accept="image/*" class="hidden" />
+              </label>
+              <span class="text-[11px] text-brand-muted">atau URL:</span>
+            </div>
+            <input 
+              type="text" 
+              id="cat-image" 
+              placeholder="/images/categories/catering.jpg" 
+              class="w-full text-xs p-2.5 rounded-xl border border-brand-cream-dark bg-brand-white focus:border-brand-brown outline-none"
+            />
+            <div id="cat-preview-container" class="hidden items-center gap-3 pt-2">
+              <img id="cat-preview-img" src="" alt="Preview Foto" class="w-14 h-14 object-cover rounded-xl border border-brand-cream-dark shadow-xs" />
+              <span class="text-[11px] text-brand-green font-medium">✓ Foto siap digunakan</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-brand-cream-dark flex gap-3 justify-end">
+            <button 
+              type="button" 
+              id="cancel-cat-modal-btn" 
+              class="px-5 py-2.5 rounded-full border border-brand-cream-dark text-xs font-semibold text-brand-dark hover:bg-brand-cream"
+            >
+              Batal
+            </button>
+            <button 
+              type="submit" 
+              class="px-6 py-2.5 rounded-full bg-brand-brown hover:bg-brand-brown-dark text-white text-xs font-bold shadow-soft"
+            >
+              Simpan Paket Catering
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div 
+      id="admin-toast" 
+      class="fixed bottom-6 right-6 z-50 bg-brand-dark text-brand-white px-5 py-3 rounded-2xl shadow-hover border border-brand-gold/40 flex items-center gap-3 opacity-0 pointer-events-none transition-all duration-300"
+    >
+      <span class="text-brand-gold font-bold">✓</span>
+      <span id="toast-message" class="text-xs font-medium">Perubahan berhasil disimpan!</span>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  import { 
+    getAdminPin, setAdminPin,
+    getStoredConfig, saveStoredConfig,
+    getStoredProducts, saveStoredProducts,
+    getStoredSnackBoxes, saveStoredSnackBoxes,
+    getStoredCatering, saveStoredCatering,
+    getStoredCustomConfig, saveStoredCustomConfig,
+    resetAllToDefault,
+    STORE_KEYS
+  } from '../../utils/store';
+
+  // Elements
+  const authGate = document.getElementById('admin-auth-gate');
+  const dashboard = document.getElementById('admin-dashboard');
+  const pinForm = document.getElementById('pin-form');
+  const pinInput = document.getElementById('admin-pin-input') as HTMLInputElement;
+  const logoutBtn = document.getElementById('admin-logout-btn');
+  const toast = document.getElementById('admin-toast');
+  const toastMsg = document.getElementById('toast-message');
+
+  function showToast(msg: string) {
+    if (!toast || !toastMsg) return;
+    toastMsg.textContent = msg;
+    toast.classList.remove('opacity-0', 'pointer-events-none');
+    toast.classList.add('opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0', 'pointer-events-none');
+    }, 2500);
+  }
+
+  // Client-Side Image Compression Helper (Canvas)
+  function compressImage(file: File, maxWidth = 800, quality = 0.8): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target?.result as string;
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(img.src);
+            return;
+          }
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = reject;
+      };
+      reader.onerror = reject;
+    });
+  }
+
+  // Authentication check
+  function checkSession() {
+    const isAuthed = sessionStorage.getItem(STORE_KEYS.ADMIN_SESSION) === 'true';
+    if (isAuthed) {
+      authGate?.classList.add('hidden');
+      dashboard?.classList.remove('hidden');
+      loadAllData();
+    } else {
+      authGate?.classList.remove('hidden');
+      dashboard?.classList.add('hidden');
+    }
+  }
+
+  pinForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const entered = pinInput?.value || '';
+    const currentPin = getAdminPin();
+    if (entered === currentPin) {
+      sessionStorage.setItem(STORE_KEYS.ADMIN_SESSION, 'true');
+      checkSession();
+      showToast('Selamat datang di Panel Toko Rasanesia!');
+    } else {
+      alert('PIN salah. Silakan coba kembali.');
+      if (pinInput) pinInput.value = '';
+    }
+  });
+
+  logoutBtn?.addEventListener('click', () => {
+    sessionStorage.removeItem(STORE_KEYS.ADMIN_SESSION);
+    checkSession();
+  });
+
+  // Tab Switching
+  const tabBtns = document.querySelectorAll('.admin-tab-btn');
+  const tabPanes = document.querySelectorAll('.admin-tab-pane');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-tab-target');
+      tabBtns.forEach(b => {
+        b.classList.remove('bg-brand-brown', 'text-brand-white');
+        b.classList.add('bg-brand-white', 'text-brand-dark');
+      });
+      btn.classList.add('bg-brand-brown', 'text-brand-white');
+      btn.classList.remove('bg-brand-white', 'text-brand-dark');
+
+      tabPanes.forEach(pane => {
+        if (pane.id === targetId) {
+          pane.classList.remove('hidden');
+        } else {
+          pane.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Load All Data into Tabs
+  function loadAllData() {
+    // 1. Config
+    const cfg = getStoredConfig();
+    (document.getElementById('cfg-wa-number') as HTMLInputElement).value = cfg.whatsappNumber || '';
+    (document.getElementById('cfg-wa-display') as HTMLInputElement).value = cfg.whatsappDisplay || '';
+    (document.getElementById('cfg-hours') as HTMLInputElement).value = cfg.operationalHours || '';
+    (document.getElementById('cfg-areas') as HTMLInputElement).value = (cfg.serviceAreas || []).join(', ');
+    (document.getElementById('cfg-notice') as HTMLTextAreaElement).value = cfg.addressNotice || '';
+
+    // 2. Products
+    renderAdminProducts();
+
+    // 3. Packages
+    renderAdminPackages();
+
+    // 4. Custom Config
+    renderCustomConfig();
+
+    // 5. Catering
+    renderAdminCatering();
+  }
+
+  // Save Config Tab
+  document.getElementById('save-config-btn')?.addEventListener('click', () => {
+    const rawNum = (document.getElementById('cfg-wa-number') as HTMLInputElement).value.replace(/[^0-9]/g, '');
+    const display = (document.getElementById('cfg-wa-display') as HTMLInputElement).value;
+    const hours = (document.getElementById('cfg-hours') as HTMLInputElement).value;
+    const areas = (document.getElementById('cfg-areas') as HTMLInputElement).value.split(',').map(s => s.trim()).filter(Boolean);
+    const notice = (document.getElementById('cfg-notice') as HTMLTextAreaElement).value;
+
+    saveStoredConfig({
+      whatsappNumber: rawNum,
+      whatsappDisplay: display,
+      operationalHours: hours,
+      serviceAreas: areas,
+      addressNotice: notice
+    });
+    showToast('Kontak WhatsApp & toko berhasil diperbarui!');
+  });
+
+  // ==========================================
+  // TAB 2: MENU JAJANAN PASAR LOGIC
+  // ==========================================
+  function renderAdminProducts() {
+    const container = document.getElementById('admin-product-list');
+    if (!container) return;
+    const products = getStoredProducts();
+
+    container.innerHTML = products.map((p, idx) => `
+      <div class="flex items-center gap-3 p-4 bg-brand-white border border-brand-cream-dark rounded-2xl shadow-2xs hover:border-brand-gold/60 transition-colors">
+        <img src="${p.image}" alt="${p.name}" class="w-16 h-16 rounded-xl object-cover shrink-0 border border-brand-cream-dark" />
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <h4 class="text-xs font-bold text-brand-dark truncate">${p.name}</h4>
+            <span class="text-[10px] px-2 py-0.5 rounded-full ${p.available !== false ? 'bg-brand-green/20 text-brand-green' : 'bg-red-100 text-red-700'} font-semibold">
+              ${p.available !== false ? 'Tersedia' : 'Habis'}
+            </span>
+          </div>
+          <span class="text-[10px] text-brand-muted block">${p.tasteProfile || 'Tradisional'} • Min ${p.minOrder || 15} pcs</span>
+          
+          <div class="flex items-center gap-2 mt-2">
+            <span class="text-xs font-semibold text-brand-brown">Rp</span>
+            <input 
+              type="number" 
+              data-product-price="${idx}" 
+              value="${p.price || 0}" 
+              class="w-24 text-xs font-bold p-1.5 rounded-lg border border-brand-cream-dark bg-brand-cream-light/40"
+            />
+            <span class="text-[11px] text-brand-muted">/${p.priceUnit || 'pcs'}</span>
+
+            <button 
+              type="button" 
+              data-toggle-avail="${idx}" 
+              class="text-[10px] px-2 py-1 rounded-lg border border-brand-cream-dark hover:bg-brand-cream text-brand-dark transition-colors ml-auto"
+            >
+              Ubah Status
+            </button>
+          </div>
+        </div>
+
+        <button 
+          type="button" 
+          data-delete-product="${idx}" 
+          class="p-2 text-brand-muted hover:text-red-600 transition-colors"
+          title="Hapus Jajanan"
+        >
+          🗑️
+        </button>
+      </div>
+    `).join('');
+
+    // Delete Product
+    container.querySelectorAll('[data-delete-product]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt((e.currentTarget as HTMLElement).getAttribute('data-delete-product') || '0', 10);
+        const prods = getStoredProducts();
+        if (confirm(`Yakin ingin menghapus jajanan "${prods[idx].name}"?`)) {
+          prods.splice(idx, 1);
+          saveStoredProducts(prods);
+          renderAdminProducts();
+          showToast('Jajanan berhasil dihapus.');
+        }
+      });
+    });
+
+    // Toggle Availability
+    container.querySelectorAll('[data-toggle-avail]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt((e.currentTarget as HTMLElement).getAttribute('data-toggle-avail') || '0', 10);
+        const prods = getStoredProducts();
+        prods[idx].available = prods[idx].available === false ? true : false;
+        saveStoredProducts(prods);
+        renderAdminProducts();
+        showToast(`Status "${prods[idx].name}" diperbarui.`);
+      });
+    });
+  }
+
+  // Save Products Batch
+  document.getElementById('save-products-btn')?.addEventListener('click', () => {
+    const prods = getStoredProducts();
+    const priceInputs = document.querySelectorAll('[data-product-price]');
+
+    priceInputs.forEach(input => {
+      const idx = parseInt(input.getAttribute('data-product-price') || '0', 10);
+      const newPrice = parseInt((input as HTMLInputElement).value || '0', 10);
+      if (prods[idx]) {
+        prods[idx].price = newPrice;
+      }
+    });
+
+    saveStoredProducts(prods);
+    showToast('Harga seluruh kue berhasil disimpan!');
+  });
+
+  // Modal New Product (Upload Foto)
+  const productModal = document.getElementById('new-product-modal');
+  const npFileInput = document.getElementById('np-file-input') as HTMLInputElement;
+  const npImageInput = document.getElementById('np-image') as HTMLInputElement;
+  const npPreviewContainer = document.getElementById('np-preview-container');
+  const npPreviewImg = document.getElementById('np-preview-img') as HTMLImageElement;
+
+  document.getElementById('open-new-product-modal')?.addEventListener('click', () => {
+    productModal?.classList.remove('hidden');
+    productModal?.classList.add('flex');
+  });
+
+  const closeProductModal = () => {
+    productModal?.classList.remove('flex');
+    productModal?.classList.add('hidden');
+    npPreviewContainer?.classList.add('hidden');
+  };
+
+  document.getElementById('close-modal-btn')?.addEventListener('click', closeProductModal);
+  document.getElementById('cancel-modal-btn')?.addEventListener('click', closeProductModal);
+
+  // File Upload Handler for Product
+  npFileInput?.addEventListener('change', async (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    try {
+      showToast('Mengompres foto untuk web...');
+      const base64 = await compressImage(file, 800, 0.8);
+      npImageInput.value = base64;
+      npPreviewImg.src = base64;
+      npPreviewContainer?.classList.remove('hidden');
+      npPreviewContainer?.classList.add('flex');
+      showToast('Foto siap!');
+    } catch (err) {
+      alert('Gagal memproses gambar. Silakan coba file gambar lain.');
+    }
+  });
+
+  document.getElementById('new-product-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = (document.getElementById('np-name') as HTMLInputElement).value.trim();
+    const price = parseInt((document.getElementById('np-price') as HTMLInputElement).value, 10);
+    const taste = (document.getElementById('np-taste') as HTMLSelectElement).value as any;
+    const desc = (document.getElementById('np-desc') as HTMLTextAreaElement).value.trim();
+    const img = npImageInput.value.trim() || '/images/products/product-01.jpg';
+
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const prods = getStoredProducts();
+
+    prods.unshift({
+      id: `prod-custom-${Date.now()}`,
+      slug,
+      name,
+      price,
+      priceUnit: 'pcs',
+      tasteProfile: taste,
+      description: desc || 'Jajanan pasar tradisional lezat bermutu tinggi buatan dapur Rasanesia.',
+      category: 'jajanan',
+      categoryLabel: 'Jajanan Tradisional',
+      ingredients: ['Bahan Pilihan Berkualitas'],
+      minOrder: 15,
+      image: img,
+      available: true,
+      isFeatured: false
+    });
+
+    saveStoredProducts(prods);
+    renderAdminProducts();
+    closeProductModal();
+    showToast(`"${name}" berhasil ditambahkan ke menu jajanan!`);
+    (document.getElementById('new-product-form') as HTMLFormElement).reset();
+  });
+
+  // ==========================================
+  // TAB 3: PAKET SNACK BOX (FULL CRUD + UPLOAD FOTO)
+  // ==========================================
+  const pkgModal = document.getElementById('package-modal');
+  const pkgModalTitle = document.getElementById('package-modal-title');
+  const pkgEditIndex = document.getElementById('pkg-edit-index') as HTMLInputElement;
+  const pkgFileInput = document.getElementById('pkg-file-input') as HTMLInputElement;
+  const pkgImageInput = document.getElementById('pkg-image') as HTMLInputElement;
+  const pkgPreviewContainer = document.getElementById('pkg-preview-container');
+  const pkgPreviewImg = document.getElementById('pkg-preview-img') as HTMLImageElement;
+
+  function renderAdminPackages() {
+    const container = document.getElementById('admin-package-list');
+    if (!container) return;
+    const boxes = getStoredSnackBoxes();
+
+    container.innerHTML = boxes.map((box, idx) => `
+      <div class="p-5 bg-brand-white border border-brand-cream-dark rounded-2xl space-y-3 shadow-2xs hover:border-brand-gold/60 transition-colors flex flex-col justify-between">
+        <div>
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center gap-3">
+              <img src="${box.image}" alt="${box.name}" class="w-14 h-14 rounded-xl object-cover border border-brand-cream-dark shrink-0" />
+              <div>
+                <h4 class="font-serif font-bold text-sm text-brand-dark">${box.name}</h4>
+                <span class="text-[11px] text-brand-muted">Min order: ${box.minOrder} box</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-1">
+              <button 
+                type="button" 
+                data-edit-pkg="${idx}" 
+                class="p-1.5 text-xs text-brand-brown hover:bg-brand-cream rounded-lg transition-colors"
+                title="Edit Paket Lengkap"
+              >
+                ✏️ Edit
+              </button>
+              <button 
+                type="button" 
+                data-delete-pkg="${idx}" 
+                class="p-1.5 text-xs text-brand-muted hover:text-red-600 rounded-lg transition-colors"
+                title="Hapus Paket"
+              >
+                🗑️
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+            <div>
+              <label class="block text-[11px] font-bold text-brand-dark mb-1">Harga per Box (Rp)</label>
+              <input 
+                type="number" 
+                data-package-price="${idx}" 
+                value="${box.price || 0}" 
+                class="w-full text-xs font-bold p-2.5 rounded-xl border border-brand-cream-dark bg-brand-cream-light/40"
+              />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-brand-dark mb-1">Min Order (Box)</label>
+              <input 
+                type="number" 
+                data-package-min="${idx}" 
+                value="${box.minOrder || 15}" 
+                class="w-full text-xs font-bold p-2.5 rounded-xl border border-brand-cream-dark bg-brand-cream-light/40"
+              />
+            </div>
+          </div>
+
+          <div class="mt-2.5">
+            <label class="block text-[11px] font-bold text-brand-dark mb-1">Isian Kue</label>
+            <input 
+              type="text" 
+              data-package-includes="${idx}" 
+              value="${(box.includes || []).join(', ')}" 
+              class="w-full text-xs p-2 rounded-xl border border-brand-cream-dark bg-brand-cream-light/40 text-brand-dark"
+            />
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // Edit Package Modal Trigger
+    container.querySelectorAll('[data-edit-pkg]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt((e.currentTarget as HTMLElement).getAttribute('data-edit-pkg') || '0', 10);
+        openEditPackageModal(idx);
+      });
+    });
+
+    // Delete Package
+    container.querySelectorAll('[data-delete-pkg]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt((e.currentTarget as HTMLElement).getAttribute('data-delete-pkg') || '0', 10);
+        const boxes = getStoredSnackBoxes();
+        if (confirm(`Yakin ingin menghapus paket snack box "${boxes[idx].name}"?`)) {
+          boxes.splice(idx, 1);
+          saveStoredSnackBoxes(boxes);
+          renderAdminPackages();
+          showToast('Paket snack box dihapus.');
+        }
+      });
+    });
+  }
+
+  // Open Edit Package Modal
+  function openEditPackageModal(index: number) {
+    const boxes = getStoredSnackBoxes();
+    const box = boxes[index];
+    if (!box) return;
+
+    pkgModalTitle!.textContent = 'Edit Paket Snack Box';
+    pkgEditIndex.value = String(index);
+    (document.getElementById('pkg-name') as HTMLInputElement).value = box.name;
+    (document.getElementById('pkg-price') as HTMLInputElement).value = String(box.price);
+    (document.getElementById('pkg-min-order') as HTMLInputElement).value = String(box.minOrder);
+    (document.getElementById('pkg-includes') as HTMLTextAreaElement).value = (box.includes || []).join(', ');
+    (document.getElementById('pkg-desc') as HTMLTextAreaElement).value = box.description || '';
+    pkgImageInput.value = box.image;
+
+    pkgPreviewImg.src = box.image;
+    pkgPreviewContainer?.classList.remove('hidden');
+    pkgPreviewContainer?.classList.add('flex');
+
+    pkgModal?.classList.remove('hidden');
+    pkgModal?.classList.add('flex');
+  }
+
+  // Open Create Package Modal
+  document.getElementById('open-new-package-modal')?.addEventListener('click', () => {
+    pkgModalTitle!.textContent = 'Tambah Paket Snack Box Baru';
+    pkgEditIndex.value = '-1';
+    (document.getElementById('package-form') as HTMLFormElement).reset();
+    pkgImageInput.value = '/images/categories/snack-box.jpg';
+    pkgPreviewContainer?.classList.add('hidden');
+    pkgModal?.classList.remove('hidden');
+    pkgModal?.classList.add('flex');
+  });
+
+  const closePackageModal = () => {
+    pkgModal?.classList.remove('flex');
+    pkgModal?.classList.add('hidden');
+  };
+
+  document.getElementById('close-pkg-modal-btn')?.addEventListener('click', closePackageModal);
+  document.getElementById('cancel-pkg-modal-btn')?.addEventListener('click', closePackageModal);
+
+  // File Upload Handler for Package
+  pkgFileInput?.addEventListener('change', async (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    try {
+      showToast('Mengompres foto paket...');
+      const base64 = await compressImage(file, 800, 0.8);
+      pkgImageInput.value = base64;
+      pkgPreviewImg.src = base64;
+      pkgPreviewContainer?.classList.remove('hidden');
+      pkgPreviewContainer?.classList.add('flex');
+      showToast('Foto paket siap!');
+    } catch (err) {
+      alert('Gagal memproses gambar paket.');
+    }
+  });
+
+  // Package Form Submit (Create or Update)
+  document.getElementById('package-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const editIndex = parseInt(pkgEditIndex.value, 10);
+    const name = (document.getElementById('pkg-name') as HTMLInputElement).value.trim();
+    const price = parseInt((document.getElementById('pkg-price') as HTMLInputElement).value, 10);
+    const minOrder = parseInt((document.getElementById('pkg-min-order') as HTMLInputElement).value, 10);
+    const incStr = (document.getElementById('pkg-includes') as HTMLTextAreaElement).value;
+    const desc = (document.getElementById('pkg-desc') as HTMLTextAreaElement).value.trim();
+    const img = pkgImageInput.value.trim() || '/images/categories/snack-box.jpg';
+
+    const includes = incStr.split(',').map(s => s.trim()).filter(Boolean);
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const boxes = getStoredSnackBoxes();
+
+    if (editIndex >= 0 && boxes[editIndex]) {
+      // Update
+      boxes[editIndex] = {
+        ...boxes[editIndex],
+        name,
+        slug,
+        price,
+        minOrder,
+        includes,
+        description: desc,
+        shortDescription: desc.slice(0, 80) + '...',
+        image: img
+      };
+      showToast(`Paket "${name}" berhasil diperbarui!`);
+    } else {
+      // Create
+      boxes.unshift({
+        id: `box-custom-${Date.now()}`,
+        slug,
+        name,
+        price,
+        priceUnit: 'box',
+        minOrder,
+        description: desc || 'Pilihan snack box elegan untuk segala kebutuhan acara.',
+        shortDescription: desc ? desc.slice(0, 80) + '...' : 'Paket snack box istimewa.',
+        includes,
+        packagingType: 'Standard Craft Box',
+        image: img,
+        isPopular: true
+      });
+      showToast(`Paket "${name}" berhasil ditambahkan!`);
+    }
+
+    saveStoredSnackBoxes(boxes);
+    renderAdminPackages();
+    closePackageModal();
+  });
+
+  // Save Packages Batch Button
+  document.getElementById('save-packages-btn')?.addEventListener('click', () => {
+    const boxes = getStoredSnackBoxes();
+    document.querySelectorAll('[data-package-price]').forEach(input => {
+      const idx = parseInt(input.getAttribute('data-package-price') || '0', 10);
+      const newPrice = parseInt((input as HTMLInputElement).value || '0', 10);
+      if (boxes[idx]) boxes[idx].price = newPrice;
+    });
+
+    document.querySelectorAll('[data-package-min]').forEach(input => {
+      const idx = parseInt(input.getAttribute('data-package-min') || '0', 10);
+      const newMin = parseInt((input as HTMLInputElement).value || '0', 10);
+      if (boxes[idx]) boxes[idx].minOrder = newMin;
+    });
+
+    document.querySelectorAll('[data-package-includes]').forEach(input => {
+      const idx = parseInt(input.getAttribute('data-package-includes') || '0', 10);
+      const incStr = (input as HTMLInputElement).value;
+      if (boxes[idx]) {
+        boxes[idx].includes = incStr.split(',').map(s => s.trim()).filter(Boolean);
+      }
+    });
+
+    saveStoredSnackBoxes(boxes);
+    showToast('Paket snack box berhasil disimpan!');
+  });
+
+  // ==========================================
+  // TAB 4: CUSTOM SNACK BOX SETTINGS LOGIC
+  // ==========================================
+  let activeCustomConfig = getStoredCustomConfig();
+
+  function renderCustomConfig() {
+    activeCustomConfig = getStoredCustomConfig();
+    (document.getElementById('custom-min-snacks') as HTMLInputElement).value = String(activeCustomConfig.minSnacks || 2);
+    (document.getElementById('custom-max-snacks') as HTMLInputElement).value = String(activeCustomConfig.maxSnacks || 6);
+    (document.getElementById('custom-min-order') as HTMLInputElement).value = String(activeCustomConfig.minOrderBoxes || 20);
+    (document.getElementById('custom-notes') as HTMLInputElement).value = activeCustomConfig.notes || '';
+
+    const container = document.getElementById('packaging-list-container');
+    if (!container) return;
+
+    container.innerHTML = (activeCustomConfig.packagingOptions || []).map((p, idx) => `
+      <div class="flex items-center gap-3 p-3.5 bg-brand-white border border-brand-cream-dark rounded-xl">
+        <div class="flex-1 grid grid-cols-1 sm:grid-cols-12 gap-2">
+          <div class="sm:col-span-6">
+            <span class="text-[10px] text-brand-muted block font-semibold">Nama Kemasan</span>
+            <input 
+              type="text" 
+              data-pkg-name="${idx}" 
+              value="${p.name}" 
+              class="w-full text-xs font-bold p-2 rounded-lg border border-brand-cream-dark"
+            />
+          </div>
+          <div class="sm:col-span-3">
+            <span class="text-[10px] text-brand-muted block font-semibold">Biaya Tambahan (+Rp)</span>
+            <input 
+              type="number" 
+              data-pkg-price="${idx}" 
+              value="${p.extraPrice}" 
+              class="w-full text-xs font-bold p-2 rounded-lg border border-brand-cream-dark"
+            />
+          </div>
+          <div class="sm:col-span-3">
+            <span class="text-[10px] text-brand-muted block font-semibold">Keterangan</span>
+            <input 
+              type="text" 
+              data-pkg-desc="${idx}" 
+              value="${p.description || ''}" 
+              class="w-full text-xs p-2 rounded-lg border border-brand-cream-dark"
+            />
+          </div>
+        </div>
+        <button 
+          type="button" 
+          data-delete-pack="${idx}" 
+          class="p-2 text-brand-muted hover:text-red-600 transition-colors shrink-0"
+          title="Hapus Kemasan"
+        >
+          🗑️
+        </button>
+      </div>
+    `).join('');
+
+    // Delete packaging option
+    container.querySelectorAll('[data-delete-pack]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt((e.currentTarget as HTMLElement).getAttribute('data-delete-pack') || '0', 10);
+        activeCustomConfig.packagingOptions.splice(idx, 1);
+        saveStoredCustomConfig(activeCustomConfig);
+        renderCustomConfig();
+        showToast('Kemasan dihapus.');
+      });
+    });
+  }
+
+  // Add Packaging Option
+  document.getElementById('add-packaging-btn')?.addEventListener('click', () => {
+    const name = prompt('Masukkan nama jenis kemasan baru:');
+    if (!name) return;
+    const priceStr = prompt('Masukkan biaya tambahan (+Rp, masukkan 0 jika gratis):', '0');
+    const extraPrice = parseInt(priceStr || '0', 10);
+
+    activeCustomConfig.packagingOptions.push({
+      id: `pack-${Date.now()}`,
+      name,
+      extraPrice,
+      description: 'Pilihan kemasan rapi dan higienis.'
+    });
+
+    saveStoredCustomConfig(activeCustomConfig);
+    renderCustomConfig();
+    showToast(`Kemasan "${name}" berhasil ditambahkan!`);
+  });
+
+  // Save Custom Config
+  document.getElementById('save-custom-config-btn')?.addEventListener('click', () => {
+    const minSnacks = parseInt((document.getElementById('custom-min-snacks') as HTMLInputElement).value || '2', 10);
+    const maxSnacks = parseInt((document.getElementById('custom-max-snacks') as HTMLInputElement).value || '6', 10);
+    const minOrderBoxes = parseInt((document.getElementById('custom-min-order') as HTMLInputElement).value || '20', 10);
+    const notes = (document.getElementById('custom-notes') as HTMLInputElement).value;
+
+    // Collect pack names and prices
+    document.querySelectorAll('[data-pkg-name]').forEach(input => {
+      const idx = parseInt(input.getAttribute('data-pkg-name') || '0', 10);
+      if (activeCustomConfig.packagingOptions[idx]) {
+        activeCustomConfig.packagingOptions[idx].name = (input as HTMLInputElement).value;
+      }
+    });
+
+    document.querySelectorAll('[data-pkg-price]').forEach(input => {
+      const idx = parseInt(input.getAttribute('data-pkg-price') || '0', 10);
+      if (activeCustomConfig.packagingOptions[idx]) {
+        activeCustomConfig.packagingOptions[idx].extraPrice = parseInt((input as HTMLInputElement).value || '0', 10);
+      }
+    });
+
+    document.querySelectorAll('[data-pkg-desc]').forEach(input => {
+      const idx = parseInt(input.getAttribute('data-pkg-desc') || '0', 10);
+      if (activeCustomConfig.packagingOptions[idx]) {
+        activeCustomConfig.packagingOptions[idx].description = (input as HTMLInputElement).value;
+      }
+    });
+
+    saveStoredCustomConfig({
+      minSnacks,
+      maxSnacks,
+      minOrderBoxes,
+      notes,
+      packagingOptions: activeCustomConfig.packagingOptions
+    });
+
+    showToast('Pengaturan custom snack box berhasil disimpan!');
+  });
+
+  // ==========================================
+  // TAB 5: PAKET CATERING (FULL CRUD + UPLOAD FOTO)
+  // ==========================================
+  const catModal = document.getElementById('catering-modal');
+  const catModalTitle = document.getElementById('catering-modal-title');
+  const catEditIndex = document.getElementById('cat-edit-index') as HTMLInputElement;
+  const catFileInput = document.getElementById('cat-file-input') as HTMLInputElement;
+  const catImageInput = document.getElementById('cat-image') as HTMLInputElement;
+  const catPreviewContainer = document.getElementById('cat-preview-container');
+  const catPreviewImg = document.getElementById('cat-preview-img') as HTMLImageElement;
+
+  function renderAdminCatering() {
+    const container = document.getElementById('admin-catering-list');
+    if (!container) return;
+    const packages = getStoredCatering();
+
+    container.innerHTML = packages.map((cat, idx) => `
+      <div class="p-5 bg-brand-white border border-brand-cream-dark rounded-2xl space-y-3 shadow-2xs hover:border-brand-gold/60 transition-colors flex flex-col justify-between">
+        <div>
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center gap-3">
+              <img src="${cat.image}" alt="${cat.name}" class="w-14 h-14 rounded-xl object-cover border border-brand-cream-dark shrink-0" />
+              <div>
+                <span class="text-[10px] font-bold text-brand-gold uppercase tracking-wider">${cat.categoryLabel || cat.category}</span>
+                <h4 class="font-serif font-bold text-sm text-brand-dark">${cat.name}</h4>
+                <span class="text-[11px] text-brand-muted">Min order: ${cat.minPax} pax</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-1">
+              <button 
+                type="button" 
+                data-edit-cat="${idx}" 
+                class="p-1.5 text-xs text-brand-brown hover:bg-brand-cream rounded-lg transition-colors"
+                title="Edit Paket Catering"
+              >
+                ✏️ Edit
+              </button>
+              <button 
+                type="button" 
+                data-delete-cat="${idx}" 
+                class="p-1.5 text-xs text-brand-muted hover:text-red-600 rounded-lg transition-colors"
+                title="Hapus Paket"
+              >
+                🗑️
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+            <div>
+              <label class="block text-[11px] font-bold text-brand-dark mb-1">Harga per Pax (Rp)</label>
+              <input 
+                type="number" 
+                data-cat-price="${idx}" 
+                value="${cat.pricePerPax || 0}" 
+                class="w-full text-xs font-bold p-2.5 rounded-xl border border-brand-cream-dark bg-brand-cream-light/40"
+              />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-brand-dark mb-1">Min Pax (Porsi)</label>
+              <input 
+                type="number" 
+                data-cat-min="${idx}" 
+                value="${cat.minPax || 30}" 
+                class="w-full text-xs font-bold p-2.5 rounded-xl border border-brand-cream-dark bg-brand-cream-light/40"
+              />
+            </div>
+          </div>
+
+          <div class="mt-2.5">
+            <label class="block text-[11px] font-bold text-brand-dark mb-1">Menu Hidangan</label>
+            <input 
+              type="text" 
+              data-cat-includes="${idx}" 
+              value="${(cat.includes || []).join(', ')}" 
+              class="w-full text-xs p-2 rounded-xl border border-brand-cream-dark bg-brand-cream-light/40 text-brand-dark"
+            />
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // Edit Catering Modal Trigger
+    container.querySelectorAll('[data-edit-cat]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt((e.currentTarget as HTMLElement).getAttribute('data-edit-cat') || '0', 10);
+        openEditCateringModal(idx);
+      });
+    });
+
+    // Delete Catering Package
+    container.querySelectorAll('[data-delete-cat]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt((e.currentTarget as HTMLElement).getAttribute('data-delete-cat') || '0', 10);
+        const pkgs = getStoredCatering();
+        if (confirm(`Yakin ingin menghapus paket katering "${pkgs[idx].name}"?`)) {
+          pkgs.splice(idx, 1);
+          saveStoredCatering(pkgs);
+          renderAdminCatering();
+          showToast('Paket catering berhasil dihapus.');
+        }
+      });
+    });
+  }
+
+  // Open Edit Catering Modal
+  function openEditCateringModal(index: number) {
+    const pkgs = getStoredCatering();
+    const cat = pkgs[index];
+    if (!cat) return;
+
+    catModalTitle!.textContent = 'Edit Paket Catering';
+    catEditIndex.value = String(index);
+    (document.getElementById('cat-name') as HTMLInputElement).value = cat.name;
+    (document.getElementById('cat-category') as HTMLSelectElement).value = cat.category;
+    (document.getElementById('cat-price') as HTMLInputElement).value = String(cat.pricePerPax);
+    (document.getElementById('cat-min-pax') as HTMLInputElement).value = String(cat.minPax);
+    (document.getElementById('cat-includes') as HTMLTextAreaElement).value = (cat.includes || []).join(', ');
+    (document.getElementById('cat-desc') as HTMLTextAreaElement).value = cat.description || '';
+    catImageInput.value = cat.image;
+
+    catPreviewImg.src = cat.image;
+    catPreviewContainer?.classList.remove('hidden');
+    catPreviewContainer?.classList.add('flex');
+
+    catModal?.classList.remove('hidden');
+    catModal?.classList.add('flex');
+  }
+
+  // Open Create Catering Modal
+  document.getElementById('open-new-catering-modal')?.addEventListener('click', () => {
+    catModalTitle!.textContent = 'Tambah Paket Catering Baru';
+    catEditIndex.value = '-1';
+    (document.getElementById('catering-form') as HTMLFormElement).reset();
+    catImageInput.value = '/images/categories/catering.jpg';
+    catPreviewContainer?.classList.add('hidden');
+    catModal?.classList.remove('hidden');
+    catModal?.classList.add('flex');
+  });
+
+  const closeCateringModal = () => {
+    catModal?.classList.remove('flex');
+    catModal?.classList.add('hidden');
+  };
+
+  document.getElementById('close-cat-modal-btn')?.addEventListener('click', closeCateringModal);
+  document.getElementById('cancel-cat-modal-btn')?.addEventListener('click', closeCateringModal);
+
+  // File Upload Handler for Catering
+  catFileInput?.addEventListener('change', async (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    try {
+      showToast('Mengompres foto katering...');
+      const base64 = await compressImage(file, 800, 0.8);
+      catImageInput.value = base64;
+      catPreviewImg.src = base64;
+      catPreviewContainer?.classList.remove('hidden');
+      catPreviewContainer?.classList.add('flex');
+      showToast('Foto katering siap!');
+    } catch (err) {
+      alert('Gagal memproses gambar katering.');
+    }
+  });
+
+  // Catering Form Submit (Create or Update)
+  document.getElementById('catering-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const editIndex = parseInt(catEditIndex.value, 10);
+    const name = (document.getElementById('cat-name') as HTMLInputElement).value.trim();
+    const category = (document.getElementById('cat-category') as HTMLSelectElement).value as any;
+    const pricePerPax = parseInt((document.getElementById('cat-price') as HTMLInputElement).value, 10);
+    const minPax = parseInt((document.getElementById('cat-min-pax') as HTMLInputElement).value, 10);
+    const incStr = (document.getElementById('cat-includes') as HTMLTextAreaElement).value;
+    const desc = (document.getElementById('cat-desc') as HTMLTextAreaElement).value.trim();
+    const img = catImageInput.value.trim() || '/images/categories/catering.jpg';
+
+    const includes = incStr.split(',').map(s => s.trim()).filter(Boolean);
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const pkgs = getStoredCatering();
+
+    const categoryLabels: Record<string, string> = {
+      prasmanan: 'Prasmanan Tradisional',
+      nasibox: 'Nasi Kotak / Bento Box',
+      coffeebreak: 'Coffee Break & Tampah',
+      tumpeng: 'Tumpeng Tradisional'
+    };
+
+    if (editIndex >= 0 && pkgs[editIndex]) {
+      // Update
+      pkgs[editIndex] = {
+        ...pkgs[editIndex],
+        name,
+        slug,
+        category,
+        categoryLabel: categoryLabels[category] || 'Catering',
+        pricePerPax,
+        minPax,
+        includes,
+        description: desc,
+        image: img
+      };
+      showToast(`Paket katering "${name}" berhasil diperbarui!`);
+    } else {
+      // Create
+      pkgs.unshift({
+        id: `cat-custom-${Date.now()}`,
+        slug,
+        name,
+        category,
+        categoryLabel: categoryLabels[category] || 'Catering',
+        pricePerPax,
+        minPax,
+        description: desc || 'Sajian katering lezat dan higienis untuk berbagai acara.',
+        includes,
+        image: img,
+        isPopular: true
+      });
+      showToast(`Paket katering "${name}" berhasil ditambahkan!`);
+    }
+
+    saveStoredCatering(pkgs);
+    renderAdminCatering();
+    closeCateringModal();
+  });
+
+  // Save Catering Batch Button
+  document.getElementById('save-catering-btn')?.addEventListener('click', () => {
+    const pkgs = getStoredCatering();
+    document.querySelectorAll('[data-cat-price]').forEach(input => {
+      const idx = parseInt(input.getAttribute('data-cat-price') || '0', 10);
+      const newPrice = parseInt((input as HTMLInputElement).value || '0', 10);
+      if (pkgs[idx]) pkgs[idx].pricePerPax = newPrice;
+    });
+
+    document.querySelectorAll('[data-cat-min]').forEach(input => {
+      const idx = parseInt(input.getAttribute('data-cat-min') || '0', 10);
+      const newMin = parseInt((input as HTMLInputElement).value || '0', 10);
+      if (pkgs[idx]) pkgs[idx].minPax = newMin;
+    });
+
+    document.querySelectorAll('[data-cat-includes]').forEach(input => {
+      const idx = parseInt(input.getAttribute('data-cat-includes') || '0', 10);
+      const incStr = (input as HTMLInputElement).value;
+      if (pkgs[idx]) {
+        pkgs[idx].includes = incStr.split(',').map(s => s.trim()).filter(Boolean);
+      }
+    });
+
+    saveStoredCatering(pkgs);
+    showToast('Paket katering berhasil disimpan!');
+  });
+
+  // ==========================================
+  // TAB 6: KEAMANAN & CADANGAN (PIN & BACKUP)
+  // ==========================================
+  document.getElementById('save-pin-btn')?.addEventListener('click', () => {
+    const newPin = (document.getElementById('new-pin-input') as HTMLInputElement).value.trim();
+    if (newPin.length < 4) {
+      alert('PIN minimal 4 karakter.');
+      return;
+    }
+    setAdminPin(newPin);
+    (document.getElementById('new-pin-input') as HTMLInputElement).value = '';
+    showToast('PIN pengelola berhasil diubah!');
+  });
+
+  // Full Backup JSON
+  document.getElementById('download-backup-btn')?.addEventListener('click', () => {
+    const backupData = {
+      version: '2.0',
+      timestamp: new Date().toISOString(),
+      config: getStoredConfig(),
+      products: getStoredProducts(),
+      snackBoxes: getStoredSnackBoxes(),
+      catering: getStoredCatering(),
+      customConfig: getStoredCustomConfig()
+    };
+    const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `backup-toko-rasanesia-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('File cadangan lengkap berhasil diunduh.');
+  });
+
+  // Restore JSON
+  document.getElementById('upload-backup-file')?.addEventListener('change', (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const json = JSON.parse(event.target?.result as string);
+        if (json.config) saveStoredConfig(json.config);
+        if (json.products) saveStoredProducts(json.products);
+        if (json.snackBoxes) saveStoredSnackBoxes(json.snackBoxes);
+        if (json.catering) saveStoredCatering(json.catering);
+        if (json.customConfig) saveStoredCustomConfig(json.customConfig);
+        loadAllData();
+        showToast('Seluruh data toko berhasil dipulihkan dari cadangan!');
+      } catch (err) {
+        alert('File cadangan tidak valid atau rusak.');
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  // Factory Reset
+  document.getElementById('reset-all-btn')?.addEventListener('click', () => {
+    if (confirm('PERINGATAN: Apakah Anda yakin ingin mengembalikan seluruh harga, jajanan, snack box, custom, dan katering ke data awal pabrik?')) {
+      resetAllToDefault();
+      loadAllData();
+      showToast('Data toko berhasil di-reset ke setelan awal.');
+    }
+  });
+
+  // Initialize
+  checkSession();
+</script>

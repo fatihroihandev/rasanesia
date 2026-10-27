@@ -1,0 +1,526 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { categories } from '../data/categories';
+import { snackBoxes } from '../data/snackBoxes';
+import { faqs } from '../data/faqs';
+import { siteConfig } from '../data/siteConfig';
+import { createGeneralInquiryUrl } from '../utils/whatsapp';
+
+const waConsultUrl = createGeneralInquiryUrl();
+---
+
+<BaseLayout 
+  title="Rasanesia | Jajanan Tradisional, Snack Box & Catering Surakarta"
+  description="Katalog jajanan pasar tradisional nusantara, paket snack box acara, dan katering untuk area Kota Surakarta dan Kabupaten Sukoharjo."
+>
+
+  <!-- 1. HERO SECTION -->
+  <section class="relative bg-gradient-to-b from-brand-cream/60 via-brand-white to-brand-white pt-8 pb-16 lg:pt-14 lg:pb-24 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        
+        <!-- Left Column: Copywriting & CTAs -->
+        <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-cream border border-brand-gold/40 text-brand-brown text-xs font-semibold tracking-wider uppercase">
+            <span>Jajanan Tradisional</span>
+            <span class="text-brand-gold">•</span>
+            <span>Snack Box</span>
+            <span class="text-brand-gold">•</span>
+            <span>Catering</span>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-dark leading-[1.15]">
+            Rasa Tradisi, <br class="hidden sm:inline" />
+            <span class="text-brand-brown italic">Cara Modern.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-brand-muted max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Menyajikan aneka kue basah tradisional nusantara, paket snack box acara, dan hidangan katering higienis untuk wilayah Kota Surakarta dan Kabupaten Sukoharjo.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a 
+              href="/menu/"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-semibold px-8 py-4 rounded-full shadow-soft hover:shadow-hover transition-all duration-200 transform hover:-translate-y-0.5 text-base"
+            >
+              <span>Lihat Menu Jajanan</span>
+              <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+
+            <a 
+              href="/custom-snack/"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-white hover:bg-brand-cream text-brand-dark font-semibold px-7 py-4 rounded-full border border-brand-cream-dark shadow-xs transition-all duration-200"
+            >
+              <span>Custom Pesanan</span>
+              <svg class="w-4 h-4 text-brand-green" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.06-1.57-.327-.992-.41-1.63-1.424-1.679-1.489-.048-.066-.405-.538-.405-1.026 0-.487.256-.728.347-.827.091-.099.198-.124.264-.124.066 0 .132.001.19.005.061.004.143-.023.223.17.083.199.282.686.307.736.025.05.041.108.008.174-.033.066-.05.107-.099.165-.05.057-.105.128-.15.172-.05.049-.102.102-.044.202.058.099.258.426.554.69.381.339.702.445.801.494.099.05.157.042.215-.025.058-.066.248-.289.314-.388.066-.099.132-.083.223-.05.091.033.578.273.677.322.099.05.165.075.19.116.025.041.025.24-.119.645z" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Feature Pills (Fakta Terkonfirmasi) -->
+          <div class="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-brand-cream-dark/60 text-left">
+            <div class="flex items-center gap-2.5 text-xs text-brand-dark font-medium">
+              <span class="w-7 h-7 rounded-full bg-brand-cream flex items-center justify-center text-brand-brown shrink-0">🌿</span>
+              <span>Bahan Pilihan Alami</span>
+            </div>
+            <div class="flex items-center gap-2.5 text-xs text-brand-dark font-medium">
+              <span class="w-7 h-7 rounded-full bg-brand-cream flex items-center justify-center text-brand-brown shrink-0">🏺</span>
+              <span>Resep Nusantara Autentik</span>
+            </div>
+            <div class="flex items-center gap-2.5 text-xs text-brand-dark font-medium">
+              <span class="w-7 h-7 rounded-full bg-brand-cream flex items-center justify-center text-brand-brown shrink-0">📦</span>
+              <span>Kemasan Rapi & Higienis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Hero Visual Photography -->
+        <div class="lg:col-span-6 relative">
+          <div class="relative mx-auto max-w-lg lg:max-w-none">
+            <div class="absolute -top-4 -left-4 w-72 h-72 bg-brand-gold/15 rounded-full blur-3xl -z-10"></div>
+            <div class="absolute -bottom-6 -right-6 w-80 h-80 bg-brand-brown/10 rounded-full blur-3xl -z-10"></div>
+
+            <div class="overflow-hidden rounded-3xl shadow-hover border-4 border-brand-white bg-brand-cream">
+              <img 
+                src="/images/hero/hero-banner.jpg" 
+                alt="Sajian Kue Tradisional Rasanesia" 
+                class="w-full h-auto object-cover transform hover:scale-102 transition-transform duration-500"
+                width="800"
+                height="600"
+                loading="eager"
+              />
+            </div>
+
+            <div class="absolute -bottom-4 -left-4 bg-brand-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-card border border-brand-cream-dark flex items-center gap-3">
+              <span class="text-2xl">✨</span>
+              <div>
+                <p class="text-xs font-bold text-brand-dark">Fresh Made by Order</p>
+                <p class="text-[10px] text-brand-muted">Diproduksi segar sesuai jadwal acara</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. KATEGORI UTAMA (4 Kategori Sesuai Addendum Section 4 item 2) -->
+  <section class="py-16 bg-brand-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {categories.map(cat => (
+          <a 
+            href={cat.href}
+            class="group bg-brand-cream-light hover:bg-brand-white border border-brand-cream-dark rounded-2xl overflow-hidden shadow-xs hover:shadow-card transition-all duration-300 flex flex-col"
+          >
+            <div class="aspect-[4/3] overflow-hidden bg-brand-cream">
+              <img 
+                src={cat.image} 
+                alt={cat.name} 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                width="400"
+                height="300"
+              />
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <h3 class="font-serif text-lg font-bold text-brand-dark group-hover:text-brand-brown transition-colors">
+                    {cat.name}
+                  </h3>
+                  <span class="w-7 h-7 rounded-full bg-brand-cream flex items-center justify-center text-brand-brown group-hover:bg-brand-brown group-hover:text-brand-white transition-colors text-xs">
+                    →
+                  </span>
+                </div>
+                <p class="text-xs text-brand-muted leading-relaxed line-clamp-2">
+                  {cat.shortDescription}
+                </p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. PRODUK & PAKET UNGGULAN (Section 4 item 3) -->
+  <section class="py-16 bg-brand-cream/30 border-y border-brand-cream-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Pilihan Rekomendasi</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mt-1">
+            Paket Unggulan
+          </h2>
+          <p class="text-sm text-brand-muted mt-1">
+            Kombinasi snack box dan kue tradisional yang sering dipesan untuk acara di Surakarta.
+          </p>
+        </div>
+        <a 
+          href="/snack-box/" 
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-brown hover:text-brand-brown-dark transition-colors"
+        >
+          <span>Lihat Semua Paket</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Snack Box Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {snackBoxes.map(item => (
+          <div class="bg-brand-white border border-brand-cream-dark rounded-2xl overflow-hidden shadow-card flex flex-col justify-between group hover:border-brand-gold/60 transition-all duration-300">
+            <div class="aspect-[4/3] overflow-hidden bg-brand-cream relative">
+              <img 
+                src={item.image} 
+                alt={item.name} 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                width="400"
+                height="300"
+              />
+              <span data-sync-snackbox-min={item.id} class="absolute top-3 right-3 bg-brand-white/90 backdrop-blur-xs text-brand-brown text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
+                Min {item.minOrder} box
+              </span>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <a href={`/snack-box/${item.slug}/`} class="hover:text-brand-brown">
+                  <h3 class="font-serif text-lg font-bold text-brand-dark line-clamp-1 mb-1">
+                    {item.name}
+                  </h3>
+                </a>
+                <p class="text-xs text-brand-muted line-clamp-2 mb-3 leading-relaxed">
+                  {item.shortDescription}
+                </p>
+
+                <div class="mb-4">
+                  <span data-sync-snackbox-price={item.id} class="font-serif text-xl font-bold text-brand-brown">
+                    Rp {item.price.toLocaleString('id-ID')}
+                  </span>
+                  <span class="text-xs text-brand-muted">/{item.priceUnit}</span>
+                </div>
+              </div>
+
+              <!-- Button: Add to Cart -->
+              <button 
+                type="button"
+                data-add-to-cart
+                data-id={item.id}
+                data-name={item.name}
+                data-price={item.price}
+                data-unit={item.priceUnit}
+                data-image={item.image}
+                class="w-full bg-brand-brown hover:bg-brand-brown-dark text-brand-white text-xs font-semibold py-3 rounded-full shadow-xs hover:shadow-soft transition-all duration-200 flex items-center justify-center gap-2 active:scale-98"
+              >
+                <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                <span>Tambah ke Keranjang</span>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. ALASAN MEMILIH RASANESIA (Section 4 item 4 - Berdasarkan Fakta Terkonfirmasi) -->
+  <section class="py-20 bg-brand-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-5 relative order-2 lg:order-1">
+          <div class="rounded-3xl overflow-hidden shadow-card border-4 border-brand-cream bg-brand-cream aspect-[4/5]">
+            <img 
+              src="/images/categories/jajanan-tradisional.jpg" 
+              alt="Kualitas Jajanan Rasanesia" 
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="absolute -bottom-6 right-4 sm:-right-4 bg-brand-brown text-brand-white p-5 rounded-2xl shadow-hover max-w-xs">
+            <p class="font-serif italic text-sm text-brand-cream">
+              "Kelezatan tradisi yang diolah bersih, higienis, dan dikemas rapi."
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Standar Layanan</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mt-1">
+              Kenapa Memilih Rasanesia?
+            </h2>
+          </div>
+
+          <p class="text-sm sm:text-base text-brand-muted leading-relaxed">
+            Kami menjaga cita rasa warisan tradisional Indonesia dengan standar produksi bersih dan ketepatan pengantaran untuk berbagai acara di wilayah Solo dan Sukoharjo.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+            <div class="space-y-2">
+              <div class="w-10 h-10 rounded-xl bg-brand-cream flex items-center justify-center text-brand-brown font-bold text-lg">
+                🌾
+              </div>
+              <h3 class="font-serif text-base font-bold text-brand-dark">Resep Autentik</h3>
+              <p class="text-xs text-brand-muted leading-relaxed">
+                Olahan resep tradisional dengan bahan alami seperti sari daun pandan suji dan santan segar tanpa perisa buatan.
+              </p>
+            </div>
+
+            <div class="space-y-2">
+              <div class="w-10 h-10 rounded-xl bg-brand-cream flex items-center justify-center text-brand-brown font-bold text-lg">
+                🛡️
+              </div>
+              <h3 class="font-serif text-base font-bold text-brand-dark">Produksi Higienis</h3>
+              <p class="text-xs text-brand-muted leading-relaxed">
+                Dapur produksi bersih dengan alur pengemasan rapi sehingga makanan tiba dalam kondisi prima.
+              </p>
+            </div>
+
+            <div class="space-y-2">
+              <div class="w-10 h-10 rounded-xl bg-brand-cream flex items-center justify-center text-brand-brown font-bold text-lg">
+                💬
+              </div>
+              <h3 class="font-serif text-base font-bold text-brand-dark">Komunikasi WhatsApp Langsung</h3>
+              <p class="text-xs text-brand-muted leading-relaxed">
+                Semua koordinasi ketersediaan tanggal, penyesuaian isi paket, dan invoice dilayani langsung melalui WhatsApp Business.
+              </p>
+            </div>
+
+            <div class="space-y-2">
+              <div class="w-10 h-10 rounded-xl bg-brand-cream flex items-center justify-center text-brand-brown font-bold text-lg">
+                ✨
+              </div>
+              <h3 class="font-serif text-base font-bold text-brand-dark">Fleksibel Sesuai Kebutuhan</h3>
+              <p class="text-xs text-brand-muted leading-relaxed">
+                Tersedia opsi kemasan kraft ramah lingkungan, besek bambu modern, hingga kartu ucapan acara custom.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. GALERI FOTO PILIHAN (Section 4 item 5) -->
+  <section class="py-16 bg-brand-cream/30 border-y border-brand-cream-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Dokumentasi Nyata</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mt-1">
+            Galeri Dapur & Produk
+          </h2>
+        </div>
+        <a href="/galeri/" class="text-sm font-semibold text-brand-brown hover:underline">
+          Lihat Semua Foto →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="aspect-square rounded-2xl overflow-hidden border border-brand-cream-dark bg-brand-cream">
+          <img src="/images/gallery/gallery-01.jpg" alt="Snack Box Rasanesia" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+        </div>
+        <div class="aspect-square rounded-2xl overflow-hidden border border-brand-cream-dark bg-brand-cream">
+          <img src="/images/gallery/gallery-04.jpg" alt="Tampah Kue Basah" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+        </div>
+        <div class="aspect-square rounded-2xl overflow-hidden border border-brand-cream-dark bg-brand-cream">
+          <img src="/images/gallery/gallery-07.jpg" alt="Kue Tradisional Pandan" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+        </div>
+        <div class="aspect-square rounded-2xl overflow-hidden border border-brand-cream-dark bg-brand-cream">
+          <img src="/images/gallery/gallery-08.jpg" alt="Produksi Harian Snack Box" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. RINGKASAN CARA PESAN (Section 4 item 6) -->
+  <section class="py-16 bg-brand-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Alur Pemesanan</span>
+        <h2 class="font-serif text-3xl font-bold text-brand-dark mt-1">
+          4 Langkah Mudah Memesan
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 rounded-2xl bg-brand-cream-light border border-brand-cream-dark space-y-3">
+          <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">1</span>
+          <h3 class="font-serif font-bold text-base text-brand-dark">Pilih Menu</h3>
+          <p class="text-xs text-brand-muted leading-relaxed">
+            Pilih paket snack box siap pilih atau tentukan kombinasi isi kue custom Anda.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-brand-cream-light border border-brand-cream-dark space-y-3">
+          <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">2</span>
+          <h3 class="font-serif font-bold text-base text-brand-dark">Kirim ke WhatsApp</h3>
+          <p class="text-xs text-brand-muted leading-relaxed">
+            Teruskan rincian pesanan dan tanggal kebutuhan ke WhatsApp Business resmi Rasanesia.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-brand-cream-light border border-brand-cream-dark space-y-3">
+          <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">3</span>
+          <h3 class="font-serif font-bold text-base text-brand-dark">Konfirmasi & Pembayaran</h3>
+          <p class="text-xs text-brand-muted leading-relaxed">
+            Admin memeriksa ketersediaan slot dapur, ongkir, dan mengirimkan rincian transfer bank.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-brand-cream-light border border-brand-cream-dark space-y-3">
+          <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">4</span>
+          <h3 class="font-serif font-bold text-base text-brand-dark">Produksi & Pengantaran</h3>
+          <p class="text-xs text-brand-muted leading-relaxed">
+            Pesanan dibuat segar di hari pengantaran dan dikirimkan ke lokasi acara Anda.
+          </p>
+        </div>
+      </div>
+      
+      <div class="text-center mt-8">
+        <a href="/cara-pesan/" class="text-xs font-semibold text-brand-brown hover:underline">
+          Baca panduan alur dan ketentuan pemesanan lengkap →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. RINGKASAN AREA LAYANAN (Section 4 item 7) -->
+  <section class="py-16 bg-brand-cream/30 border-y border-brand-cream-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <div class="lg:col-span-5 space-y-4">
+          <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Jangkauan Pengantaran</span>
+          <h2 class="font-serif text-3xl font-bold text-brand-dark">
+            Wilayah Surakarta & Sukoharjo
+          </h2>
+          <p class="text-sm text-brand-muted leading-relaxed">
+            Layanan pengantaran difokuskan pada wilayah Kota Surakarta dan Kabupaten Sukoharjo yang dapat dijangkau oleh armada kurir kami untuk menjaga kesegaran kue.
+          </p>
+
+          <div class="p-4 rounded-xl bg-brand-white border border-brand-cream-dark text-xs text-brand-dark space-y-1.5">
+            <p class="font-semibold text-brand-brown">Catatan Lokasi Produksi:</p>
+            <p class="text-brand-muted leading-relaxed">
+              {siteConfig.addressNotice}
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="overflow-hidden rounded-2xl border border-brand-cream-dark shadow-card aspect-[16/9] bg-brand-cream">
+            <iframe 
+              src={siteConfig.locationMapEmbedUrl}
+              width="100%" 
+              height="100%" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Peta Referensi Wilayah Surakarta"
+            ></iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FAQ PILIHAN (Section 4 item 8) -->
+  <section class="py-16 bg-brand-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Pertanyaan Umum</span>
+        <h2 class="font-serif text-3xl font-bold text-brand-dark mt-1">
+          FAQ Seputar Pemesanan
+        </h2>
+      </div>
+
+      <div class="space-y-3">
+        {faqs.slice(0, 3).map(faq => (
+          <details class="group bg-brand-cream-light/60 border border-brand-cream-dark rounded-2xl p-4 transition-colors open:bg-brand-white open:shadow-xs">
+            <summary class="font-serif text-sm sm:text-base font-bold text-brand-dark cursor-pointer list-none flex items-center justify-between gap-4">
+              <span>{faq.question}</span>
+              <span class="w-6 h-6 rounded-full bg-brand-cream flex items-center justify-center text-brand-brown shrink-0 text-xs font-bold group-open:rotate-180 transition-transform">
+                ↓
+              </span>
+            </summary>
+            <div class="pt-3 text-xs text-brand-muted leading-relaxed border-t border-brand-cream-dark/60 mt-3">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <div class="text-center mt-6">
+        <a href="/faq/" class="text-xs font-semibold text-brand-brown hover:underline">
+          Lihat seluruh tanya jawab di halaman FAQ →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CTA PEMESANAN WHATSAPP (Section 4 item 9) -->
+  <section class="py-16 bg-gradient-to-b from-brand-white to-brand-cream/40">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Siap Memesan?</span>
+      <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-dark">
+        Konsultasikan Konsumsi Acara Anda Bersama Rasanesia
+      </h2>
+      <p class="text-sm text-brand-muted max-w-xl mx-auto leading-relaxed">
+        Pemesanan idealnya dilakukan minimal H-2 sebelum tanggal acara untuk memastikan ketersediaan bahan baku dan slot produksi segar.
+      </p>
+      <div class="pt-2">
+        <a 
+          href={waConsultUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-brand-white font-semibold px-8 py-4 rounded-full shadow-soft hover:shadow-hover transition-all text-sm transform hover:-translate-y-0.5"
+        >
+          <svg class="w-5 h-5 text-brand-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.06-1.57-.327-.992-.41-1.63-1.424-1.679-1.489-.048-.066-.405-.538-.405-1.026 0-.487.256-.728.347-.827.091-.099.198-.124.264-.124.066 0 .132.001.19.005.061.004.143-.023.223.17.083.199.282.686.307.736.025.05.041.108.008.174-.033.066-.05.107-.099.165-.05.057-.105.128-.15.172-.05.049-.102.102-.044.202.058.099.258.426.554.69.381.339.702.445.801.494.099.05.157.042.215-.025.058-.066.248-.289.314-.388.066-.099.132-.083.223-.05.091.033.578.273.677.322.099.05.165.075.19.116.025.041.025.24-.119.645z" />
+          </svg>
+          <span>Hubungi via WhatsApp Business</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script>
+  import { initClientSync } from '../utils/clientSync';
+
+  // Run live sync with localStorage (from UMKM Admin)
+  initClientSync();
+
+  // Add to cart click event binder for product cards on homepage
+  document.querySelectorAll('[data-add-to-cart]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const id = target.getAttribute('data-id');
+      const name = target.getAttribute('data-name');
+      const price = parseInt(target.getAttribute('data-price') || '0', 10);
+      const unit = target.getAttribute('data-unit') || 'pcs';
+      const image = target.getAttribute('data-image') || '';
+
+      window.dispatchEvent(new CustomEvent('add-to-cart', {
+        detail: { id, name, price, unit, image, quantity: 1 }
+      }));
+    });
+  });
+</script>

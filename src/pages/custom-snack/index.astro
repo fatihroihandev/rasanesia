@@ -1,0 +1,432 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getProducts } from '../../lib/sanity';
+import { siteConfig } from '../../data/siteConfig';
+import { defaultCustomSnackConfig } from '../../data/customSnackConfig';
+
+const products = await getProducts();
+---
+
+<BaseLayout 
+  title="Rancang Custom Snack Box | Rasanesia"
+  description="Kombinasikan sendiri aneka jajanan tradisional dan kemasan snack box sesuai kebutuhan acara dan budget Anda di Solo & Sukoharjo."
+>
+  <!-- Header -->
+  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-brand-brown">Beranda</a>
+        <span>/</span>
+        <span class="text-brand-brown font-semibold">Custom Pesanan</span>
+      </nav>
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+        Formulir Custom Snack Box
+      </h1>
+      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+        Sesuaikan pilihan kue, kemasan, anggaran, dan tanggal kebutuhan acara Anda. Formulir ini akan menyusun ringkasan permintaan resmi untuk dikonfirmasi melalui WhatsApp Business Rasanesia.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive Form Section -->
+  <section class="py-16 bg-brand-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <form id="custom-snack-form" class="space-y-10 bg-brand-cream-light/50 border border-brand-cream-dark p-6 sm:p-10 rounded-3xl shadow-card">
+        
+        <!-- Step 1: Data Pemesan (Section 7.1) -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">1</span>
+            <h2 class="font-serif text-xl font-bold text-brand-dark">Data Pemesan</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="customer-name" class="block text-xs font-bold text-brand-dark mb-1">Nama Pemesan / Instansi*</label>
+              <input 
+                type="text" 
+                id="customer-name" 
+                name="customerName" 
+                placeholder="Contoh: Ibu Siti / PT Sinar Solo" 
+                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="customer-phone" class="block text-xs font-bold text-brand-dark mb-1">Nomor WhatsApp Aktif*</label>
+              <input 
+                type="tel" 
+                id="customer-phone" 
+                name="customerPhone" 
+                placeholder="Contoh: 081234567890" 
+                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Pilih Kemasan -->
+        <div class="space-y-4 pt-4 border-t border-brand-cream-dark">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">2</span>
+            <div>
+              <h2 class="font-serif text-xl font-bold text-brand-dark">Pilih Tipe Kemasan Box</h2>
+              <p class="text-xs text-brand-muted">Pilih wadah yang sesuai dengan kesan dan anggaran acara Anda.</p>
+            </div>
+          </div>
+          
+          <div id="custom-packaging-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {defaultCustomSnackConfig.packagingOptions.map((pack, idx) => (
+              <label class={`cursor-pointer border-2 ${idx === 0 ? 'border-brand-brown' : 'border-brand-cream-dark'} rounded-2xl p-4 bg-brand-white flex flex-col justify-between hover:border-brand-brown transition-all packaging-radio-label`}>
+                <div>
+                  <div class="flex items-center justify-between">
+                    <input 
+                      type="radio" 
+                      name="boxType" 
+                      value={`${pack.name} (${pack.extraPrice > 0 ? '+Rp ' + pack.extraPrice.toLocaleString('id-ID') : 'Termasuk'})`} 
+                      data-extra-price={pack.extraPrice}
+                      checked={idx === 0} 
+                      class="text-brand-brown focus:ring-brand-brown" 
+                    />
+                    <span class="text-[11px] font-bold text-brand-gold">
+                      {pack.extraPrice > 0 ? `+Rp ${pack.extraPrice.toLocaleString('id-ID')}` : 'Termasuk'}
+                    </span>
+                  </div>
+                  <h3 class="font-serif font-bold text-sm text-brand-dark mt-2">{pack.name}</h3>
+                  <p class="text-xs text-brand-muted mt-1 leading-relaxed">{pack.description}</p>
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- Step 3: Pilih Isian Jajanan -->
+        <div class="space-y-4 pt-4 border-t border-brand-cream-dark">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">3</span>
+            <div>
+              <h2 class="font-serif text-xl font-bold text-brand-dark">Pilih Isian Kue (Pilih 2 - 5 Macam)</h2>
+              <p class="text-xs text-brand-muted">Centang kue yang ingin Anda masukkan ke dalam box.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 overflow-y-auto p-3 border border-brand-cream-dark rounded-2xl bg-brand-white">
+            {products.map(p => (
+              <label class="flex items-center gap-3 p-2.5 rounded-xl border border-brand-cream hover:bg-brand-cream/30 cursor-pointer transition-colors">
+                <input 
+                  type="checkbox" 
+                  name="selectedSnacks" 
+                  value={p.name}
+                  data-snack-price={p.price || 0}
+                  class="rounded text-brand-brown focus:ring-brand-brown w-4 h-4 snack-checkbox" 
+                />
+                <img src={p.image} alt={p.name} class="w-10 h-10 rounded-lg object-cover" />
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold text-brand-dark truncate">{p.name}</p>
+                  <p class="text-[10px] text-brand-muted">
+                    {p.tasteProfile} • {p.price ? `Rp ${p.price.toLocaleString('id-ID')}` : 'Harga konfirmasi'}
+                  </p>
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- Step 4: Kebutuhan Acara & Penjadwalan (Section 7.1 & Section 9) -->
+        <div class="space-y-4 pt-4 border-t border-brand-cream-dark">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">4</span>
+            <div>
+              <h2 class="font-serif text-xl font-bold text-brand-dark">Jadwal Acara & Jumlah Box</h2>
+              <p class="text-xs text-brand-muted">Masukkan perkiraan tanggal dan jumlah box yang dibutuhkan.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="custom-qty" class="block text-xs font-bold text-brand-dark mb-1">Jumlah Pesanan (Box)*</label>
+              <input 
+                type="number" 
+                id="custom-qty" 
+                name="quantity" 
+                value="25" 
+                min="1" 
+                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+                required
+              />
+              <span class="text-[10px] text-brand-muted">Minimal pesanan custom reguler adalah 15 box</span>
+            </div>
+
+            <div>
+              <label for="custom-date" class="block text-xs font-bold text-brand-dark mb-1">Tanggal Kebutuhan / Acara*</label>
+              <input 
+                type="date" 
+                id="custom-date" 
+                name="eventDate" 
+                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+                required
+              />
+              <span class="text-[10px] text-brand-muted">Disarankan memilih tanggal minimal H-2</span>
+            </div>
+
+            <div>
+              <label for="custom-fulfillment" class="block text-xs font-bold text-brand-dark mb-1">Metode Pemenuhan*</label>
+              <select 
+                id="custom-fulfillment"
+                name="fulfillmentMethod" 
+                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+              >
+                <option value="Pengiriman ke Alamat Acara">Pengiriman ke Alamat Acara</option>
+                <option value="Pengambilan Mandiri (Self Pick-up)">Pengambilan Mandiri (Self Pick-up)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="custom-area" class="block text-xs font-bold text-brand-dark mb-1">Wilayah Pengantaran / Lokasi Acara</label>
+              <select 
+                id="custom-area"
+                name="area" 
+                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+              >
+                <option value="Kota Surakarta (Solo)">Kota Surakarta (Solo)</option>
+                <option value="Kabupaten Sukoharjo">Kabupaten Sukoharjo</option>
+                <option value="Lainnya di Sekitar Solo Raya">Lainnya di Sekitar Solo Raya</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="event-type" class="block text-xs font-bold text-brand-dark mb-1">Jenis Acara (Opsional)</label>
+              <input 
+                type="text" 
+                id="event-type" 
+                name="eventType" 
+                placeholder="Contoh: Rapat Kantor, Pengajian, Syukuran" 
+                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+              />
+            </div>
+
+            <div>
+              <label for="custom-budget" class="block text-xs font-bold text-brand-dark mb-1">Target Anggaran per Box (Rp, Opsional)</label>
+              <input 
+                type="number" 
+                id="custom-budget" 
+                name="budget" 
+                placeholder="Contoh: 30000" 
+                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="custom-notes" class="block text-xs font-bold text-brand-dark mb-1">Catatan Tambahan / Kebutuhan Khusus (Opsional)</label>
+            <textarea 
+              id="custom-notes" 
+              name="notes" 
+              rows="2" 
+              placeholder="Contoh: Butuh kartu ucapan 'Selamat Hari Jadi', pisahkan sambal/cabai rawit..."
+              class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none resize-none"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Budget Estimator Box (Section 10) -->
+        <div class="p-5 rounded-2xl bg-brand-cream/60 border border-brand-cream-dark space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-gold">Estimasi Anggaran</span>
+            <span class="text-[11px] text-brand-muted">Transparan & dapat disesuaikan</span>
+          </div>
+          <div class="flex items-baseline justify-between pt-1">
+            <span class="text-xs text-brand-dark/80">Perkiraan Subtotal Kue:</span>
+            <span id="estimated-total" class="font-serif text-2xl font-bold text-brand-brown">
+              Rp 0
+            </span>
+          </div>
+          <p class="text-[11px] text-brand-muted italic leading-relaxed pt-1 border-t border-brand-cream-dark/60">
+            *Catatan: Nilai ini merupakan <strong>estimasi sementara</strong> berdasarkan pilihan kue dan jumlah box. Biaya kemasan khusus, diskon volume, dan ongkos kirim akan dikonfirmasi secara final oleh admin Rasanesia melalui WhatsApp.
+          </p>
+        </div>
+
+        <!-- Notice Box Penjadwalan (Section 9 & Section 11.5) -->
+        <div class="p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-amber-900 space-y-1">
+          <p class="font-bold flex items-center gap-1.5">
+            <span>⚠️</span> Informasi Penjadwalan Pesanan:
+          </p>
+          <p>
+            Pengiriman formulir ini akan membuka chat WhatsApp dengan draf pesan siap kirim. Formulir ini merupakan <strong>permintaan inquiry</strong> dan <strong>bukan booking otomatis</strong>. Pesanan Anda baru terkonfirmasi resmi setelah staf kami memeriksa slot dapur dan menyetujui ketersediaan tanggal acara Anda.
+          </p>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-4 border-t border-brand-cream-dark">
+          <button 
+            type="submit" 
+            class="w-full bg-brand-green hover:bg-brand-green-dark text-brand-white font-bold py-4 rounded-full shadow-soft hover:shadow-hover transition-all flex items-center justify-center gap-2 text-base transform hover:-translate-y-0.5"
+          >
+            <span>Kirim Ringkasan Permintaan ke WhatsApp</span>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.06-1.57-.327-.992-.41-1.63-1.424-1.679-1.489-.048-.066-.405-.538-.405-1.026 0-.487.256-.728.347-.827.091-.099.198-.124.264-.124.066 0 .132.001.19.005.061.004.143-.023.223.17.083.199.282.686.307.736.025.05.041.108.008.174-.033.066-.05.107-.099.165-.05.057-.105.128-.15.172-.05.049-.102.102-.044.202.058.099.258.426.554.69.381.339.702.445.801.494.099.05.157.042.215-.025.058-.066.248-.289.314-.388.066-.099.132-.083.223-.05.091.033.578.273.677.322.099.05.165.075.19.116.025.041.025.24-.119.645z" />
+            </svg>
+          </button>
+          <p class="text-[11px] text-center text-brand-muted mt-2">
+            Konsultasi gratis tanpa biaya pemesanan awal. Pesan WhatsApp dapat Anda tinjau kembali sebelum dikirim.
+          </p>
+        </div>
+
+      </form>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ whatsappNumber: siteConfig.whatsappNumber }}>
+  import { initClientSync } from '../../utils/clientSync';
+
+  // Run live sync
+  initClientSync();
+
+  const form = document.getElementById('custom-snack-form');
+  const qtyInput = document.getElementById('custom-qty');
+  const totalDisplay = document.getElementById('estimated-total');
+
+  function calculateEstimate() {
+    const qty = parseInt(qtyInput?.value || '0', 10);
+    const checkedCheckboxes = Array.from(document.querySelectorAll('.snack-checkbox:checked'));
+    
+    let snackSum = 0;
+    checkedCheckboxes.forEach(cb => {
+      const price = parseInt(cb.getAttribute('data-snack-price') || '0', 10);
+      snackSum += price;
+    });
+
+    const selectedPackRadio = document.querySelector('input[name="boxType"]:checked');
+    const packExtra = selectedPackRadio ? parseInt(selectedPackRadio.getAttribute('data-extra-price') || '0', 10) : 0;
+
+    const total = (snackSum + packExtra) * qty;
+    if (totalDisplay) {
+      totalDisplay.textContent = total > 0 ? `Rp ${total.toLocaleString('id-ID')}` : 'Rp 0 (Pilih Kue)';
+    }
+  }
+
+  // Sync client custom packaging if updated in admin
+  try {
+    const storedCustom = localStorage.getItem('rasanesia_store_custom_config');
+    if (storedCustom) {
+      const parsed = JSON.parse(storedCustom);
+      if (parsed.packagingOptions && Array.isArray(parsed.packagingOptions) && parsed.packagingOptions.length > 0) {
+        const grid = document.getElementById('custom-packaging-grid');
+        if (grid) {
+          grid.innerHTML = parsed.packagingOptions.map((pack, idx) => `
+            <label class="cursor-pointer border-2 ${idx === 0 ? 'border-brand-brown' : 'border-brand-cream-dark'} rounded-2xl p-4 bg-brand-white flex flex-col justify-between hover:border-brand-brown transition-all packaging-radio-label">
+              <div>
+                <div class="flex items-center justify-between">
+                  <input 
+                    type="radio" 
+                    name="boxType" 
+                    value="${pack.name} (${pack.extraPrice > 0 ? '+Rp ' + pack.extraPrice.toLocaleString('id-ID') : 'Termasuk'})" 
+                    data-extra-price="${pack.extraPrice}"
+                    ${idx === 0 ? 'checked' : ''} 
+                    class="text-brand-brown focus:ring-brand-brown" 
+                  />
+                  <span class="text-[11px] font-bold text-brand-gold">
+                    ${pack.extraPrice > 0 ? '+Rp ' + pack.extraPrice.toLocaleString('id-ID') : 'Termasuk'}
+                  </span>
+                </div>
+                <h3 class="font-serif font-bold text-sm text-brand-dark mt-2">${pack.name}</h3>
+                <p class="text-xs text-brand-muted mt-1 leading-relaxed">${pack.description || ''}</p>
+              </div>
+            </label>
+          `).join('');
+
+          // Re-bind change events for radios
+          grid.querySelectorAll('input[name="boxType"]').forEach(r => {
+            r.addEventListener('change', () => {
+              grid.querySelectorAll('.packaging-radio-label').forEach(lbl => {
+                lbl.classList.remove('border-brand-brown');
+                lbl.classList.add('border-brand-cream-dark');
+              });
+              r.closest('.packaging-radio-label')?.classList.add('border-brand-brown');
+              calculateEstimate();
+            });
+          });
+        }
+      }
+    }
+  } catch (e) {}
+
+  document.querySelectorAll('input[name="boxType"]').forEach(r => {
+    r.addEventListener('change', calculateEstimate);
+  });
+  document.querySelectorAll('.snack-checkbox').forEach(cb => {
+    cb.addEventListener('change', calculateEstimate);
+  });
+  qtyInput?.addEventListener('input', calculateEstimate);
+  calculateEstimate();
+  
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const customerName = form.querySelector('#customer-name')?.value || '';
+    const customerPhone = form.querySelector('#customer-phone')?.value || '';
+    const boxTypeEl = form.querySelector('input[name="boxType"]:checked');
+    const boxType = boxTypeEl ? boxTypeEl.value : 'Kraft Box';
+
+    const selectedSnacks = Array.from(form.querySelectorAll('input[name="selectedSnacks"]:checked'))
+      .map(cb => cb.value);
+
+    const qty = parseInt(form.querySelector('#custom-qty')?.value || '1', 10);
+    const eventDate = form.querySelector('#custom-date')?.value || '';
+    const fulfillmentMethod = form.querySelector('#custom-fulfillment')?.value || '';
+    const area = form.querySelector('#custom-area')?.value || '';
+    const eventType = form.querySelector('#event-type')?.value || '';
+    const budget = form.querySelector('#custom-budget')?.value || '';
+    const notes = form.querySelector('#custom-notes')?.value || '';
+
+    if (qty <= 0) {
+      alert('Jumlah pesanan box harus lebih besar dari nol.');
+      return;
+    }
+
+    let message = `Halo Rasanesia, saya ingin mengajukan Permintaan Custom Snack Box:\n\n`;
+    message += `• Nama Pemesan: ${customerName}\n`;
+    message += `• Kontak Pemesan: ${customerPhone}\n`;
+    message += `• Tipe Kemasan: ${boxType}\n`;
+    message += `• Jumlah Pesanan: ${qty} box\n`;
+    message += `• Tanggal Kebutuhan: ${eventDate || 'Belum Ditentukan'}\n`;
+    message += `• Metode Pemenuhan: ${fulfillmentMethod}\n`;
+    message += `• Wilayah Acara: ${area}\n`;
+    if (eventType.trim()) {
+      message += `• Jenis Acara: ${eventType.trim()}\n`;
+    }
+    if (budget) {
+      message += `• Target Anggaran: Rp ${parseInt(budget).toLocaleString('id-ID')} / box\n`;
+    }
+    if (selectedSnacks.length > 0) {
+      message += `• Pilihan Isian Kue:\n`;
+      selectedSnacks.forEach((snack, idx) => {
+        message += `  ${idx + 1}. ${snack}\n`;
+      });
+    }
+    if (notes.trim()) {
+      message += `• Catatan Khusus: ${notes.trim()}\n`;
+    }
+    message += `\nMohon informasi ketersediaan slot produksi dan konfirmasi rincian penawarannya. Terima kasih!`;
+
+    let activePhone = whatsappNumber;
+    try {
+      const storedConfig = localStorage.getItem('rasanesia_store_config');
+      if (storedConfig) {
+        const parsed = JSON.parse(storedConfig);
+        if (parsed.whatsappNumber) activePhone = parsed.whatsappNumber;
+      }
+    } catch (e) {}
+
+    const cleanPhone = String(activePhone).replace(/[^0-9]/g, '');
+    const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+  });
+</script>

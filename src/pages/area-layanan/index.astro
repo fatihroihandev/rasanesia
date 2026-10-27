@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { createGeneralInquiryUrl } from '../../utils/whatsapp';
+
+const waUrl = createGeneralInquiryUrl();
+---
+
+<BaseLayout 
+  title="Area Layanan Pengiriman & Pengambilan | Rasanesia"
+  description="Informasi cakupan area pengantaran pesanan snack box dan jajanan pasar Rasanesia di Kota Surakarta dan Kabupaten Sukoharjo."
+>
+  <!-- Hero Section -->
+  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-brand-brown">Beranda</a>
+        <span>/</span>
+        <span class="text-brand-brown font-semibold">Area Layanan</span>
+      </nav>
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+        Jangkauan Layanan Rasanesia
+      </h1>
+      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+        Untuk menjaga kesegaran, kehangatan, dan tekstur otentik jajanan tradisional tanpa bahan pengawet, layanan kami difokuskan pada wilayah yang terjangkau secara optimal.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="py-16 bg-brand-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      
+      <!-- Primary Covered Areas -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Kota Surakarta -->
+        <div class="bg-brand-cream-light/60 border border-brand-cream-dark p-8 rounded-3xl space-y-5">
+          <div class="w-12 h-12 rounded-2xl bg-brand-brown text-brand-white flex items-center justify-center font-serif font-bold text-xl shadow-xs">
+            1
+          </div>
+          <div>
+            <h2 class="font-serif text-2xl font-bold text-brand-dark">Kota Surakarta (Solo)</h2>
+            <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Layanan Penuh</p>
+          </div>
+          <p class="text-sm text-brand-dark/80 leading-relaxed">
+            Melayani pengantaran snack box dan jajanan untuk berbagai kantor pemerintahan, kampus, hotel, gedung pertemuan, serta perumahan di 5 kecamatan:
+          </p>
+          <ul class="grid grid-cols-2 gap-2 text-xs text-brand-muted font-medium pt-2 border-t border-brand-cream-dark">
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Banjarsari
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Jebres
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Laweyan
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Pasar Kliwon
+            </li>
+            <li class="flex items-center gap-2 col-span-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Serengan
+            </li>
+          </ul>
+        </div>
+
+        <!-- Kabupaten Sukoharjo -->
+        <div class="bg-brand-cream-light/60 border border-brand-cream-dark p-8 rounded-3xl space-y-5">
+          <div class="w-12 h-12 rounded-2xl bg-brand-green text-brand-white flex items-center justify-center font-serif font-bold text-xl shadow-xs">
+            2
+          </div>
+          <div>
+            <h2 class="font-serif text-2xl font-bold text-brand-dark">Kabupaten Sukoharjo</h2>
+            <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Area Terjangkau</p>
+          </div>
+          <p class="text-sm text-brand-dark/80 leading-relaxed">
+            Melayani pengiriman untuk acara keluarga, instansi, dan korporat di wilayah Sukoharjo yang dapat dijangkau dalam waktu tempuh aman kualitas jajanan:
+          </p>
+          <ul class="grid grid-cols-2 gap-2 text-xs text-brand-muted font-medium pt-2 border-t border-brand-cream-dark">
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Kartasura
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Grogol (Solo Baru)
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Baki
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Mojolaban
+            </li>
+            <li class="flex items-center gap-2 col-span-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Sukoharjo Kota (Sesuai Konfirmasi)
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Fulfillment Methods -->
+      <div class="bg-brand-white border-2 border-brand-cream-dark rounded-3xl p-8 sm:p-10">
+        <h3 class="font-serif text-2xl font-bold text-brand-dark text-center mb-8">
+          Metode Pemenuhan Pesanan
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <div class="flex gap-4 items-start">
+            <div class="w-12 h-12 rounded-2xl bg-brand-cream flex items-center justify-center text-2xl flex-shrink-0">
+              🛵
+            </div>
+            <div class="space-y-2">
+              <h4 class="font-bold text-base text-brand-dark">1. Pengantaran Langsung (Delivery)</h4>
+              <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+                Pesanan diantar langsung ke alamat venue acara menggunakan armada yang terjaga agar tatanan kue dan kemasan tetap utuh sempurna. Tarif pengantaran dihitung berdasarkan jarak aktual dari dapur produksi kami.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+            <div class="w-12 h-12 rounded-2xl bg-brand-cream flex items-center justify-center text-2xl flex-shrink-0">
+              🏪
+            </div>
+            <div class="space-y-2">
+              <h4 class="font-bold text-base text-brand-dark">2. Pengambilan Mandiri (Pick-Up)</h4>
+              <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+                Anda juga dapat mengambil langsung pesanan yang telah dikemas rapi di titik temu dapur produksi kami sesuai jam kesepakatan pemesanan tanpa dikenakan biaya antar.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Outside Area Notice -->
+      <div class="bg-brand-brown text-brand-white p-8 sm:p-10 rounded-3xl text-center space-y-4 shadow-card">
+        <h3 class="font-serif text-2xl sm:text-3xl font-bold">
+          Lokasi Acara Anda di Luar Wilayah di Atas?
+        </h3>
+        <p class="text-xs sm:text-sm text-brand-cream/90 max-w-2xl mx-auto leading-relaxed">
+          Untuk acara berskala besar atau pesanan khusus di sekitar Solo Raya (Karanganyar, Boyolali, Klaten), silakan konsultasikan dengan tim admin kami via WhatsApp untuk mengecek kelayakan waktu tempuh dan ketersediaan slot armada.
+        </p>
+        <div class="pt-2">
+          <a 
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold-dark text-brand-dark font-bold px-6 py-3 rounded-full text-sm shadow-soft transition-transform active:scale-95"
+          >
+            <span>Tanyakan Ketersediaan Area via WhatsApp</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

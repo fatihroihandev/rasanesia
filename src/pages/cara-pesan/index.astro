@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/siteConfig';
+import { createGeneralInquiryUrl } from '../../utils/whatsapp';
+
+const waUrl = createGeneralInquiryUrl();
+---
+
+<BaseLayout 
+  title="Cara Pemesanan & Alur Layanan | Rasanesia"
+  description="Panduan mudah alur pemesanan jajanan dan snack box Rasanesia melalui WhatsApp Business resmi di Surakarta & Sukoharjo."
+>
+  <!-- Header -->
+  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-brand-brown">Beranda</a>
+        <span>/</span>
+        <span class="text-brand-brown font-semibold">Cara Pesan</span>
+      </nav>
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+        Alur Pemesanan Mudah & Transparan
+      </h1>
+      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+        Untuk menjamin kesegaran kue basah tanpa bahan pengawet, setiap pesanan diproduksi secara khusus sesuai jadwal acara Anda.
+      </p>
+    </div>
+  </section>
+
+  <!-- Step by step -->
+  <section class="py-16 bg-brand-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="space-y-8">
+        
+        <!-- Step 1 -->
+        <div class="flex flex-col sm:flex-row gap-6 p-6 sm:p-8 bg-brand-cream-light/60 rounded-3xl border border-brand-cream-dark items-start">
+          <div class="w-14 h-14 rounded-2xl bg-brand-brown text-brand-white font-serif font-bold text-2xl flex items-center justify-center shrink-0 shadow-sm">
+            1
+          </div>
+          <div class="space-y-2">
+            <h2 class="font-serif text-xl sm:text-2xl font-bold text-brand-dark">
+              Pilih Menu atau Rancang Custom Snack Box
+            </h2>
+            <p class="text-sm text-brand-muted leading-relaxed">
+              Jelajahi halaman <a href="/menu/" class="text-brand-brown underline font-semibold">Menu</a> atau <a href="/snack-box/" class="text-brand-brown underline font-semibold">Paket Snack Box</a>. Anda juga dapat menambahkan item langsung ke keranjang website atau menggunakan form <a href="/custom-snack/" class="text-brand-brown underline font-semibold">Custom Snack Box</a>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex flex-col sm:flex-row gap-6 p-6 sm:p-8 bg-brand-cream-light/60 rounded-3xl border border-brand-cream-dark items-start">
+          <div class="w-14 h-14 rounded-2xl bg-brand-brown text-brand-white font-serif font-bold text-2xl flex items-center justify-center shrink-0 shadow-sm">
+            2
+          </div>
+          <div class="space-y-2">
+            <h2 class="font-serif text-xl sm:text-2xl font-bold text-brand-dark">
+              Lanjutkan Pesanan ke WhatsApp Business Resmi
+            </h2>
+            <p class="text-sm text-brand-muted leading-relaxed">
+              Klik tombol <em>"Lanjutkan ke WhatsApp"</em> atau <em>"Pesan Sekarang"</em>. Sistem website akan otomatis menyusun rincian produk, jumlah box, dan catatan tanggal acara Anda ke dalam pesan WhatsApp yang rapi dan siap kirim ke nomor resmi kami (<strong>{siteConfig.whatsappDisplay}</strong>).
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex flex-col sm:flex-row gap-6 p-6 sm:p-8 bg-brand-cream-light/60 rounded-3xl border border-brand-cream-dark items-start">
+          <div class="w-14 h-14 rounded-2xl bg-brand-brown text-brand-white font-serif font-bold text-2xl flex items-center justify-center shrink-0 shadow-sm">
+            3
+          </div>
+          <div class="space-y-2">
+            <h2 class="font-serif text-xl sm:text-2xl font-bold text-brand-dark">
+              Konfirmasi Ketersediaan & Pembayaran
+            </h2>
+            <p class="text-sm text-brand-muted leading-relaxed">
+              Customer service Rasanesia akan mengonfirmasi slot produksi, menghitung biaya pengantaran ke alamat Anda, dan mengirimkan invoice rincian pembayaran melalui transfer bank resmi.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="flex flex-col sm:flex-row gap-6 p-6 sm:p-8 bg-brand-cream-light/60 rounded-3xl border border-brand-cream-dark items-start">
+          <div class="w-14 h-14 rounded-2xl bg-brand-brown text-brand-white font-serif font-bold text-2xl flex items-center justify-center shrink-0 shadow-sm">
+            4
+          </div>
+          <div class="space-y-2">
+            <h2 class="font-serif text-xl sm:text-2xl font-bold text-brand-dark">
+              Produksi Segar & Pengantaran Tepat Waktu
+            </h2>
+            <p class="text-sm text-brand-muted leading-relaxed">
+              Kue basah Anda dimasak di hari pengiriman, dikemas dengan standar higienis tinggi, dan diantarkan langsung ke lokasi acara Anda di wilayah Surakarta dan Sukoharjo sesuai jam yang disepakati.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick CTA -->
+      <div class="mt-12 text-center p-8 bg-brand-cream/40 rounded-3xl border border-brand-cream-dark space-y-4">
+        <h3 class="font-serif text-2xl font-bold text-brand-dark">Ada Pertanyaan Khusus?</h3>
+        <p class="text-sm text-brand-muted max-w-lg mx-auto">
+          Tim kami senang membantu Anda merencanakan konsumsi terbaik untuk kegiatan Anda.
+        </p>
+        <a 
+          href={waUrl} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-brand-white font-semibold px-8 py-3.5 rounded-full shadow-soft transition-all text-sm"
+        >
+          <span>Chat WhatsApp Sekarang</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>
