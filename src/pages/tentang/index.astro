@@ -6,87 +6,97 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   title="Tentang Kami | Rasanesia - Rasa Tradisi, Cara Modern"
   description="Cerita dan nilai-nilai Rasanesia: menghadirkan kembali kenikmatan jajanan pasar tradisional Indonesia dengan standar modern dan higienis."
 >
-  <!-- Header -->
-  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-brand-brown">Beranda</a>
-        <span>/</span>
-        <span class="text-brand-brown font-semibold">Tentang Kami</span>
+  <!-- Semantic Page Header -->
+  <header aria-labelledby="about-page-heading" class="page-header-banner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="/" class="breadcrumb-link">Beranda</a></li>
+          <li aria-current="page" class="breadcrumb-current">Tentang Kami</li>
+        </ol>
       </nav>
-      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+      <span class="editorial-kicker">Kisah & Filosofi Dapur</span>
+      <h1 id="about-page-heading" class="font-serif text-3xl sm:text-5xl font-bold text-content-primary mt-2">
         Tentang Rasanesia
       </h1>
-      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+      <p class="text-sm sm:text-base text-content-secondary mt-3 max-w-2xl leading-relaxed m-0">
         Kisah di balik dedikasi kami merawat cita rasa autentik Nusantara dengan sentuhan estetika dan kebersihan modern.
       </p>
     </div>
-  </section>
+  </header>
 
   <!-- Story & Philosophy -->
-  <section class="py-16 bg-brand-white">
+  <div class="py-16 bg-surface-primary">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       
       <!-- Section 1: Filosofi Nama & Tagline -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <article aria-labelledby="philosophy-heading" class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <div class="space-y-4">
-          <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Filosofi Kami</span>
-          <h2 class="font-serif text-3xl font-bold text-brand-dark">
+          <span class="editorial-kicker">Filosofi Kami</span>
+          <h2 id="philosophy-heading" class="font-serif text-3xl font-bold text-content-primary">
             "Rasa Tradisi, Cara Modern."
           </h2>
-          <p class="text-sm text-brand-muted leading-relaxed">
-            Nama <strong>Rasanesia</strong> lahir dari perpaduan dua kata bermakna luhur: <em>Rasa Indonesia</em>. Kami meyakini bahwa di setiap gigitan lemper ayam, dadar gulung, kue lumpur, hingga sosis solo, tersimpan kekayaan memori rasa dan budaya ramah tamah masyarakat Nusantara.
+          <p class="text-sm text-content-secondary leading-relaxed">
+            Nama <strong class="text-content-primary">Rasanesia</strong> lahir dari perpaduan dua kata bermakna luhur: <em>Rasa Indonesia</em>. Kami meyakini bahwa di setiap gigitan lemper ayam, dadar gulung, kue lumpur, hingga sosis solo, tersimpan kekayaan memori rasa dan budaya ramah tamah masyarakat Nusantara.
           </p>
-          <p class="text-sm text-brand-muted leading-relaxed">
+          <p class="text-sm text-content-secondary leading-relaxed">
             Namun, kehidupan modern menuntut standar yang lebih tinggi: ketepatan waktu pengiriman, kemasan rapi yang tidak berminyak, komunikasi pemesanan yang cepat, serta jaminan higienitas prima. Itulah alasan Rasanesia hadir menjembatani kedua dunia tersebut.
           </p>
         </div>
 
-        <div class="rounded-3xl overflow-hidden border-2 border-brand-cream-dark shadow-card bg-brand-cream aspect-square">
+        <figure class="rounded-3xl overflow-hidden border-2 border-line-subtle shadow-card bg-surface-subtle aspect-square m-0">
           <img 
             src="/images/logo.jpg" 
             alt="Logo Filosofi Rasanesia" 
             class="w-full h-full object-cover"
+            width="500"
+            height="500"
           />
-        </div>
-      </div>
+        </figure>
+      </article>
 
       <!-- Section 2: Tiga Komitmen Utama -->
-      <div class="pt-8 border-t border-brand-cream-dark">
-        <div class="text-center max-w-2xl mx-auto mb-10">
-          <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Prinsip & Nilai</span>
-          <h2 class="font-serif text-3xl font-bold text-brand-dark mt-1">
+      <section aria-labelledby="standards-heading" class="pt-8 border-t border-line-subtle">
+        <header class="text-center max-w-2xl mx-auto mb-10">
+          <span class="editorial-kicker justify-center">Prinsip & Nilai</span>
+          <h2 id="standards-heading" class="font-serif text-3xl font-bold text-content-primary mt-2">
             Standar Kualitas Rasanesia
           </h2>
-        </div>
+        </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="p-6 rounded-2xl bg-brand-cream-light/60 border border-brand-cream-dark space-y-3">
-            <span class="text-3xl">🌿</span>
-            <h3 class="font-serif text-lg font-bold text-brand-dark">Resep Asli Tanpa Kompromi</h3>
-            <p class="text-xs text-brand-muted leading-relaxed">
-              Kami menggunakan sari pandan suji murni, santan peras segar, dan gula aren asli. Tanpa pemanis buatan, tanpa pengawet kimia sintetis.
-            </p>
-          </div>
+        <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 list-none m-0 p-0">
+          <li>
+            <article class="p-6 rounded-2xl bg-surface-canvas/60 border border-line-subtle space-y-3 h-full">
+              <span class="text-3xl block" aria-hidden="true">🌿</span>
+              <h3 class="font-serif text-lg font-bold text-content-primary">Resep Asli Tanpa Kompromi</h3>
+              <p class="text-xs sm:text-sm text-content-secondary leading-relaxed m-0">
+                Kami menggunakan sari pandan suji murni, santan peras segar, dan gula aren asli. Tanpa pemanis buatan, tanpa pengawet kimia sintetis.
+              </p>
+            </article>
+          </li>
 
-          <div class="p-6 rounded-2xl bg-brand-cream-light/60 border border-brand-cream-dark space-y-3">
-            <span class="text-3xl">📦</span>
-            <h3 class="font-serif text-lg font-bold text-brand-dark">Kemasan Bersih & Rapi</h3>
-            <p class="text-xs text-brand-muted leading-relaxed">
-              Setiap kue dikemas higienis dengan alas daun pisang dan kotak karton ramah lingkungan yang kokoh serta tidak mudah penyok saat pengiriman.
-            </p>
-          </div>
+          <li>
+            <article class="p-6 rounded-2xl bg-surface-canvas/60 border border-line-subtle space-y-3 h-full">
+              <span class="text-3xl block" aria-hidden="true">📦</span>
+              <h3 class="font-serif text-lg font-bold text-content-primary">Kemasan Bersih & Rapi</h3>
+              <p class="text-xs sm:text-sm text-content-secondary leading-relaxed m-0">
+                Setiap kue dikemas higienis dengan alas daun pisang dan kotak karton ramah lingkungan yang kokoh serta tidak mudah penyok saat pengiriman.
+              </p>
+            </article>
+          </li>
 
-          <div class="p-6 rounded-2xl bg-brand-cream-light/60 border border-brand-cream-dark space-y-3">
-            <span class="text-3xl">⏱️</span>
-            <h3 class="font-serif text-lg font-bold text-brand-dark">Tepat Waktu & Amanah</h3>
-            <p class="text-xs text-brand-muted leading-relaxed">
-              Jadwal acara Anda adalah prioritas mutlak kami. Pengantaran dikoordinasikan secara ketat agar tiba tepat pada saat dibutuhkan.
-            </p>
-          </div>
-        </div>
-      </div>
+          <li>
+            <article class="p-6 rounded-2xl bg-surface-canvas/60 border border-line-subtle space-y-3 h-full">
+              <span class="text-3xl block" aria-hidden="true">⏱️</span>
+              <h3 class="font-serif text-lg font-bold text-content-primary">Tepat Waktu & Amanah</h3>
+              <p class="text-xs sm:text-sm text-content-secondary leading-relaxed m-0">
+                Jadwal acara Anda adalah prioritas mutlak kami. Pengantaran dikoordinasikan secara ketat agar tiba tepat pada saat dibutuhkan.
+              </p>
+            </article>
+          </li>
+        </ul>
+      </section>
 
     </div>
-  </section>
+  </div>
 </BaseLayout>

@@ -11,58 +11,60 @@ const waUrl = createGeneralInquiryUrl();
   title="Tanya Jawab (FAQ) | Rasanesia"
   description="Pertanyaan yang sering diajukan seputar pemesanan snack box, daya tahan kue basah, pembayaran, dan pengiriman di Surakarta & Sukoharjo."
 >
-  <!-- Header -->
-  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-brand-brown">Beranda</a>
-        <span>/</span>
-        <span class="text-brand-brown font-semibold">FAQ</span>
+  <!-- Semantic Page Header -->
+  <header aria-labelledby="faq-page-heading" class="page-header-banner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="/" class="breadcrumb-link">Beranda</a></li>
+          <li aria-current="page" class="breadcrumb-current">FAQ</li>
+        </ol>
       </nav>
-      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+      <span class="editorial-kicker">Pusat Informasi</span>
+      <h1 id="faq-page-heading" class="font-serif text-3xl sm:text-5xl font-bold text-content-primary mt-2">
         Pertanyaan yang Sering Diajukan
       </h1>
-      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+      <p class="text-sm sm:text-base text-content-secondary mt-3 max-w-2xl leading-relaxed m-0">
         Temukan jawaban cepat seputar pemesanan, minimal order, jangkauan pengantaran, dan daya tahan produk kami.
       </p>
     </div>
-  </section>
+  </header>
 
   <!-- FAQ Accordion List -->
-  <section class="py-16 bg-brand-white">
+  <section aria-label="Daftar pertanyaan dan jawaban" class="py-16 bg-surface-primary">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="space-y-4">
         {faqs.map(faq => (
-          <details class="group bg-brand-cream-light/60 border border-brand-cream-dark rounded-2xl p-5 transition-colors open:bg-brand-white open:shadow-xs">
-            <summary class="font-serif text-base sm:text-lg font-bold text-brand-dark cursor-pointer list-none flex items-center justify-between gap-4">
+          <details class="group bg-surface-canvas/60 border border-line-subtle rounded-2xl p-5 transition-colors open:bg-surface-primary open:shadow-xs">
+            <summary class="font-serif text-base sm:text-lg font-bold text-content-primary cursor-pointer list-none flex items-center justify-between gap-4 min-h-[44px]">
               <span>{faq.question}</span>
-              <span class="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-brown shrink-0 text-sm font-bold group-open:rotate-180 transition-transform duration-200">
+              <span class="w-9 h-9 rounded-full bg-surface-subtle flex items-center justify-center text-content-accent shrink-0 text-sm font-bold group-open:rotate-180 transition-transform duration-200" aria-hidden="true">
                 ↓
               </span>
             </summary>
-            <div class="pt-4 text-sm text-brand-muted leading-relaxed border-t border-brand-cream-dark/60 mt-4">
-              <p>{faq.answer}</p>
+            <div class="pt-4 text-sm text-content-secondary leading-relaxed border-t border-line-subtle/60 mt-4">
+              <p class="m-0">{faq.answer}</p>
             </div>
           </details>
         ))}
       </div>
 
       <!-- Still have questions? -->
-      <div class="mt-14 text-center p-8 bg-brand-cream/40 rounded-3xl border border-brand-cream-dark space-y-4">
-        <h3 class="font-serif text-xl sm:text-2xl font-bold text-brand-dark">Punya Pertanyaan Lain?</h3>
-        <p class="text-sm text-brand-muted max-w-md mx-auto">
+      <aside aria-labelledby="faq-more-heading" class="mt-14 text-center p-8 bg-surface-subtle/40 rounded-3xl border border-line-subtle space-y-4">
+        <h2 id="faq-more-heading" class="font-serif text-xl sm:text-2xl font-bold text-content-primary">Punya Pertanyaan Lain?</h2>
+        <p class="text-sm text-content-secondary max-w-md mx-auto">
           Customer service Rasanesia siap menjawab segala keraguan Anda mengenai pesanan acara.
         </p>
         <a 
           href={waUrl} 
           target="_blank" 
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-semibold px-7 py-3 rounded-full transition-colors text-sm shadow-xs"
+          class="min-h-[48px] inline-flex items-center gap-2 bg-action-primary hover:bg-action-primary-hover text-content-inverse font-semibold px-7 py-3 rounded-full transition-colors text-sm shadow-xs"
         >
           <span>Tanya via WhatsApp</span>
         </a>
-      </div>
+      </aside>
 
     </div>
   </section>

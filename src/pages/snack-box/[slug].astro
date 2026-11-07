@@ -21,7 +21,7 @@ const packageSchema = {
   "@type": "Product",
   "name": box.name,
   "description": box.description,
-  "image": box.image,
+  "image": new URL(box.image, Astro.url.origin).href,
   "brand": {
     "@type": "Brand",
     "name": "Rasanesia"
@@ -40,91 +40,105 @@ const packageSchema = {
   title={`${box.name} | Rasanesia`}
   description={box.description}
   image={box.image}
+  preloadHeroImage={box.image}
 >
   <script type="application/ld+json" set:html={JSON.stringify(packageSchema)} />
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
-    <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs text-brand-muted mb-8" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-brand-brown">Beranda</a>
-      <span>/</span>
-      <a href="/snack-box/" class="hover:text-brand-brown">Snack Box</a>
-      <span>/</span>
-      <span class="text-brand-brown font-semibold truncate">{box.name}</span>
+  <article itemscope itemtype="https://schema.org/Product" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+    <!-- Semantic Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-8">
+      <ol class="breadcrumb-list">
+        <li><a href="/" class="breadcrumb-link">Beranda</a></li>
+        <li><a href="/snack-box/" class="breadcrumb-link">Snack Box</a></li>
+        <li aria-current="page" class="breadcrumb-current">{box.name}</li>
+      </ol>
     </nav>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
       
-      <!-- Image -->
-      <div class="lg:col-span-6">
-        <div class="rounded-3xl overflow-hidden border-2 border-brand-cream-dark shadow-card bg-brand-cream aspect-[4/3]">
+      <!-- Left: Semantic Figure -->
+      <figure class="lg:col-span-6 m-0">
+        <div class="rounded-3xl overflow-hidden border-2 border-line-subtle shadow-card bg-surface-subtle aspect-[4/3] relative">
           <img 
+            itemprop="image"
             src={box.image} 
             alt={box.name} 
+            width="800"
+            height="600"
             class="w-full h-full object-cover"
             loading="eager"
+            fetchpriority="high"
+            decoding="async"
           />
+          <figcaption class="absolute top-4 left-4 bg-surface-inverse/85 text-content-inverse-muted font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full">
+            PAKET KURASI • MIN {box.minOrder || 15} BOX
+          </figcaption>
         </div>
-      </div>
+      </figure>
 
-      <!-- Info -->
+      <!-- Right: Semantic Package Details -->
       <div class="lg:col-span-6 space-y-6">
-        <div>
-          <span class="px-3 py-1 rounded-full bg-brand-cream text-brand-brown text-xs font-semibold">
+        <header>
+          <p class="px-3.5 py-1 rounded-full bg-surface-subtle text-content-accent text-xs font-bold inline-block m-0">
             Paket Rekomendasi Acara
-          </span>
-          <h1 class="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mt-2">
+          </p>
+          <h1 itemprop="name" class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-content-primary mt-3">
             {box.name}
           </h1>
-        </div>
+        </header>
 
-        <div class="p-4 rounded-2xl bg-brand-cream/40 border border-brand-cream-dark inline-block min-w-[200px]">
-          <span class="text-xs text-brand-muted block">Harga per paket:</span>
-          {box.price ? (
-            <div>
-              <span data-sync-snackbox-price={box.id} class="font-serif text-3xl font-bold text-brand-brown">
-                Rp {box.price.toLocaleString('id-ID')}
-              </span>
-              <span class="text-xs text-brand-muted">/{box.priceUnit || 'box'}</span>
-            </div>
-          ) : (
-            <div class="pt-1">
-              <span data-sync-snackbox-price={box.id} class="text-sm font-semibold text-brand-brown">Hubungi via WhatsApp</span>
-              <span class="text-[11px] text-brand-muted block">Harga dikonfirmasi sesuai pesanan</span>
-            </div>
-          )}
-        </div>
+        <dl class="p-5 rounded-2xl bg-surface-subtle/45 border border-line-subtle inline-block min-w-[240px] m-0">
+          <dt class="text-xs text-content-secondary block mb-0.5">Harga per paket:</dt>
+          <dd class="m-0">
+            {box.price ? (
+              <div>
+                <span data-sync-snackbox-price={box.id} class="font-serif text-3xl font-bold text-content-accent tabular-price">
+                  Rp {box.price.toLocaleString('id-ID')}
+                </span>
+                <span class="text-xs text-content-secondary">/{box.priceUnit || 'box'}</span>
+              </div>
+            ) : (
+              <div class="pt-1">
+                <span data-sync-snackbox-price={box.id} class="text-sm font-semibold text-content-accent">Hubungi via WhatsApp</span>
+                <span class="text-[11px] text-content-secondary block">Harga dikonfirmasi sesuai pesanan</span>
+              </div>
+            )}
+          </dd>
+        </dl>
 
-        <p class="text-sm sm:text-base text-brand-muted leading-relaxed">
+        <p itemprop="description" class="text-sm sm:text-base text-content-secondary leading-relaxed">
           {box.description}
         </p>
 
         <!-- What's included -->
         {box.includes && box.includes.length > 0 && (
-          <div class="p-5 rounded-2xl bg-brand-cream-light border border-brand-cream-dark space-y-3">
-            <h3 class="font-serif text-base font-bold text-brand-dark">Isian Lengkap Dalam Box:</h3>
-            <ul class="space-y-2 text-sm text-brand-dark/90">
+          <section aria-labelledby="box-includes-heading" class="p-5 rounded-2xl bg-surface-canvas border border-line-subtle space-y-3">
+            <h2 id="box-includes-heading" class="font-serif text-base font-bold text-content-primary">Isian Lengkap Dalam Box:</h2>
+            <ul class="space-y-2 text-sm text-content-primary/90 list-none m-0 p-0">
               {box.includes.map(item => (
-                <li class="flex items-center gap-2">
-                  <span class="w-5 h-5 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-brand-green/20 text-status-success flex items-center justify-center text-xs font-bold shrink-0" aria-hidden="true">✓</span>
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
-            <div class="pt-2 text-xs text-brand-muted border-t border-brand-cream-dark/60">
-              <span>Tipe Kemasan: <strong>{box.packagingType || 'Kraft Box Ramah Lingkungan'}</strong></span>
-            </div>
-          </div>
+            <p class="pt-2 text-xs text-content-secondary border-t border-line-subtle/60 m-0">
+              Tipe Kemasan: <strong class="text-content-primary">{box.packagingType || 'Kraft Box Ramah Lingkungan'}</strong>
+            </p>
+          </section>
         )}
 
-        <!-- Order Information Box -->
-        <div class="p-4 rounded-xl bg-brand-white border border-brand-cream-dark text-xs text-brand-dark space-y-1">
-          <p>• Minimal pemesanan paket: <strong>{box.minOrder || 15} box</strong>.</p>
-          <p>• Rekomendasi pemesanan minimal H-2 sebelum hari acara.</p>
-          <p>• Pengiriman terjamin aman khusus area Surakarta & Sukoharjo.</p>
-        </div>
+        <!-- Order Information Aside -->
+        <aside aria-labelledby="box-terms-heading" class="p-5 rounded-2xl bg-surface-primary border border-line-subtle text-xs text-content-primary space-y-1.5">
+          <h2 id="box-terms-heading" class="text-xs font-bold text-content-accent uppercase tracking-wider m-0">Ketentuan Paket:</h2>
+          <ul class="space-y-1.5 list-disc pl-4 m-0 text-content-primary/90">
+            <li>Minimal pemesanan paket: <strong>{box.minOrder || 15} box</strong>.</li>
+            <li>Rekomendasi pemesanan minimal H-2 sebelum hari acara.</li>
+            <li>Pengiriman terjamin aman khusus area Surakarta & Sukoharjo.</li>
+          </ul>
+        </aside>
 
-        <!-- Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-brand-cream-dark">
+        <!-- Action Buttons Footer -->
+        <footer class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-line-subtle">
           {box.price ? (
             <button 
               type="button"
@@ -134,9 +148,9 @@ const packageSchema = {
               data-price={box.price}
               data-unit={box.priceUnit || 'box'}
               data-image={box.image}
-              class="flex-1 bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-semibold py-3.5 px-6 rounded-full shadow-soft transition-all text-sm flex items-center justify-center gap-2"
+              class="flex-1 min-h-[48px] bg-action-primary hover:bg-action-primary-hover text-content-inverse font-semibold py-3.5 px-6 rounded-full shadow-soft transition-all text-sm flex items-center justify-center gap-2"
             >
-              <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 text-brand-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
               <span>Tambah ke Keranjang</span>
@@ -147,25 +161,24 @@ const packageSchema = {
             href={waOrderUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex-1 bg-brand-green hover:bg-brand-green-dark text-brand-white font-semibold py-3.5 px-6 rounded-full shadow-soft transition-all text-sm flex items-center justify-center gap-2"
+            class="flex-1 min-h-[48px] bg-action-whatsapp hover:bg-action-whatsapp-hover text-content-inverse font-semibold py-3.5 px-6 rounded-full shadow-soft transition-all text-sm flex items-center justify-center gap-2"
           >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
             </svg>
             <span>Pesan via WhatsApp</span>
           </a>
-        </div>
+        </footer>
 
       </div>
 
     </div>
-  </div>
+  </article>
 </BaseLayout>
 
 <script>
   import { initClientSync } from '../../utils/clientSync';
 
-  // Run live sync with localStorage (from UMKM Admin)
   initClientSync();
 
   const addBtn = document.getElementById('box-add-cart-btn');

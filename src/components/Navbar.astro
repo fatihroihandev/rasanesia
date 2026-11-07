@@ -6,116 +6,142 @@ const waUrl = createGeneralInquiryUrl();
 const pathname = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-40 w-full bg-brand-white/95 backdrop-blur-md border-b border-brand-cream-dark transition-all duration-200">
+<header role="banner" class="sticky top-0 z-40 w-full bg-surface-primary/95 backdrop-blur-md border-b border-line-subtle transition-all duration-200">
+  <!-- Editorial Top Metadata Bar (Desktop) -->
+  <aside aria-label="Informasi operasional dan wilayah layanan" class="hidden lg:block bg-surface-inverse text-content-inverse-muted border-b border-brand-brown/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between text-[11px] tracking-wide">
+      <p class="flex items-center gap-4 m-0">
+        <span class="font-mono uppercase tracking-widest text-brand-gold">SURAKARTA • 07°34'S 110°49'E</span>
+        <span class="text-brand-cream/40" aria-hidden="true">/</span>
+        <span class="text-brand-cream/90">Diproduksi Segar Sesuai Jadwal Acara (Rekomendasi H-2) • Tanpa Pengawet Buatan</span>
+      </p>
+      <p class="flex items-center gap-5 m-0">
+        <time class="text-brand-cream/85">{siteConfig.operationalHours}</time>
+        <span class="text-brand-cream/40" aria-hidden="true">/</span>
+        <span class="text-brand-gold font-medium">Pengiriman Solo & Sukoharjo</span>
+      </p>
+    </div>
+  </aside>
+
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       
-      <!-- Brand Logo -->
-      <a href="/" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brand-brown rounded-lg p-1" aria-label="Rasanesia - Beranda">
-        <img 
-          src="/images/logo.jpg" 
-          alt="Logo Rasanesia" 
-          class="w-12 h-12 rounded-full object-cover border border-brand-gold/40 shadow-sm group-hover:scale-105 transition-transform duration-200"
-          width="48"
-          height="48"
-        />
-        <div class="flex flex-col">
-          <span class="font-serif text-2xl font-bold tracking-tight text-brand-dark group-hover:text-brand-brown transition-colors">
+      <!-- Brand Identity -->
+      <a href="/" class="flex items-center gap-3.5 group focus:outline-none focus:ring-2 focus:ring-brand-brown rounded-xl py-1.5 pr-2 min-h-[48px]" aria-label="Rasanesia - Beranda">
+        <figure class="relative m-0">
+          <img 
+            src="/images/logo.jpg" 
+            alt="Logo Rasanesia" 
+            class="w-12 h-12 rounded-full object-cover border border-brand-gold/50 shadow-xs group-hover:scale-105 transition-transform duration-300"
+            width="48"
+            height="48"
+          />
+        </figure>
+        <div>
+          <span class="font-serif text-2xl font-bold tracking-tight text-content-primary group-hover:text-content-accent transition-colors block leading-none">
             {siteConfig.brandName}
           </span>
-          <span class="text-[10px] uppercase tracking-widest text-brand-muted font-medium">
+          <span class="text-[11px] uppercase tracking-[0.14em] text-content-highlight font-semibold block mt-1">
             {siteConfig.tagline}
           </span>
         </div>
       </a>
 
-      <!-- Desktop Navigation Links (Section 3.1: 6 links + CTA) -->
-      <nav class="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Navigasi Utama Desktop">
-        {siteConfig.mainNavLinks.map(link => {
-          const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
-          return (
-            <a 
-              href={link.href}
-              class={`text-sm font-medium transition-colors py-1 relative ${
-                isActive 
-                  ? 'text-brand-brown font-semibold' 
-                  : 'text-brand-dark/80 hover:text-brand-brown'
-              }`}
-            >
-              {link.label}
-              {isActive && (
-                <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-gold rounded-full" />
-              )}
-            </a>
-          );
-        })}
+      <!-- Desktop Primary Navigation (Semantic List) -->
+      <nav class="hidden lg:block" aria-label="Navigasi utama">
+        <ul class="flex items-center gap-1 list-none m-0 p-0">
+          {siteConfig.mainNavLinks.map((link) => {
+            const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+            return (
+              <li>
+                <a 
+                  href={link.href}
+                  aria-current={isActive ? 'page' : undefined}
+                  class={`px-3.5 py-2.5 min-h-[44px] inline-flex items-center rounded-full text-sm font-medium transition-colors duration-200 relative group ${
+                    isActive
+                      ? 'text-content-accent font-semibold bg-surface-subtle/80'
+                      : 'text-content-primary/90 hover:text-content-accent hover:bg-surface-subtle/40'
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  <span class={`absolute bottom-1.5 left-3.5 right-3.5 h-0.5 bg-brand-brown transition-transform duration-300 origin-left rounded-full ${
+                    isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`} aria-hidden="true"></span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
 
-      <!-- Desktop Actions (Cart + Tombol Utama WhatsApp) -->
-      <div class="hidden lg:flex items-center gap-4">
-        <!-- Cart Trigger Button -->
+      <!-- Desktop Actions: Cart & WhatsApp CTA -->
+      <div class="hidden lg:flex items-center gap-3">
         <button 
-          id="cart-toggle-btn"
-          type="button" 
-          class="relative p-2.5 rounded-full text-brand-dark hover:bg-brand-cream transition-colors focus:ring-2 focus:ring-brand-brown"
-          aria-label="Buka Keranjang Belanja"
+          id="cart-toggle-btn" 
+          type="button"
+          class="relative inline-flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-full border border-line-subtle bg-surface-subtle/60 hover:bg-surface-subtle text-content-primary font-medium text-sm transition-all duration-200"
+          aria-label="Buka Keranjang Pesanan"
+          aria-haspopup="dialog"
+          aria-controls="cart-drawer-root"
         >
-          <svg class="w-6 h-6 text-brand-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 text-content-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
+          <span>Keranjang</span>
           <span 
             id="cart-badge" 
-            class="hidden absolute -top-1 -right-1 bg-brand-gold text-brand-white text-xs font-bold w-5 h-5 rounded-full items-center justify-center shadow-sm"
+            class="hidden items-center justify-center min-w-[20px] h-5 px-1.5 text-[11px] font-bold bg-action-primary text-content-inverse rounded-full tabular-price"
           >
             0
           </span>
         </button>
 
-        <!-- Tombol Utama: Pesan via WhatsApp (Addendum Section 3.1 item 7) -->
         <a 
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-dark text-brand-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-soft hover:shadow-hover transition-all duration-200 transform hover:-translate-y-0.5"
-          aria-label="Pesan via WhatsApp Business"
+          class="inline-flex items-center gap-2 bg-action-whatsapp hover:bg-action-whatsapp-hover text-content-inverse text-sm font-semibold px-5 py-2.5 min-h-[44px] rounded-full shadow-soft hover:shadow-hover transition-all duration-200 transform hover:-translate-y-0.5"
         >
-          <span>Pesan via WhatsApp</span>
-          <svg class="w-4 h-4 text-brand-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
           </svg>
+          <span>Pesan via WhatsApp</span>
         </a>
       </div>
 
-      <!-- Mobile Controls (Cart Button + Hamburger Toggle) -->
+      <!-- Mobile Actions: Cart + Hamburger Menu -->
       <div class="flex items-center gap-2 lg:hidden">
         <button 
-          id="cart-toggle-btn-mobile"
-          type="button" 
-          class="relative p-2.5 rounded-full text-brand-dark hover:bg-brand-cream transition-colors"
-          aria-label="Buka Keranjang Belanja"
+          id="cart-toggle-btn-mobile" 
+          type="button"
+          class="relative min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-full border border-line-subtle bg-surface-subtle/60 text-content-primary"
+          aria-label="Buka Keranjang Pesanan"
+          aria-haspopup="dialog"
+          aria-controls="cart-drawer-root"
         >
-          <svg class="w-6 h-6 text-brand-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 text-content-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
           <span 
             id="cart-badge-mobile" 
-            class="hidden absolute -top-1 -right-1 bg-brand-gold text-brand-white text-xs font-bold w-5 h-5 rounded-full items-center justify-center shadow-sm"
+            class="hidden absolute -top-1 -right-1 items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold bg-action-primary text-content-inverse rounded-full tabular-price"
           >
             0
           </span>
         </button>
 
         <button 
-          id="mobile-menu-btn" 
+          id="mobile-menu-button" 
           type="button" 
-          class="p-2.5 rounded-lg text-brand-dark hover:bg-brand-cream focus:outline-none focus:ring-2 focus:ring-brand-brown"
+          class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-xl text-content-primary hover:bg-surface-subtle focus:outline-none focus:ring-2 focus:ring-brand-brown transition-colors"
           aria-label="Buka Menu Navigasi"
           aria-expanded="false"
+          aria-controls="mobile-menu"
         >
-          <svg id="menu-icon-bars" class="w-7 h-7 text-brand-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          <svg id="menu-icon-open" class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
-          <svg id="menu-icon-close" class="hidden w-7 h-7 text-brand-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -124,67 +150,74 @@ const pathname = Astro.url.pathname;
     </div>
   </div>
 
-  <!-- Mobile Menu Dropdown -->
-  <div id="mobile-menu" class="hidden lg:hidden border-t border-brand-cream-dark bg-brand-white/98 px-4 pt-3 pb-6 shadow-card transition-all">
-    <div class="flex flex-col gap-1">
-      <span class="text-[10px] font-bold uppercase tracking-wider text-brand-gold px-3 pt-2">Menu Utama</span>
-      {siteConfig.mainNavLinks.map(link => {
-        const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
-        return (
-          <a 
-            href={link.href}
-            class={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-              isActive 
-                ? 'bg-brand-cream text-brand-brown font-semibold' 
-                : 'text-brand-dark hover:bg-brand-cream-light hover:text-brand-brown'
-            }`}
-          >
-            {link.label}
-          </a>
-        );
-      })}
-
-      <span class="text-[10px] font-bold uppercase tracking-wider text-brand-muted px-3 pt-3 border-t border-brand-cream-dark/60 mt-2">Informasi Lain</span>
-      <div class="grid grid-cols-2 gap-1">
-        {siteConfig.secondaryNavLinks.map(link => (
-          <a 
-            href={link.href}
-            class="px-3 py-2 text-xs text-brand-muted hover:text-brand-brown transition-colors"
-          >
-            {link.label}
-          </a>
-        ))}
-      </div>
-
-      <div class="pt-4 border-t border-brand-cream-dark flex flex-col gap-3 mt-2">
+  <!-- Mobile Navigation Drawer (Semantic List) -->
+  <nav id="mobile-menu" class="hidden lg:hidden bg-surface-primary border-b border-line-subtle shadow-card" aria-label="Navigasi seluler">
+    <div class="px-4 pt-3 pb-6 space-y-2">
+      <ul class="space-y-1 list-none m-0 p-0">
+        {siteConfig.mainNavLinks.map((link) => {
+          const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+          return (
+            <li>
+              <a 
+                href={link.href}
+                aria-current={isActive ? 'page' : undefined}
+                class={`flex items-center justify-between px-4 py-3 min-h-[44px] rounded-xl text-base font-medium transition-colors ${
+                  isActive
+                    ? 'bg-surface-subtle text-content-accent font-semibold'
+                    : 'text-content-primary hover:bg-surface-subtle/60 hover:text-content-accent'
+                }`}
+              >
+                <span>{link.label}</span>
+                <span class="text-xs text-content-secondary" aria-hidden="true">→</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      <div class="pt-3 border-t border-line-subtle">
         <a 
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-dark text-brand-white font-medium py-3 rounded-full text-center shadow-soft"
+          class="flex items-center justify-center gap-2 w-full bg-action-whatsapp hover:bg-action-whatsapp-hover text-content-inverse text-center font-semibold py-3.5 min-h-[48px] rounded-full shadow-soft transition-colors"
         >
-          <span>Pesan via WhatsApp</span>
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-          </svg>
+          <span>Konsultasi & Pesan via WhatsApp</span>
         </a>
       </div>
     </div>
-  </div>
+  </nav>
 </header>
 
 <script>
-  // Mobile Menu Toggle
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const iconBars = document.getElementById('menu-icon-bars');
+  const btn = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
   const iconClose = document.getElementById('menu-icon-close');
 
-  menuBtn?.addEventListener('click', () => {
-    const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-    menuBtn.setAttribute('aria-expanded', String(!isExpanded));
-    mobileMenu?.classList.toggle('hidden');
-    iconBars?.classList.toggle('hidden');
-    iconClose?.classList.toggle('hidden');
+  function closeMobileMenu() {
+    if (!menu || !btn) return;
+    menu.classList.add('hidden');
+    iconOpen?.classList.remove('hidden');
+    iconClose?.classList.add('hidden');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  btn?.addEventListener('click', () => {
+    const isHidden = menu?.classList.contains('hidden');
+    if (isHidden) {
+      menu?.classList.remove('hidden');
+      iconOpen?.classList.add('hidden');
+      iconClose?.classList.remove('hidden');
+      btn.setAttribute('aria-expanded', 'true');
+    } else {
+      closeMobileMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.classList.contains('hidden')) {
+      closeMobileMenu();
+      btn?.focus();
+    }
   });
 </script>

@@ -10,120 +10,124 @@ const waUrl = createGeneralInquiryUrl();
   title="Area Layanan Pengiriman & Pengambilan | Rasanesia"
   description="Informasi cakupan area pengantaran pesanan snack box dan jajanan pasar Rasanesia di Kota Surakarta dan Kabupaten Sukoharjo."
 >
-  <!-- Hero Section -->
-  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-brand-brown">Beranda</a>
-        <span>/</span>
-        <span class="text-brand-brown font-semibold">Area Layanan</span>
+  <!-- Semantic Page Header -->
+  <header aria-labelledby="area-page-heading" class="page-header-banner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="/" class="breadcrumb-link">Beranda</a></li>
+          <li aria-current="page" class="breadcrumb-current">Area Layanan</li>
+        </ol>
       </nav>
-      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+      <span class="editorial-kicker">Logistik & Pengantaran</span>
+      <h1 id="area-page-heading" class="font-serif text-3xl sm:text-5xl font-bold text-content-primary mt-2">
         Jangkauan Layanan Rasanesia
       </h1>
-      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+      <p class="text-sm sm:text-base text-content-secondary mt-3 max-w-2xl leading-relaxed m-0">
         Untuk menjaga kesegaran, kehangatan, dan tekstur otentik jajanan tradisional tanpa bahan pengawet, layanan kami difokuskan pada wilayah yang terjangkau secara optimal.
       </p>
     </div>
-  </section>
+  </header>
 
-  <!-- Content Section -->
-  <section class="py-16 bg-brand-white">
+  <!-- Main Content Section -->
+  <div class="py-16 bg-surface-primary">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       
       <!-- Primary Covered Areas -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section aria-label="Daftar wilayah cakupan utama" class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
         <!-- Kota Surakarta -->
-        <div class="bg-brand-cream-light/60 border border-brand-cream-dark p-8 rounded-3xl space-y-5">
-          <div class="w-12 h-12 rounded-2xl bg-brand-brown text-brand-white flex items-center justify-center font-serif font-bold text-xl shadow-xs">
-            1
-          </div>
-          <div>
-            <h2 class="font-serif text-2xl font-bold text-brand-dark">Kota Surakarta (Solo)</h2>
-            <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Layanan Penuh</p>
-          </div>
-          <p class="text-sm text-brand-dark/80 leading-relaxed">
+        <article class="semantic-panel space-y-5">
+          <span class="w-12 h-12 rounded-2xl bg-action-primary text-content-inverse flex items-center justify-center font-serif font-bold text-xl shadow-xs" aria-hidden="true">
+            01
+          </span>
+          <header>
+            <h2 class="font-serif text-2xl font-bold text-content-primary">Kota Surakarta (Solo)</h2>
+            <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1 m-0">Layanan Penuh</p>
+          </header>
+          <p class="text-sm text-content-primary/85 leading-relaxed">
             Melayani pengantaran snack box dan jajanan untuk berbagai kantor pemerintahan, kampus, hotel, gedung pertemuan, serta perumahan di 5 kecamatan:
           </p>
-          <ul class="grid grid-cols-2 gap-2 text-xs text-brand-muted font-medium pt-2 border-t border-brand-cream-dark">
+          <ul class="grid grid-cols-2 gap-2.5 text-xs text-content-secondary font-medium pt-3 border-t border-line-subtle list-none m-0 p-0">
             <li class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Banjarsari
+              <span class="w-1.5 h-1.5 rounded-full bg-action-whatsapp" aria-hidden="true"></span> Banjarsari
             </li>
             <li class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Jebres
+              <span class="w-1.5 h-1.5 rounded-full bg-action-whatsapp" aria-hidden="true"></span> Jebres
             </li>
             <li class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Laweyan
+              <span class="w-1.5 h-1.5 rounded-full bg-action-whatsapp" aria-hidden="true"></span> Laweyan
             </li>
             <li class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Pasar Kliwon
+              <span class="w-1.5 h-1.5 rounded-full bg-action-whatsapp" aria-hidden="true"></span> Pasar Kliwon
             </li>
             <li class="flex items-center gap-2 col-span-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Serengan
+              <span class="w-1.5 h-1.5 rounded-full bg-action-whatsapp" aria-hidden="true"></span> Serengan
             </li>
           </ul>
-        </div>
+        </article>
 
         <!-- Kabupaten Sukoharjo -->
-        <div class="bg-brand-cream-light/60 border border-brand-cream-dark p-8 rounded-3xl space-y-5">
-          <div class="w-12 h-12 rounded-2xl bg-brand-green text-brand-white flex items-center justify-center font-serif font-bold text-xl shadow-xs">
-            2
-          </div>
-          <div>
-            <h2 class="font-serif text-2xl font-bold text-brand-dark">Kabupaten Sukoharjo</h2>
-            <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1">Area Terjangkau</p>
-          </div>
-          <p class="text-sm text-brand-dark/80 leading-relaxed">
+        <article class="semantic-panel space-y-5">
+          <span class="w-12 h-12 rounded-2xl bg-action-whatsapp text-content-inverse flex items-center justify-center font-serif font-bold text-xl shadow-xs" aria-hidden="true">
+            02
+          </span>
+          <header>
+            <h2 class="font-serif text-2xl font-bold text-content-primary">Kabupaten Sukoharjo</h2>
+            <p class="text-xs text-brand-gold font-semibold uppercase tracking-wider mt-1 m-0">Area Terjangkau</p>
+          </header>
+          <p class="text-sm text-content-primary/85 leading-relaxed">
             Melayani pengiriman untuk acara keluarga, instansi, dan korporat di wilayah Sukoharjo yang dapat dijangkau dalam waktu tempuh aman kualitas jajanan:
           </p>
-          <ul class="grid grid-cols-2 gap-2 text-xs text-brand-muted font-medium pt-2 border-t border-brand-cream-dark">
+          <ul class="grid grid-cols-2 gap-2.5 text-xs text-content-secondary font-medium pt-3 border-t border-line-subtle list-none m-0 p-0">
             <li class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Kartasura
+              <span class="w-1.5 h-1.5 rounded-full bg-action-whatsapp" aria-hidden="true"></span> Kartasura
             </li>
             <li class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Grogol (Solo Baru)
+              <span class="w-1.5 h-1.5 rounded-full bg-action-whatsapp" aria-hidden="true"></span> Grogol (Solo Baru)
             </li>
             <li class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Baki
+              <span class="w-1.5 h-1.5 rounded-full bg-action-whatsapp" aria-hidden="true"></span> Baki
             </li>
             <li class="flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Mojolaban
+              <span class="w-1.5 h-1.5 rounded-full bg-action-whatsapp" aria-hidden="true"></span> Mojolaban
             </li>
             <li class="flex items-center gap-2 col-span-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Sukoharjo Kota (Sesuai Konfirmasi)
+              <span class="w-1.5 h-1.5 rounded-full bg-action-whatsapp" aria-hidden="true"></span> Sukoharjo Kota (Sesuai Konfirmasi)
             </li>
           </ul>
-        </div>
+        </article>
 
-      </div>
+      </section>
 
       <!-- Interactive Map & Dapur Produksi -->
-      <div class="bg-brand-white border border-brand-cream-dark rounded-3xl p-6 sm:p-8 shadow-card space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h3 class="font-serif text-xl sm:text-2xl font-bold text-brand-dark flex items-center gap-2">
-              <span>📍</span> <span>Peta Cakupan Wilayah & Titik Dapur</span>
-            </h3>
-            <p data-sync-address class="text-xs sm:text-sm text-brand-muted mt-1">
+      <section aria-labelledby="area-map-heading" class="bg-surface-primary border border-line-subtle rounded-3xl p-6 sm:p-8 shadow-card space-y-4">
+        <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <address class="not-italic">
+            <h2 id="area-map-heading" class="font-serif text-xl sm:text-2xl font-bold text-content-primary flex items-center gap-2">
+              <span aria-hidden="true">📍</span> <span>Peta Cakupan Wilayah & Titik Dapur</span>
+            </h2>
+            <p data-sync-address class="text-xs sm:text-sm text-content-secondary mt-1 m-0">
               {siteConfig.locationAddress || 'Dapur Produksi Rasanesia, Surakarta & Sukoharjo'}
             </p>
-          </div>
+          </address>
           <a 
             href={siteConfig.locationMapDirectUrl || 'https://maps.google.com/?q=Surakarta'}
             target="_blank"
             rel="noopener noreferrer"
             data-sync-map-link
-            class="inline-flex items-center gap-2 bg-brand-cream hover:bg-brand-cream-dark text-brand-brown font-bold text-xs px-5 py-2.5 rounded-full border border-brand-cream-dark transition-all self-start sm:self-auto shrink-0"
+            class="min-h-[44px] inline-flex items-center gap-2 bg-surface-subtle hover:bg-brand-cream-dark text-content-accent font-bold text-xs px-5 py-2.5 rounded-full border border-line-subtle transition-all self-start sm:self-auto shrink-0"
           >
-            <span>🗺️ Buka di Google Maps</span>
+            <span aria-hidden="true">🗺️</span>
+            <span>Buka di Google Maps</span>
           </a>
-        </div>
+        </header>
 
-        <div class="overflow-hidden rounded-2xl border border-brand-cream-dark shadow-xs aspect-[16/9] sm:h-[380px] bg-brand-cream">
+        <figure class="overflow-hidden rounded-2xl border border-line-subtle shadow-xs aspect-[16/9] sm:h-[380px] bg-surface-subtle m-0">
           <iframe 
             data-sync-map
-            src={siteConfig.locationMapEmbedUrl}
+            src="about:blank"
+            data-map-src={siteConfig.locationMapEmbedUrl}
             width="100%" 
             height="100%" 
             style="border:0;" 
@@ -132,48 +136,48 @@ const waUrl = createGeneralInquiryUrl();
             referrerpolicy="no-referrer-when-downgrade"
             title="Peta Wilayah Layanan Rasanesia Surakarta"
           ></iframe>
-        </div>
-      </div>
+        </figure>
+      </section>
 
-      <!-- Fulfillment Methods -->
-      <div class="bg-brand-white border-2 border-brand-cream-dark rounded-3xl p-8 sm:p-10">
-        <h3 class="font-serif text-2xl font-bold text-brand-dark text-center mb-8">
+      <!-- Fulfillment Methods (Semantic Ordered List) -->
+      <section aria-labelledby="fulfillment-heading" class="bg-surface-primary border border-line-subtle rounded-3xl p-8 sm:p-10 shadow-xs">
+        <h2 id="fulfillment-heading" class="font-serif text-2xl font-bold text-content-primary text-center mb-8">
           Metode Pemenuhan Pesanan
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        </h2>
+        <ol class="grid grid-cols-1 md:grid-cols-2 gap-8 list-none m-0 p-0">
           
-          <div class="flex gap-4 items-start">
-            <div class="w-12 h-12 rounded-2xl bg-brand-cream flex items-center justify-center text-2xl flex-shrink-0">
+          <li class="flex gap-4 items-start">
+            <div class="w-12 h-12 rounded-2xl bg-surface-subtle flex items-center justify-center text-2xl flex-shrink-0" aria-hidden="true">
               🛵
             </div>
             <div class="space-y-2">
-              <h4 class="font-bold text-base text-brand-dark">1. Pengantaran Langsung (Delivery)</h4>
-              <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+              <h3 class="font-bold text-base text-content-primary">1. Pengantaran Langsung (Delivery)</h3>
+              <p class="text-xs sm:text-sm text-content-secondary leading-relaxed m-0">
                 Pesanan diantar langsung ke alamat venue acara menggunakan armada yang terjaga agar tatanan kue dan kemasan tetap utuh sempurna. Tarif pengantaran dihitung berdasarkan jarak aktual dari dapur produksi kami.
               </p>
             </div>
-          </div>
+          </li>
 
-          <div class="flex gap-4 items-start">
-            <div class="w-12 h-12 rounded-2xl bg-brand-cream flex items-center justify-center text-2xl flex-shrink-0">
+          <li class="flex gap-4 items-start">
+            <div class="w-12 h-12 rounded-2xl bg-surface-subtle flex items-center justify-center text-2xl flex-shrink-0" aria-hidden="true">
               🏪
             </div>
             <div class="space-y-2">
-              <h4 class="font-bold text-base text-brand-dark">2. Pengambilan Mandiri (Pick-Up)</h4>
-              <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+              <h3 class="font-bold text-base text-content-primary">2. Pengambilan Mandiri (Pick-Up)</h3>
+              <p class="text-xs sm:text-sm text-content-secondary leading-relaxed m-0">
                 Anda juga dapat mengambil langsung pesanan yang telah dikemas rapi di titik temu dapur produksi kami sesuai jam kesepakatan pemesanan tanpa dikenakan biaya antar.
               </p>
             </div>
-          </div>
+          </li>
 
-        </div>
-      </div>
+        </ol>
+      </section>
 
-      <!-- Outside Area Notice -->
-      <div class="bg-brand-brown text-brand-white p-8 sm:p-10 rounded-3xl text-center space-y-4 shadow-card">
-        <h3 class="font-serif text-2xl sm:text-3xl font-bold">
+      <!-- Outside Area Notice Aside -->
+      <aside aria-labelledby="outside-area-heading" class="bg-surface-accent text-content-inverse p-8 sm:p-10 rounded-3xl text-center space-y-4 shadow-card">
+        <h2 id="outside-area-heading" class="font-serif text-2xl sm:text-3xl font-bold">
           Lokasi Acara Anda di Luar Wilayah di Atas?
-        </h3>
+        </h2>
         <p class="text-xs sm:text-sm text-brand-cream/90 max-w-2xl mx-auto leading-relaxed">
           Untuk acara berskala besar atau pesanan khusus di sekitar Solo Raya (Karanganyar, Boyolali, Klaten), silakan konsultasikan dengan tim admin kami via WhatsApp untuk mengecek kelayakan waktu tempuh dan ketersediaan slot armada.
         </p>
@@ -182,18 +186,18 @@ const waUrl = createGeneralInquiryUrl();
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold-dark text-brand-dark font-bold px-6 py-3 rounded-full text-sm shadow-soft transition-transform active:scale-95"
+            class="min-h-[48px] inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold-light text-brand-dark font-bold px-7 py-3 rounded-full text-sm shadow-soft transition-transform active:scale-95"
           >
             <span>Tanyakan Ketersediaan Area via WhatsApp</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </a>
         </div>
-      </div>
+      </aside>
 
     </div>
-  </section>
+  </div>
 </BaseLayout>
 
 <script>

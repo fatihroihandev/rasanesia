@@ -28,6 +28,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             type="password" 
             id="admin-pin-input" 
             maxlength="8"
+            aria-label="Masukkan 6 Digit PIN Pengelola"
             placeholder="Masukkan 6 Digit PIN" 
             class="w-full text-center tracking-widest text-xl font-bold p-3.5 rounded-2xl border-2 border-brand-cream-dark bg-brand-white text-brand-dark focus:border-brand-brown outline-none"
             required
@@ -50,15 +51,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     <!-- 2. MAIN ADMIN DASHBOARD -->
     <div id="admin-dashboard" class="hidden space-y-6">
       
-      <!-- Top Header & Actions -->
+        <!-- Top Header & Actions -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-brand-white border border-brand-cream-dark rounded-3xl shadow-xs">
         <div class="flex items-center gap-3">
-          <img src="/images/logo.jpg" alt="Logo" class="w-12 h-12 rounded-full object-cover border border-brand-gold/60" />
+          <img src="/images/logo.jpg" alt="Logo Rasanesia" width="48" height="48" class="w-12 h-12 rounded-full object-cover border border-brand-gold/60" />
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="font-serif text-xl sm:text-2xl font-bold text-brand-dark">
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-brand-dark">
                 Panel Pengelola UMKM
-              </h1>
+              </h2>
               <span class="px-2.5 py-0.5 rounded-full bg-brand-green/20 text-brand-green text-[10px] font-bold">
                 Online & Aktif
               </span>
@@ -73,7 +74,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <a 
             href="/" 
             target="_blank" 
-            class="px-4 py-2 text-xs font-semibold rounded-full border border-brand-cream-dark hover:bg-brand-cream text-brand-dark transition-colors flex items-center gap-1.5"
+            class="min-h-[44px] px-4 py-2 text-xs font-semibold rounded-full border border-brand-cream-dark hover:bg-brand-cream text-brand-dark transition-colors flex items-center gap-1.5"
           >
             <span>Lihat Website</span>
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,7 +84,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <button 
             type="button" 
             id="admin-logout-btn"
-            class="px-4 py-2 text-xs font-semibold rounded-full bg-brand-cream-light hover:bg-red-50 text-red-600 transition-colors"
+            class="min-h-[44px] px-4 py-2 text-xs font-semibold rounded-full bg-brand-cream-light hover:bg-red-50 text-red-600 transition-colors"
           >
             Keluar (Kunci)
           </button>
@@ -662,7 +663,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
             <!-- Preview Image -->
             <div id="np-preview-container" class="hidden items-center gap-3 pt-2">
-              <img id="np-preview-img" src="" alt="Preview Foto" class="w-14 h-14 object-cover rounded-xl border border-brand-cream-dark shadow-xs" />
+              <img id="np-preview-img" src="" alt="Preview Foto" width="56" height="56" class="w-14 h-14 object-cover rounded-xl border border-brand-cream-dark shadow-xs" />
               <span class="text-[11px] text-brand-green font-medium">✓ Foto siap digunakan</span>
             </div>
           </div>
@@ -770,7 +771,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               class="w-full text-xs p-2.5 rounded-xl border border-brand-cream-dark bg-brand-white focus:border-brand-brown outline-none"
             />
             <div id="pkg-preview-container" class="hidden items-center gap-3 pt-2">
-              <img id="pkg-preview-img" src="" alt="Preview Foto" class="w-14 h-14 object-cover rounded-xl border border-brand-cream-dark shadow-xs" />
+              <img id="pkg-preview-img" src="" alt="Preview Foto" width="56" height="56" class="w-14 h-14 object-cover rounded-xl border border-brand-cream-dark shadow-xs" />
               <span class="text-[11px] text-brand-green font-medium">✓ Foto siap digunakan</span>
             </div>
           </div>
@@ -891,7 +892,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               class="w-full text-xs p-2.5 rounded-xl border border-brand-cream-dark bg-brand-white focus:border-brand-brown outline-none"
             />
             <div id="cat-preview-container" class="hidden items-center gap-3 pt-2">
-              <img id="cat-preview-img" src="" alt="Preview Foto" class="w-14 h-14 object-cover rounded-xl border border-brand-cream-dark shadow-xs" />
+              <img id="cat-preview-img" src="" alt="Preview Foto" width="56" height="56" class="w-14 h-14 object-cover rounded-xl border border-brand-cream-dark shadow-xs" />
               <span class="text-[11px] text-brand-green font-medium">✓ Foto siap digunakan</span>
             </div>
           </div>

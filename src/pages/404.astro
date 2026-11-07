@@ -3,34 +3,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout 
-  title="Halaman Tidak Ditemukan | Rasanesia"
-  description="Halaman yang Anda cari tidak tersedia. Silakan kembali ke katalog menu lezat Rasanesia."
+  title="Halaman Tidak Ditemukan (404) | Rasanesia"
+  description="Halaman yang Anda cari tidak tersedia. Silakan kembali ke katalog menu jajanan tradisional dan snack box Rasanesia."
 >
-  <div class="min-h-[60vh] flex items-center justify-center py-20 px-4">
-    <div class="text-center max-w-md mx-auto space-y-6">
-      <div class="w-24 h-24 mx-auto rounded-full bg-brand-cream flex items-center justify-center text-4xl shadow-sm">
+  <section aria-labelledby="error-404-heading" class="min-h-[65vh] flex items-center justify-center py-20 px-4 bg-surface-canvas bg-editorial-grain">
+    <article class="text-center max-w-lg mx-auto bg-surface-primary border border-line-subtle rounded-3xl p-8 sm:p-12 shadow-card space-y-6">
+      <div class="w-20 h-20 mx-auto rounded-2xl bg-surface-subtle flex items-center justify-center text-4xl shadow-xs border border-line-subtle" aria-hidden="true">
         🥟
       </div>
-      <h1 class="font-serif text-4xl sm:text-5xl font-bold text-brand-dark">
-        404
-      </h1>
-      <h2 class="font-serif text-xl font-bold text-brand-brown">
-        Halaman Tidak Ditemukan
-      </h2>
-      <p class="text-sm text-brand-muted leading-relaxed">
-        Maaf, halaman yang Anda tuju mungkin telah dipindahkan atau tautan yang dimasukkan tidak tepat. Mari kembali ke beranda untuk menikmati aneka jajanan tradisional lezat kami.
+      <header class="space-y-2">
+        <span class="editorial-kicker justify-center">Kode Status 404</span>
+        <h1 id="error-404-heading" class="font-serif text-3xl sm:text-4xl font-bold text-content-primary">
+          Halaman Tidak Ditemukan
+        </h1>
+      </header>
+      <p class="text-sm text-content-secondary leading-relaxed m-0">
+        Maaf, halaman yang Anda tuju mungkin telah dipindahkan atau alamat tautan kurang tepat. Mari kembali menjelajahi sajian jajanan pasar dan paket snack box segar kami.
       </p>
-      <div class="pt-2">
+      <nav aria-label="Navigasi kembali dari halaman 404" class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
         <a 
           href="/" 
-          class="inline-flex items-center justify-center gap-2 bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-semibold px-8 py-3.5 rounded-full shadow-soft transition-all text-sm"
+          class="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 bg-action-primary hover:bg-action-primary-hover text-content-inverse font-semibold px-7 py-3 rounded-full shadow-soft transition-all text-sm"
         >
           <span>Kembali ke Beranda</span>
-          <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-brand-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
         </a>
-      </div>
-    </div>
-  </div>
+        <a 
+          href="/menu/" 
+          class="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 bg-surface-subtle hover:bg-brand-cream-dark text-content-primary font-semibold px-7 py-3 rounded-full border border-line-subtle transition-all text-sm"
+        >
+          <span>Lihat Katalog Kue</span>
+        </a>
+      </nav>
+    </article>
+  </section>
 </BaseLayout>

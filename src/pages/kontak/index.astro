@@ -10,100 +10,112 @@ const waUrl = createGeneralInquiryUrl();
   title="Kontak & Lokasi Layanan | Rasanesia"
   description="Hubungi tim Rasanesia untuk pemesanan jajanan tradisional, konsultasi snack box, dan catering di Surakarta & Sukoharjo."
 >
-  <!-- Header -->
-  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-brand-brown">Beranda</a>
-        <span>/</span>
-        <span class="text-brand-brown font-semibold">Kontak</span>
+  <!-- Semantic Page Header -->
+  <header aria-labelledby="contact-page-heading" class="page-header-banner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="/" class="breadcrumb-link">Beranda</a></li>
+          <li aria-current="page" class="breadcrumb-current">Kontak</li>
+        </ol>
       </nav>
-      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+      <span class="editorial-kicker">Layanan Pelanggan</span>
+      <h1 id="contact-page-heading" class="font-serif text-3xl sm:text-5xl font-bold text-content-primary mt-2">
         Hubungi Tim Rasanesia
       </h1>
-      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+      <p class="text-sm sm:text-base text-content-secondary mt-3 max-w-2xl leading-relaxed m-0">
         Kami siap mendengarkan kebutuhan konsumsi acara Anda dan memberikan rekomendasi terbaik.
       </p>
     </div>
-  </section>
+  </header>
 
   <!-- Content & Contact Details -->
-  <section class="py-16 bg-brand-white">
+  <section aria-label="Informasi saluran komunikasi dan peta lokasi" class="py-16 bg-surface-primary">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
         
-        <!-- Left: Contact Cards -->
+        <!-- Left: Semantic Address & Contact Cards -->
         <div class="lg:col-span-5 space-y-6">
-          <div class="p-6 rounded-3xl bg-brand-cream-light border border-brand-cream-dark space-y-4">
-            <h2 class="font-serif text-xl font-bold text-brand-dark">Saluran Resmi</h2>
+          <article aria-labelledby="official-channels-heading" class="p-6 sm:p-8 rounded-3xl bg-surface-canvas border border-line-subtle space-y-5">
+            <h2 id="official-channels-heading" class="font-serif text-xl font-bold text-content-primary">Saluran Resmi</h2>
             
-            <div class="space-y-4 text-sm text-brand-dark">
-              <div class="flex items-start gap-3">
-                <span class="w-10 h-10 rounded-xl bg-brand-green/20 text-brand-green flex items-center justify-center shrink-0 text-lg">
-                  💬
-                </span>
-                <div>
-                  <p class="text-xs text-brand-muted font-medium">WhatsApp Business Resmi:</p>
-                  <a href={waUrl} target="_blank" rel="noopener noreferrer" class="font-bold text-brand-brown hover:underline text-base">
-                    {siteConfig.whatsappDisplay}
-                  </a>
-                  <p class="text-[11px] text-brand-muted mt-0.5">Layanan chat responsif setiap hari</p>
+            <address class="not-italic">
+              <dl class="space-y-5 text-sm text-content-primary m-0">
+                <div class="flex items-start gap-3.5">
+                  <span class="w-11 h-11 rounded-xl bg-brand-green/15 text-status-success flex items-center justify-center shrink-0 text-lg" aria-hidden="true">
+                    💬
+                  </span>
+                  <div>
+                    <dt class="text-xs text-content-secondary font-medium">WhatsApp Business Resmi:</dt>
+                    <dd class="m-0">
+                      <a href={waUrl} target="_blank" rel="noopener noreferrer" class="min-h-[40px] inline-flex items-center font-bold text-content-accent hover:underline text-base">
+                        {siteConfig.whatsappDisplay}
+                      </a>
+                      <span class="text-xs text-content-secondary block">Layanan chat responsif setiap hari</span>
+                    </dd>
+                  </div>
                 </div>
-              </div>
 
-              <div class="flex items-start gap-3">
-                <span class="w-10 h-10 rounded-xl bg-brand-brown/10 text-brand-brown flex items-center justify-center shrink-0 text-lg">
-                  ⏰
-                </span>
-                <div>
-                  <p class="text-xs text-brand-muted font-medium">Jam Operasional Layanan:</p>
-                  <p class="font-semibold text-brand-dark">{siteConfig.operationalHours}</p>
+                <div class="flex items-start gap-3.5">
+                  <span class="w-11 h-11 rounded-xl bg-brand-brown/10 text-content-accent flex items-center justify-center shrink-0 text-lg" aria-hidden="true">
+                    ⏰
+                  </span>
+                  <div>
+                    <dt class="text-xs text-content-secondary font-medium">Jam Operasional Layanan:</dt>
+                    <dd class="font-semibold text-content-primary mt-0.5 m-0">
+                      <time>{siteConfig.operationalHours}</time>
+                    </dd>
+                  </div>
                 </div>
-              </div>
 
-              <div class="flex items-start gap-3">
-                <span class="w-10 h-10 rounded-xl bg-brand-gold/20 text-brand-gold-dark flex items-center justify-center shrink-0 text-lg">
-                  📍
-                </span>
-                <div>
-                  <p class="text-xs text-brand-muted font-medium">Wilayah Jangkauan:</p>
-                  <p class="font-semibold text-brand-dark">Kota Surakarta, Kabupaten Sukoharjo, & Solo Raya</p>
+                <div class="flex items-start gap-3.5">
+                  <span class="w-11 h-11 rounded-xl bg-surface-subtle text-content-accent flex items-center justify-center shrink-0 text-lg" aria-hidden="true">
+                    📍
+                  </span>
+                  <div>
+                    <dt class="text-xs text-content-secondary font-medium">Wilayah Jangkauan:</dt>
+                    <dd class="font-semibold text-content-primary mt-0.5 m-0">Kota Surakarta, Kabupaten Sukoharjo, & Solo Raya</dd>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
+              </dl>
+            </address>
+          </article>
 
-          <!-- Notice Box -->
-          <div class="p-6 rounded-3xl bg-brand-white border-2 border-brand-cream-dark shadow-xs space-y-3">
-            <h3 class="font-serif font-bold text-sm text-brand-brown flex items-center gap-2">
-              <span>📍</span> Titik Dapur Produksi
-            </h3>
-            <p data-sync-address class="text-xs text-brand-dark font-semibold leading-relaxed">
-              {siteConfig.locationAddress || 'Dapur Produksi Rasanesia, Surakarta & Sukoharjo'}
-            </p>
-            <div class="pt-1">
-              <a 
-                href={siteConfig.locationMapDirectUrl || 'https://maps.google.com/?q=Surakarta'}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-sync-map-link
-                class="inline-flex items-center gap-2 bg-brand-cream hover:bg-brand-cream-dark text-brand-brown font-bold text-xs px-4 py-2 rounded-full border border-brand-cream-dark transition-all"
-              >
-                <span>🗺️ Buka Rute di Google Maps</span>
-              </a>
-            </div>
-            <div class="pt-2 border-t border-brand-cream-dark/60 text-[11px] text-brand-muted leading-relaxed">
-              <span class="font-bold text-brand-brown">Kebijakan Kunjungan:</span> {siteConfig.addressNotice}
-            </div>
-          </div>
+          <!-- Kitchen Location Aside -->
+          <aside aria-labelledby="kitchen-location-heading" class="p-6 sm:p-8 rounded-3xl bg-surface-primary border border-line-subtle shadow-xs space-y-3">
+            <h2 id="kitchen-location-heading" class="font-serif font-bold text-base text-content-accent flex items-center gap-2">
+              <span aria-hidden="true">📍</span> <span>Titik Dapur Produksi</span>
+            </h2>
+            <address class="not-italic space-y-3">
+              <p data-sync-address class="text-xs sm:text-sm text-content-primary font-semibold leading-relaxed m-0">
+                {siteConfig.locationAddress || 'Dapur Produksi Rasanesia, Surakarta & Sukoharjo'}
+              </p>
+              <div class="pt-1">
+                <a 
+                  href={siteConfig.locationMapDirectUrl || 'https://maps.google.com/?q=Surakarta'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-sync-map-link
+                  class="min-h-[44px] inline-flex items-center gap-2 bg-surface-subtle hover:bg-brand-cream-dark text-content-accent font-bold text-xs px-5 py-2.5 rounded-full border border-line-subtle transition-all"
+                >
+                  <span aria-hidden="true">🗺️</span>
+                  <span>Buka Rute di Google Maps</span>
+                </a>
+              </div>
+              <p class="pt-3 border-t border-line-subtle/60 text-xs text-content-secondary leading-relaxed m-0">
+                <strong class="font-bold text-content-accent">Kebijakan Kunjungan:</strong> {siteConfig.addressNotice}
+              </p>
+            </address>
+          </aside>
         </div>
 
-        <!-- Right: Map Embed -->
-        <div class="lg:col-span-7">
-          <div class="overflow-hidden rounded-3xl border border-brand-cream-dark shadow-card bg-brand-cream h-[450px]">
+        <!-- Right: Semantic Map Figure -->
+        <figure class="lg:col-span-7 m-0">
+          <div class="overflow-hidden rounded-3xl border border-line-subtle shadow-card bg-surface-subtle h-[450px]">
             <iframe 
               data-sync-map
-              src={siteConfig.locationMapEmbedUrl}
+              src="about:blank"
+              data-map-src={siteConfig.locationMapEmbedUrl}
               width="100%" 
               height="100%" 
               style="border:0;" 
@@ -113,10 +125,10 @@ const waUrl = createGeneralInquiryUrl();
               title="Peta Wilayah Layanan Rasanesia Surakarta"
             ></iframe>
           </div>
-          <p class="text-[11px] text-brand-muted text-center mt-3">
+          <figcaption class="text-xs text-content-secondary text-center mt-3">
             Peta referensi area cakupan pengiriman & titik dapur produksi Rasanesia di Surakarta & Sukoharjo.
-          </p>
-        </div>
+          </figcaption>
+        </figure>
 
       </div>
     </div>

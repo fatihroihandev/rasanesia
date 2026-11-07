@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { siteConfig } from '../../data/siteConfig';
 import { defaultCateringPackages } from '../../data/catering';
 ---
 
@@ -8,302 +7,285 @@ import { defaultCateringPackages } from '../../data/catering';
   title="Layanan Catering Nusantara | Rasanesia"
   description="Layanan katering prasmanan, nasi kotak nusantara, dan coffee break jajanan pasar untuk seminar, gathering, dan pesta di Solo & Sukoharjo."
 >
-  <!-- Header -->
-  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-brand-brown">Beranda</a>
-        <span>/</span>
-        <span class="text-brand-brown font-semibold">Catering</span>
+  <!-- Semantic Page Header -->
+  <header aria-labelledby="catering-page-heading" class="page-header-banner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="/" class="breadcrumb-link">Beranda</a></li>
+          <li aria-current="page" class="breadcrumb-current">Catering</li>
+        </ol>
       </nav>
-      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+      <span class="editorial-kicker">Sajian Prasmanan & Nasi Kotak</span>
+      <h1 id="catering-page-heading" class="font-serif text-3xl sm:text-5xl font-bold text-content-primary mt-2">
         Layanan Catering Nusantara
       </h1>
-      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+      <p class="text-sm sm:text-base text-content-secondary mt-3 max-w-2xl leading-relaxed m-0">
         Kelezatan hidangan otentik Indonesia dengan presentasi prasmanan bersih, higienis, dan terpercaya untuk berbagai skala acara di Solo Raya.
       </p>
     </div>
-  </section>
+  </header>
 
-  <!-- Catering Options Grid -->
-  <section class="py-16 bg-brand-white">
+  <!-- Catering Options Grid & Inquiry Section -->
+  <section aria-label="Katalog layanan catering dan formulir penawaran" class="py-16 bg-surface-primary">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div id="catering-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        {defaultCateringPackages.map(pkg => (
-          <div class="bg-brand-cream-light/60 border border-brand-cream-dark rounded-3xl overflow-hidden shadow-card flex flex-col justify-between hover:border-brand-gold/60 transition-all duration-300">
+        {defaultCateringPackages.map((pkg, idx) => (
+          <article class="semantic-card bg-surface-canvas/60 flex flex-col justify-between">
             <div>
-              <div class="aspect-[16/10] overflow-hidden bg-brand-cream relative">
+              <figure class="aspect-[16/10] overflow-hidden bg-surface-subtle relative m-0">
                 <img 
                   src={pkg.image} 
                   alt={pkg.name} 
+                  width="600"
+                  height="375"
                   class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
+                  loading={idx < 3 ? "eager" : "lazy"}
                 />
-                <span data-sync-catering-min={pkg.id} class="absolute top-3 right-3 bg-brand-white/95 text-brand-brown text-xs font-bold px-3 py-1 rounded-full shadow-xs">
+                <figcaption data-sync-catering-min={pkg.id} class="absolute top-3 right-3 bg-surface-primary/95 text-content-accent text-xs font-bold px-3 py-1 rounded-full shadow-xs border border-line-subtle">
                   Min {pkg.minPax} pax
-                </span>
-              </div>
+                </figcaption>
+              </figure>
               <div class="p-6">
-                <span class="px-3 py-1 rounded-full bg-brand-brown/10 text-brand-brown text-xs font-semibold">
-                  {pkg.categoryLabel}
-                </span>
-                <h2 class="font-serif text-2xl font-bold text-brand-dark mt-2 mb-2">
-                  {pkg.name}
-                </h2>
-                <div class="mb-3">
-                  <span class="text-[11px] text-brand-muted block">Mulai dari:</span>
-                  <span data-sync-catering-price={pkg.id} class="font-serif text-2xl font-bold text-brand-brown">
-                    Rp {pkg.pricePerPax.toLocaleString('id-ID')}
-                  </span>
-                  <span class="text-xs text-brand-muted"> / pax</span>
-                </div>
-                <p class="text-xs text-brand-muted leading-relaxed mb-4">
+                <header>
+                  <p class="px-3 py-1 rounded-full bg-brand-brown/10 text-content-accent text-xs font-semibold inline-block m-0">
+                    {pkg.categoryLabel}
+                  </p>
+                  <h2 class="font-serif text-2xl font-bold text-content-primary mt-2 mb-2">
+                    {pkg.name}
+                  </h2>
+                </header>
+                <dl class="mb-3 m-0">
+                  <dt class="text-[11px] text-content-secondary block">Mulai dari:</dt>
+                  <dd class="m-0">
+                    <span data-sync-catering-price={pkg.id} class="font-serif text-2xl font-bold text-content-accent tabular-price">
+                      Rp {pkg.pricePerPax.toLocaleString('id-ID')}
+                    </span>
+                    <span class="text-xs text-content-secondary"> / pax</span>
+                  </dd>
+                </dl>
+                <p class="text-xs sm:text-sm text-content-secondary leading-relaxed mb-4">
                   {pkg.description}
                 </p>
                 
                 {pkg.includes && pkg.includes.length > 0 && (
-                  <div class="p-4 bg-brand-white rounded-2xl border border-brand-cream-dark/60 space-y-1.5 mb-4">
-                    <span class="text-[11px] font-bold text-brand-gold uppercase tracking-wider block mb-1">Rincian Menu:</span>
-                    <ul class="space-y-1 text-xs text-brand-dark/90">
+                  <section aria-label={`Rincian menu ${pkg.name}`} class="p-4 bg-surface-primary rounded-2xl border border-line-subtle/60 space-y-1.5 mb-4">
+                    <h3 class="text-[11px] font-bold text-brand-gold uppercase tracking-wider block mb-1 m-0">Rincian Menu:</h3>
+                    <ul class="space-y-1 text-xs text-content-primary/90 list-none m-0 p-0">
                       {pkg.includes.map(item => (
                         <li class="flex items-start gap-2">
-                          <span class="text-brand-green font-bold shrink-0">✓</span>
+                          <span class="text-status-success font-bold shrink-0" aria-hidden="true">✓</span>
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </section>
                 )}
               </div>
             </div>
 
-            <div class="p-6 pt-0">
+            <footer class="p-6 pt-0">
               <a 
                 href="#catering-inquiry-form" 
                 data-select-catering={pkg.name}
-                class="block w-full py-3 rounded-full text-center bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-semibold text-xs shadow-soft transition-colors"
+                class="min-h-[44px] flex items-center justify-center w-full py-3 rounded-full text-center bg-action-primary hover:bg-action-primary-hover text-content-inverse font-semibold text-xs shadow-soft transition-colors"
               >
                 Ajukan Penawaran Paket Ini
               </a>
-            </div>
-          </div>
+            </footer>
+          </article>
         ))}
       </div>
 
-      <!-- Catering Inquiry Form -->
-      <div class="max-w-3xl mx-auto bg-brand-cream-light/50 border border-brand-cream-dark p-6 sm:p-10 rounded-3xl shadow-card">
-        <div class="text-center mb-8">
-          <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Formulir Permintaan Penawaran</span>
-          <h3 class="font-serif text-2xl sm:text-3xl font-bold text-brand-dark mt-1">
-            Ajukan Inquiry Layanan Katering
-          </h3>
-          <p class="text-xs text-brand-muted mt-2">
-            Isi formulir di bawah ini untuk menerima proposal penawaran menu dan harga resmi via WhatsApp.
-          </p>
-        </div>
+      <!-- Structured Catering Inquiry Form -->
+      <section id="catering-inquiry-form" aria-labelledby="catering-inquiry-heading" class="max-w-4xl mx-auto scroll-mt-24">
+        <div class="bg-surface-subtle/40 border-2 border-line-subtle rounded-3xl p-6 sm:p-10 shadow-card">
+          <header class="text-center max-w-2xl mx-auto mb-8">
+            <span class="editorial-kicker justify-center">Formulir Permintaan Penawaran</span>
+            <h2 id="catering-inquiry-heading" class="font-serif text-2xl sm:text-3xl font-bold text-content-primary mt-2">
+              Konsultasi & Penawaran Catering
+            </h2>
+            <p class="text-xs sm:text-sm text-content-secondary mt-2 m-0">
+              Isi detail acara Anda di bawah ini. Tim katering Rasanesia akan menyusun rincian menu dan penawaran harga terbaik via WhatsApp.
+            </p>
+          </header>
 
-        <form id="catering-inquiry-form" class="space-y-6">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label for="catering-name" class="block text-xs font-bold text-brand-dark mb-1">Nama Pemesan / Instansi*</label>
-              <input 
-                type="text" 
-                id="catering-name" 
-                name="name" 
-                placeholder="Contoh: Bapak Danang / Panitia Acara" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
-                required
-              />
-            </div>
+          <form id="catering-wa-form" class="space-y-6">
+            <fieldset class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-0 p-0 m-0">
+              <legend class="sr-only">Identitas Pemesan</legend>
+              <div>
+                <label for="cat-name-input" class="block text-xs font-bold text-content-primary mb-1.5">Nama Pemesan / Instansi*</label>
+                <input 
+                  type="text" 
+                  id="cat-name-input" 
+                  name="customerName" 
+                  placeholder="Contoh: Bapak Budi / Dinas Pendidikan" 
+                  class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
+                  required
+                />
+              </div>
 
-            <div>
-              <label for="catering-phone" class="block text-xs font-bold text-brand-dark mb-1">Nomor WhatsApp Aktif*</label>
-              <input 
-                type="tel" 
-                id="catering-phone" 
-                name="phone" 
-                placeholder="Contoh: 081234567890" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
-                required
-              />
-            </div>
-          </div>
+              <div>
+                <label for="cat-phone-input" class="block text-xs font-bold text-content-primary mb-1.5">Nomor WhatsApp Aktif*</label>
+                <input 
+                  type="tel" 
+                  id="cat-phone-input" 
+                  name="customerPhone" 
+                  placeholder="Contoh: 081234567890" 
+                  class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
+                  required
+                />
+              </div>
+            </fieldset>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label for="catering-service-type" class="block text-xs font-bold text-brand-dark mb-1">Preferensi Layanan*</label>
-              <select 
-                id="catering-service-type" 
-                name="serviceType" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+            <fieldset class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-0 p-0 m-0">
+              <legend class="sr-only">Spesifikasi Acara & Jumlah Tamu</legend>
+              <div>
+                <label for="cat-event-type" class="block text-xs font-bold text-content-primary mb-1.5">Jenis Acara / Paket*</label>
+                <select 
+                  id="cat-event-type" 
+                  name="eventType" 
+                  class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
+                  required
+                >
+                  {defaultCateringPackages.map(pkg => (
+                    <option value={`${pkg.name} (Rp ${pkg.pricePerPax.toLocaleString('id-ID')}/pax)`}>
+                      {pkg.name}
+                    </option>
+                  ))}
+                  <option value="Acara Khusus / Kombinasi Menu">Acara Khusus / Kombinasi Menu</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="cat-pax" class="block text-xs font-bold text-content-primary mb-1.5">Estimasi Jumlah Tamu (Pax)*</label>
+                <input 
+                  type="number" 
+                  id="cat-pax" 
+                  name="paxCount" 
+                  min="15" 
+                  placeholder="Misal: 100" 
+                  class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none tabular-price font-semibold"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="cat-date" class="block text-xs font-bold text-content-primary mb-1.5">Tanggal Acara*</label>
+                <input 
+                  type="date" 
+                  id="cat-date" 
+                  name="eventDate" 
+                  class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
+                  required
+                />
+              </div>
+            </fieldset>
+
+            <fieldset class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-0 p-0 m-0">
+              <legend class="sr-only">Lokasi & Preferensi Menu</legend>
+              <div>
+                <label for="cat-location" class="block text-xs font-bold text-content-primary mb-1.5">Lokasi Acara (Kecamatan / Gedung)*</label>
+                <input 
+                  type="text" 
+                  id="cat-location" 
+                  name="eventLocation" 
+                  placeholder="Contoh: Laweyan, Solo / Grogol, Sukoharjo" 
+                  class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="cat-notes" class="block text-xs font-bold text-content-primary mb-1.5">Preferensi Menu / Catatan Anggaran</label>
+                <input 
+                  type="text" 
+                  id="cat-notes" 
+                  name="notes" 
+                  placeholder="Misal: Budget Rp 35.000/pax, menu ayam bakar & selat solo" 
+                  class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
+                />
+              </div>
+            </fieldset>
+
+            <footer class="pt-2 text-center">
+              <button 
+                type="submit" 
+                class="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 bg-action-whatsapp hover:bg-action-whatsapp-hover text-content-inverse font-semibold px-9 py-4 rounded-full shadow-soft hover:shadow-hover transition-all text-sm cursor-pointer"
               >
-                <option value="Buffet Prasmanan Mewah">Buffet Prasmanan Mewah</option>
-                <option value="Nasi Kotak Nusantara Premium">Nasi Kotak Nusantara Premium</option>
-                <option value="Coffee Break Jajanan Pasar Tampah">Coffee Break Jajanan Pasar Tampah</option>
-                <option value="Paket Custom Sesuai Acara">Paket Custom Sesuai Acara</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="catering-event-type" class="block text-xs font-bold text-brand-dark mb-1">Jenis Acara*</label>
-              <input 
-                type="text" 
-                id="catering-event-type" 
-                name="eventType" 
-                placeholder="Contoh: Rapat Kerja, Syukuran, Pernikahan" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
-                required
-              />
-            </div>
-
-            <div>
-              <label for="catering-portions" class="block text-xs font-bold text-brand-dark mb-1">Perkiraan Porsi (Pax)*</label>
-              <input 
-                type="number" 
-                id="catering-portions" 
-                name="portions" 
-                min="10" 
-                placeholder="Min 20 - 50 pax" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
-                required
-              />
-            </div>
-          </div>
-
-          <!-- Scheduling and Lead Time -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label for="catering-date" class="block text-xs font-bold text-brand-dark mb-1">Tanggal Acara*</label>
-              <input 
-                type="date" 
-                id="catering-date" 
-                name="eventDate" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
-                required
-              />
-              <span class="text-[11px] text-brand-muted block mt-1">Disarankan pemesanan minimal H-3 untuk persiapan bahan segar.</span>
-            </div>
-
-            <div>
-              <label for="catering-location" class="block text-xs font-bold text-brand-dark mb-1">Lokasi Acara (Solo & Sukoharjo)*</label>
-              <input 
-                type="text" 
-                id="catering-location" 
-                name="location" 
-                placeholder="Contoh: Gedung Pertemuan / Alamat Kantor" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
-                required
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="catering-notes" class="block text-xs font-bold text-brand-dark mb-1">Catatan Tambahan / Permintaan Khusus Menu (Opsional)</label>
-            <textarea 
-              id="catering-notes" 
-              name="notes" 
-              rows="3" 
-              placeholder="Contoh: Tambah menu jajanan pasar tampah khusus, tidak pedas untuk anak-anak, opsi minuman wedang jahe..." 
-              class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
-            ></textarea>
-          </div>
-
-          <!-- Policy notice -->
-          <div class="p-4 rounded-xl bg-brand-cream border border-brand-cream-dark text-xs text-brand-dark/80 space-y-1">
-            <p class="font-bold text-brand-brown">Ketentuan Pemesanan Katering:</p>
-            <p>1. Penawaran harga bersifat estimasi awal dan akan dikonfirmasi secara final bersama admin Rasanesia melalui WhatsApp resmi.</p>
-            <p>2. Uang muka (DP) dan kepastian ketersediaan slot dapur dikonfirmasikan setelah kesepakatan rincian menu.</p>
-          </div>
-
-          <!-- Submit Button -->
-          <button 
-            type="submit" 
-            class="w-full bg-brand-green hover:bg-brand-green-dark text-brand-white font-bold py-4 rounded-full text-sm shadow-soft hover:shadow-hover transition-all flex items-center justify-center gap-2 active:scale-98"
-          >
-            <span>Kirim Permintaan Penawaran via WhatsApp</span>
-            <svg class="w-5 h-5 text-brand-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-            </svg>
-          </button>
-        </form>
-      </div>
+                <span>Kirim Permintaan Penawaran via WhatsApp</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </footer>
+          </form>
+        </div>
+      </section>
 
     </div>
   </section>
 </BaseLayout>
 
 <script>
+  import { getStoredConfig, getStoredCatering } from '../../utils/store';
   import { initClientSync } from '../../utils/clientSync';
-  import { siteConfig } from '../../data/siteConfig';
 
-  // Run live sync with localStorage
   initClientSync();
 
-  // Quick select package button
-  document.querySelectorAll('[data-select-catering]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const target = e.currentTarget as HTMLElement | null;
-      const pkgName = target ? target.getAttribute('data-select-catering') : '';
-      const selectEl = document.getElementById('catering-service-type') as HTMLSelectElement | null;
-      if (selectEl && pkgName) {
-        let found = false;
-        for (let i = 0; i < selectEl.options.length; i++) {
-          if (selectEl.options[i].value.includes(pkgName) || pkgName.includes(selectEl.options[i].value)) {
-            selectEl.selectedIndex = i;
-            found = true;
-            break;
+  const catForm = document.getElementById('catering-wa-form') as HTMLFormElement;
+  const selectDropdown = document.getElementById('cat-event-type') as HTMLSelectElement;
+
+  function syncCateringSelect() {
+    const packages = getStoredCatering();
+    if (selectDropdown && packages.length > 0) {
+      selectDropdown.innerHTML = packages.map(pkg => `
+        <option value="${pkg.name} (Rp ${pkg.pricePerPax.toLocaleString('id-ID')}/pax)">
+          ${pkg.name} — Rp ${pkg.pricePerPax.toLocaleString('id-ID')}/pax
+        </option>
+      `).join('') + `<option value="Acara Khusus / Kombinasi Menu">Acara Khusus / Kombinasi Menu</option>`;
+    }
+
+    document.querySelectorAll('[data-select-catering]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pkgName = btn.getAttribute('data-select-catering');
+        if (selectDropdown && pkgName) {
+          for (let i = 0; i < selectDropdown.options.length; i++) {
+            if (selectDropdown.options[i].value.includes(pkgName)) {
+              selectDropdown.selectedIndex = i;
+              break;
+            }
           }
         }
-        if (!found) {
-          const opt = document.createElement('option');
-          opt.value = pkgName;
-          opt.text = pkgName;
-          opt.selected = true;
-          selectEl.add(opt);
-        }
-      }
+      });
     });
-  });
+  }
 
-  const form = document.getElementById('catering-inquiry-form');
+  syncCateringSelect();
 
-  form?.addEventListener('submit', (e) => {
+  catForm?.addEventListener('submit', (e) => {
     e.preventDefault();
+    const formData = new FormData(catForm);
+    const customerName = formData.get('customerName') as string;
+    const customerPhone = formData.get('customerPhone') as string;
+    const eventType = formData.get('eventType') as string;
+    const paxCount = formData.get('paxCount') as string;
+    const eventDate = formData.get('eventDate') as string;
+    const eventLocation = formData.get('eventLocation') as string;
+    const notes = formData.get('notes') as string;
 
-    const name = (form.querySelector('#catering-name') as HTMLInputElement)?.value || '';
-    const phone = (form.querySelector('#catering-phone') as HTMLInputElement)?.value || '';
-    const serviceType = (form.querySelector('#catering-service-type') as HTMLSelectElement)?.value || '';
-    const eventType = (form.querySelector('#catering-event-type') as HTMLInputElement)?.value || '';
-    const portions = (form.querySelector('#catering-portions') as HTMLInputElement)?.value || '';
-    const eventDate = (form.querySelector('#catering-date') as HTMLInputElement)?.value || '';
-    const location = (form.querySelector('#catering-location') as HTMLInputElement)?.value || '';
-    const notes = (form.querySelector('#catering-notes') as HTMLTextAreaElement)?.value || '';
+    const message = `Halo Admin *Rasanesia*, saya ingin meminta penawaran *Layanan Catering*:\n\n` +
+      `👤 *Pemesan:* ${customerName} (${customerPhone})\n` +
+      `🎉 *Paket / Jenis Acara:* ${eventType}\n` +
+      `👥 *Estimasi Tamu:* ${paxCount} Pax\n` +
+      `📅 *Tanggal Acara:* ${eventDate}\n` +
+      `📍 *Lokasi Acara:* ${eventLocation}\n` +
+      `📝 *Preferensi Menu / Catatan:* ${notes || '-'}\n\n` +
+      `Mohon informasi rekomendasi paket dan rincian harganya. Terima kasih!`;
 
-    let message = `Halo Rasanesia, saya ingin mengajukan Permintaan Penawaran Katering:\n\n`;
-    message += `• Nama Pemesan: ${name}\n`;
-    message += `• Kontak Pemesan: ${phone}\n`;
-    message += `• Preferensi Layanan: ${serviceType}\n`;
-    message += `• Jenis Acara: ${eventType}\n`;
-    message += `• Perkiraan Jumlah: ${portions} porsi\n`;
-    message += `• Tanggal Acara: ${eventDate || 'Belum Ditentukan'}\n`;
-    message += `• Lokasi Acara: ${location}\n`;
-    if (notes.trim()) {
-      message += `• Catatan Khusus: ${notes.trim()}\n`;
-    }
-    message += `\nMohon kirimkan daftar pilihan menu dan proposal penawarannya. Terima kasih!`;
-
-    let activePhone = siteConfig.whatsappNumber;
-    try {
-      const storedConfig = localStorage.getItem('rasanesia_store_config');
-      if (storedConfig) {
-        const parsed = JSON.parse(storedConfig);
-        if (parsed.whatsappNumber) activePhone = parsed.whatsappNumber;
-      }
-    } catch (e) {}
-
-    const cleanPhone = String(activePhone).replace(/[^0-9]/g, '');
-    const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
+    const currentConfig = getStoredConfig();
+    const waUrl = `https://wa.me/${currentConfig.whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, '_blank');
   });
 </script>

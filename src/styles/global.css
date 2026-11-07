@@ -2,42 +2,268 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --color-brand-brown: 112 69 46;
-    --color-brand-cream: 247 240 227;
-    --color-brand-green: 101 115 75;
-    --color-brand-gold: 217 154 85;
-  }
+/* ==========================================================================
+   1. ZERO-CLS METRIC-COMPATIBLE FALLBACK FONTS
+   Prevents layout shift when Google Fonts (Lora & Inter) swap in.
+   ========================================================================== */
+@font-face {
+  font-family: 'Lora Fallback';
+  src: local('Georgia'), local('Times New Roman');
+  size-adjust: 103.5%;
+  ascent-override: 92%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
 
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Segoe UI'), local('Arial'), local('Helvetica Neue');
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+/* ==========================================================================
+   2. SEMANTIC DESIGN SYSTEM TOKENS
+   Role-based tokens for surfaces, typography, borders, actions, and motion.
+   ========================================================================== */
+:root {
+  /* Fluid Typography Scale */
+  --step--1: clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);
+  --step-0: clamp(0.9375rem, 0.90rem + 0.2vw, 1.0625rem);
+  --step-1: clamp(1.125rem, 1.05rem + 0.38vw, 1.35rem);
+  --step-2: clamp(1.375rem, 1.22rem + 0.78vw, 1.85rem);
+  --step-3: clamp(1.75rem, 1.48rem + 1.35vw, 2.5rem);
+  --step-4: clamp(2.15rem, 1.72rem + 2.15vw, 3.5rem);
+  --display: clamp(2.35rem, 1.8rem + 2.75vw, 4.15rem);
+
+  /* Semantic Surface Tokens */
+  --surface-canvas: #FAF6EE;
+  --surface-primary: #FFFDF9;
+  --surface-subtle: #F6EFE2;
+  --surface-elevated: #FFFDF9;
+  --surface-inverse: #22140D;
+  --surface-accent: #6B3E26;
+
+  /* Semantic Content / Ink Tokens (WCAG 2.2 AA Verified) */
+  --content-primary: #22140D;
+  --content-secondary: #594A42;
+  --content-accent: #6B3E26;
+  --content-highlight: #8A5218;
+  --content-inverse: #FFFDF9;
+  --content-inverse-muted: #F6EFE2;
+  --content-inverse-highlight: #E5B174;
+
+  /* Semantic Border / Line Tokens */
+  --border-subtle: #E5D7C1;
+  --border-strong: #6B3E26;
+  --border-inverse: rgba(229, 177, 116, 0.28);
+
+  /* Semantic Action & Status Tokens */
+  --action-primary: #6B3E26;
+  --action-primary-hover: #432414;
+  --action-whatsapp: #4A5D32;
+  --action-whatsapp-hover: #364523;
+  --status-success: #3F6224;
+  --status-warning: #8A5218;
+  --status-danger: #B91C1C;
+
+  /* Motion Choreography Tokens */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 320ms;
+  --dur-slow: 640ms;
+}
+
+@layer base {
   html {
     scroll-behavior: smooth;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #FFFDF8;
-    color: #2B1A12;
     -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1;
   }
 
   body {
-    min-height: 100vh;
-    overflow-x: hidden;
+    background-color: var(--surface-canvas);
+    color: var(--content-primary);
+    @apply font-sans antialiased selection:bg-brand-brown selection:text-brand-white overflow-x-hidden;
   }
 
-  h1, h2, h3, h4, .font-serif {
-    font-family: 'Lora', Georgia, serif;
-    letter-spacing: -0.01em;
+  h1, h2, h3, h4 {
+    @apply font-serif tracking-tight;
+    text-wrap: balance;
   }
 
-  /* Focus outline for accessibility */
+  p, li, dd {
+    text-wrap: pretty;
+  }
+
+  address {
+    font-style: normal;
+  }
+
+  /* High-visibility accessible keyboard focus ring (WCAG 2.2 AA 2.4.11) */
   *:focus-visible {
-    outline: 2px solid #70452E;
-    outline-offset: 2px;
+    outline: 2.5px solid var(--border-strong);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ==========================================================================
+   3. SEMANTIC COMPONENT PATTERNS
+   Reusable semantic UI primitives for headers, cards, breadcrumbs & actions.
+   ========================================================================== */
+@layer components {
+  /* Semantic Page Header Banner */
+  .page-header-banner {
+    background-color: rgba(246, 239, 226, 0.45);
+    border-bottom: 1px solid var(--border-subtle);
+    background-image: radial-gradient(rgba(107, 62, 38, 0.045) 1px, transparent 0);
+    background-size: 20px 20px;
+    @apply py-12 lg:py-16;
+  }
+
+  /* Semantic Breadcrumb Ordered List (<nav aria-label="Breadcrumb"><ol class="breadcrumb-list">) */
+  .breadcrumb-list {
+    @apply flex flex-wrap items-center gap-2 text-xs text-content-secondary mb-4 list-none p-0 m-0;
+  }
+
+  .breadcrumb-list > li {
+    @apply inline-flex items-center gap-2;
+  }
+
+  .breadcrumb-list > li + li::before {
+    content: "/";
+    color: var(--content-secondary);
+    opacity: 0.6;
+  }
+
+  .breadcrumb-link {
+    @apply min-h-[40px] inline-flex items-center px-1 font-medium text-content-secondary hover:text-content-accent transition-colors;
+  }
+
+  .breadcrumb-current {
+    @apply font-semibold text-content-accent truncate;
+  }
+
+  /* Semantic Cards & Panels */
+  .semantic-card {
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-subtle);
+    @apply rounded-3xl overflow-hidden shadow-card transition-all duration-300;
+  }
+
+  .semantic-card:hover {
+    border-color: rgba(107, 62, 38, 0.5);
+  }
+
+  .semantic-panel {
+    background-color: rgba(250, 246, 238, 0.65);
+    border: 1px solid var(--border-subtle);
+    @apply rounded-3xl p-6 sm:p-8;
+  }
+
+  /* Editorial Kicker & Index Typography */
+  .editorial-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Inter', 'Inter Fallback', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--content-highlight);
+  }
+
+  .editorial-kicker::before {
+    content: '';
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5px;
+    background-color: var(--content-highlight);
+  }
+
+  .editorial-index {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--content-secondary);
+  }
+
+  .tabular-price {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Subtle Tactile Paper / Banana-Leaf Grain Overlay */
+  .bg-editorial-grain {
+    background-image: radial-gradient(rgba(107, 62, 38, 0.045) 1px, transparent 0);
+    background-size: 20px 20px;
   }
 }
 
 @layer utilities {
   .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom, 1rem);
+  }
+
+  .scale-102 {
+    transform: scale(1.02);
+  }
+
+  .active\:scale-98:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Surface-aware WCAG 2.2 AA Contrast for Gold Accent Text */
+.text-brand-gold {
+  color: var(--content-highlight) !important;
+}
+
+.bg-brand-dark .text-brand-gold,
+.bg-surface-inverse .text-brand-gold,
+.bg-brand-brown .text-brand-gold,
+.bg-brand-brown-dark .text-brand-gold,
+footer .text-brand-gold {
+  color: var(--content-inverse-highlight) !important;
+}
+
+.bg-brand-dark .bg-brand-white .text-brand-gold,
+.bg-surface-inverse .bg-surface-primary .text-brand-gold,
+.bg-brand-brown .bg-brand-white .text-brand-gold {
+  color: var(--content-highlight) !important;
+}
+
+/* Choreographed Scroll Reveal (GPU-composited transform & opacity only) */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-reveal-ready [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    transition:
+      opacity var(--dur-slow) var(--ease-out),
+      transform var(--dur-slow) var(--ease-out);
+  }
+
+  html.js-reveal-ready [data-reveal].is-revealed {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  html.js-reveal-ready [data-reveal-delay="1"] {
+    transition-delay: 0.07s;
+  }
+  html.js-reveal-ready [data-reveal-delay="2"] {
+    transition-delay: 0.14s;
+  }
+  html.js-reveal-ready [data-reveal-delay="3"] {
+    transition-delay: 0.21s;
   }
 }
 
@@ -47,5 +273,10 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

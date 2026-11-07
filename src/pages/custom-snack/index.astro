@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getProducts } from '../../lib/sanity';
-import { siteConfig } from '../../data/siteConfig';
 import { defaultCustomSnackConfig } from '../../data/customSnackConfig';
 
 const products = await getProducts();
@@ -11,271 +10,245 @@ const products = await getProducts();
   title="Rancang Custom Snack Box | Rasanesia"
   description="Kombinasikan sendiri aneka jajanan tradisional dan kemasan snack box sesuai kebutuhan acara dan budget Anda di Solo & Sukoharjo."
 >
-  <!-- Header -->
-  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-brand-brown">Beranda</a>
-        <span>/</span>
-        <span class="text-brand-brown font-semibold">Custom Pesanan</span>
+  <!-- Semantic Page Header -->
+  <header aria-labelledby="custom-page-heading" class="page-header-banner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="/" class="breadcrumb-link">Beranda</a></li>
+          <li aria-current="page" class="breadcrumb-current">Custom Pesanan</li>
+        </ol>
       </nav>
-      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
+      <span class="editorial-kicker">Konfigurator Pesanan</span>
+      <h1 id="custom-page-heading" class="font-serif text-3xl sm:text-5xl font-bold text-content-primary mt-2">
         Formulir Custom Snack Box
       </h1>
-      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
+      <p class="text-sm sm:text-base text-content-secondary mt-3 max-w-2xl leading-relaxed m-0">
         Sesuaikan pilihan kue, kemasan, anggaran, dan tanggal kebutuhan acara Anda. Formulir ini akan menyusun ringkasan permintaan resmi untuk dikonfirmasi melalui WhatsApp Business Rasanesia.
       </p>
     </div>
-  </section>
+  </header>
 
-  <!-- Interactive Form Section -->
-  <section class="py-16 bg-brand-white">
+  <!-- Interactive Semantic Form Section -->
+  <section aria-label="Formulir penyusunan custom snack box" class="py-16 bg-surface-primary">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <form id="custom-snack-form" class="space-y-10 bg-brand-cream-light/50 border border-brand-cream-dark p-6 sm:p-10 rounded-3xl shadow-card">
+      <form id="custom-snack-form" class="space-y-10 bg-surface-canvas/50 border border-line-subtle p-6 sm:p-10 rounded-3xl shadow-card">
         
-        <!-- Step 1: Data Pemesan (Section 7.1) -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-3">
-            <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">1</span>
-            <h2 class="font-serif text-xl font-bold text-brand-dark">Data Pemesan</h2>
-          </div>
+        <!-- Step 1: Data Pemesan (Semantic Fieldset) -->
+        <fieldset class="space-y-4 border-0 p-0 m-0">
+          <legend class="flex items-center gap-3 w-full mb-2">
+            <span class="w-9 h-9 rounded-xl bg-action-primary text-content-inverse font-serif font-bold flex items-center justify-center text-sm shadow-xs" aria-hidden="true">01</span>
+            <span class="font-serif text-xl font-bold text-content-primary">Data Pemesan</span>
+          </legend>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label for="customer-name" class="block text-xs font-bold text-brand-dark mb-1">Nama Pemesan / Instansi*</label>
+              <label for="customer-name" class="block text-xs font-bold text-content-primary mb-1.5">Nama Pemesan / Instansi*</label>
               <input 
                 type="text" 
                 id="customer-name" 
                 name="customerName" 
                 placeholder="Contoh: Ibu Siti / PT Sinar Solo" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+                class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
                 required
               />
             </div>
 
             <div>
-              <label for="customer-phone" class="block text-xs font-bold text-brand-dark mb-1">Nomor WhatsApp Aktif*</label>
+              <label for="customer-phone" class="block text-xs font-bold text-content-primary mb-1.5">Nomor WhatsApp Aktif*</label>
               <input 
                 type="tel" 
                 id="customer-phone" 
                 name="customerPhone" 
                 placeholder="Contoh: 081234567890" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+                class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
                 required
               />
             </div>
           </div>
-        </div>
+        </fieldset>
 
-        <!-- Step 2: Pilih Kemasan -->
-        <div class="space-y-4 pt-4 border-t border-brand-cream-dark">
-          <div class="flex items-center gap-3">
-            <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">2</span>
+        <!-- Step 2: Pilih Kemasan (Semantic Fieldset) -->
+        <fieldset class="space-y-4 pt-4 border-t border-line-subtle border-x-0 border-b-0 p-0 m-0">
+          <legend class="flex items-center gap-3 w-full mb-1">
+            <span class="w-9 h-9 rounded-xl bg-action-primary text-content-inverse font-serif font-bold flex items-center justify-center text-sm shadow-xs" aria-hidden="true">02</span>
             <div>
-              <h2 class="font-serif text-xl font-bold text-brand-dark">Pilih Tipe Kemasan Box</h2>
-              <p class="text-xs text-brand-muted">Pilih wadah yang sesuai dengan kesan dan anggaran acara Anda.</p>
+              <span class="font-serif text-xl font-bold text-content-primary block">Pilih Tipe Kemasan Box</span>
+              <span class="text-xs font-normal text-content-secondary block">Pilih wadah yang sesuai dengan kesan dan anggaran acara Anda.</span>
             </div>
-          </div>
+          </legend>
           
           <div id="custom-packaging-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {defaultCustomSnackConfig.packagingOptions.map((pack, idx) => (
-              <label class={`cursor-pointer border-2 ${idx === 0 ? 'border-brand-brown' : 'border-brand-cream-dark'} rounded-2xl p-4 bg-brand-white flex flex-col justify-between hover:border-brand-brown transition-all packaging-radio-label`}>
+              <label class={`cursor-pointer border-2 ${idx === 0 ? 'border-brand-brown' : 'border-brand-cream-dark'} rounded-2xl p-4 bg-surface-primary flex flex-col justify-between hover:border-brand-brown transition-all packaging-radio-label min-h-[110px]`}>
                 <div>
-                  <div class="flex items-center justify-between">
+                  <div class="flex items-center justify-between gap-2">
                     <input 
                       type="radio" 
                       name="boxType" 
                       value={`${pack.name} (${pack.extraPrice > 0 ? '+Rp ' + pack.extraPrice.toLocaleString('id-ID') : 'Termasuk'})`} 
                       data-extra-price={pack.extraPrice}
                       checked={idx === 0} 
-                      class="text-brand-brown focus:ring-brand-brown" 
+                      class="w-5 h-5 text-brand-brown focus:ring-brand-brown" 
                     />
-                    <span class="text-[11px] font-bold text-brand-gold">
+                    <span class="text-xs font-bold text-brand-gold tabular-price">
                       {pack.extraPrice > 0 ? `+Rp ${pack.extraPrice.toLocaleString('id-ID')}` : 'Termasuk'}
                     </span>
                   </div>
-                  <h3 class="font-serif font-bold text-sm text-brand-dark mt-2">{pack.name}</h3>
-                  <p class="text-xs text-brand-muted mt-1 leading-relaxed">{pack.description}</p>
+                  <p class="font-bold text-sm text-content-primary mt-2 m-0">{pack.name}</p>
                 </div>
+                <p class="text-xs text-content-secondary mt-1 m-0">{pack.description}</p>
               </label>
             ))}
           </div>
-        </div>
+        </fieldset>
 
-        <!-- Step 3: Pilih Isian Jajanan -->
-        <div class="space-y-4 pt-4 border-t border-brand-cream-dark">
-          <div class="flex items-center gap-3">
-            <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">3</span>
+        <!-- Step 3: Pilih Jajanan (Semantic Fieldset) -->
+        <fieldset class="space-y-4 pt-4 border-t border-line-subtle border-x-0 border-b-0 p-0 m-0">
+          <legend class="flex items-center gap-3 w-full mb-1">
+            <span class="w-9 h-9 rounded-xl bg-action-primary text-content-inverse font-serif font-bold flex items-center justify-center text-sm shadow-xs" aria-hidden="true">03</span>
             <div>
-              <h2 class="font-serif text-xl font-bold text-brand-dark">Pilih Isian Kue (Pilih 2 - 5 Macam)</h2>
-              <p class="text-xs text-brand-muted">Centang kue yang ingin Anda masukkan ke dalam box.</p>
+              <span class="font-serif text-xl font-bold text-content-primary block">Pilih Varian Kue Isian</span>
+              <span id="custom-snacks-rule-label" class="text-xs font-normal text-content-secondary block">
+                Pilih kombinasi <strong id="label-min-snacks">{defaultCustomSnackConfig.minSnacks}</strong> hingga <strong id="label-max-snacks">{defaultCustomSnackConfig.maxSnacks}</strong> jenis jajanan favorit Anda di bawah ini.
+              </span>
             </div>
-          </div>
+          </legend>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 overflow-y-auto p-3 border border-brand-cream-dark rounded-2xl bg-brand-white">
-            {products.map(p => (
-              <label class="flex items-center gap-3 p-2.5 rounded-xl border border-brand-cream hover:bg-brand-cream/30 cursor-pointer transition-colors">
+          <div id="custom-snacks-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {products.map(product => (
+              <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-line-subtle bg-surface-primary hover:border-brand-brown cursor-pointer transition-colors">
                 <input 
                   type="checkbox" 
                   name="selectedSnacks" 
-                  value={p.name}
-                  data-snack-price={p.price || 0}
-                  class="rounded text-brand-brown focus:ring-brand-brown w-4 h-4 snack-checkbox" 
+                  value={`${product.name} (Rp ${product.price.toLocaleString('id-ID')})`}
+                  data-price={product.price}
+                  data-product-id={product.id}
+                  class="w-5 h-5 text-brand-brown rounded focus:ring-brand-brown"
                 />
-                <img src={p.image} alt={p.name} class="w-10 h-10 rounded-lg object-cover" />
+                <img 
+                  src={product.image} 
+                  alt={product.name} 
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                  class="w-12 h-12 rounded-xl object-cover border border-line-subtle shrink-0"
+                />
                 <div class="flex-1 min-w-0">
-                  <p class="text-xs font-semibold text-brand-dark truncate">{p.name}</p>
-                  <p class="text-[10px] text-brand-muted">
-                    {p.tasteProfile} • {p.price ? `Rp ${p.price.toLocaleString('id-ID')}` : 'Harga konfirmasi'}
+                  <p class="text-xs font-bold text-content-primary truncate m-0">{product.name}</p>
+                  <p data-sync-price={product.id} class="text-xs text-content-accent font-semibold tabular-price m-0">
+                    Rp {product.price.toLocaleString('id-ID')}
                   </p>
                 </div>
+                <span class="text-[10px] px-2.5 py-1 rounded-full bg-surface-subtle text-content-primary font-semibold">
+                  {product.tasteProfile}
+                </span>
               </label>
             ))}
           </div>
-        </div>
+        </fieldset>
 
-        <!-- Step 4: Kebutuhan Acara & Penjadwalan (Section 7.1 & Section 9) -->
-        <div class="space-y-4 pt-4 border-t border-brand-cream-dark">
-          <div class="flex items-center gap-3">
-            <span class="w-8 h-8 rounded-full bg-brand-brown text-brand-white font-bold flex items-center justify-center text-sm">4</span>
-            <div>
-              <h2 class="font-serif text-xl font-bold text-brand-dark">Jadwal Acara & Jumlah Box</h2>
-              <p class="text-xs text-brand-muted">Masukkan perkiraan tanggal dan jumlah box yang dibutuhkan.</p>
-            </div>
-          </div>
+        <!-- Step 4: Jumlah, Budget & Jadwal Acara (Semantic Fieldset) -->
+        <fieldset class="space-y-4 pt-4 border-t border-line-subtle border-x-0 border-b-0 p-0 m-0">
+          <legend class="flex items-center gap-3 w-full mb-2">
+            <span class="w-9 h-9 rounded-xl bg-action-primary text-content-inverse font-serif font-bold flex items-center justify-center text-sm shadow-xs" aria-hidden="true">04</span>
+            <span class="font-serif text-xl font-bold text-content-primary">Detail Kuantitas & Jadwal Acara</span>
+          </legend>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label for="custom-qty" class="block text-xs font-bold text-brand-dark mb-1">Jumlah Pesanan (Box)*</label>
+              <label for="box-qty" class="block text-xs font-bold text-content-primary mb-1.5">
+                Jumlah Box (<span id="label-min-order">Min {defaultCustomSnackConfig.minOrderBoxes}</span>)*
+              </label>
               <input 
                 type="number" 
-                id="custom-qty" 
-                name="quantity" 
-                value="25" 
-                min="1" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+                id="box-qty" 
+                name="boxQty" 
+                min={defaultCustomSnackConfig.minOrderBoxes} 
+                value="30" 
+                class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none tabular-price font-semibold"
                 required
               />
-              <span class="text-[10px] text-brand-muted">Minimal pesanan custom reguler adalah 15 box</span>
             </div>
 
             <div>
-              <label for="custom-date" class="block text-xs font-bold text-brand-dark mb-1">Tanggal Kebutuhan / Acara*</label>
-              <input 
-                type="date" 
-                id="custom-date" 
-                name="eventDate" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
-                required
-              />
-              <span class="text-[10px] text-brand-muted">Disarankan memilih tanggal minimal H-2</span>
-            </div>
-
-            <div>
-              <label for="custom-fulfillment" class="block text-xs font-bold text-brand-dark mb-1">Metode Pemenuhan*</label>
-              <select 
-                id="custom-fulfillment"
-                name="fulfillmentMethod" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
-              >
-                <option value="Pengiriman ke Alamat Acara">Pengiriman ke Alamat Acara</option>
-                <option value="Pengambilan Mandiri (Self Pick-up)">Pengambilan Mandiri (Self Pick-up)</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="custom-area" class="block text-xs font-bold text-brand-dark mb-1">Wilayah Pengantaran / Lokasi Acara</label>
-              <select 
-                id="custom-area"
-                name="area" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
-              >
-                <option value="Kota Surakarta (Solo)">Kota Surakarta (Solo)</option>
-                <option value="Kabupaten Sukoharjo">Kabupaten Sukoharjo</option>
-                <option value="Lainnya di Sekitar Solo Raya">Lainnya di Sekitar Solo Raya</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label for="event-type" class="block text-xs font-bold text-brand-dark mb-1">Jenis Acara (Opsional)</label>
+              <label for="budget-per-box" class="block text-xs font-bold text-content-primary mb-1.5">Target Budget / Box (Opsional)</label>
               <input 
                 type="text" 
-                id="event-type" 
-                name="eventType" 
-                placeholder="Contoh: Rapat Kantor, Pengajian, Syukuran" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+                id="budget-per-box" 
+                name="budgetPerBox" 
+                placeholder="Misal: Rp 15.000 / box" 
+                class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
               />
             </div>
 
             <div>
-              <label for="custom-budget" class="block text-xs font-bold text-brand-dark mb-1">Target Anggaran per Box (Rp, Opsional)</label>
+              <label for="event-date" class="block text-xs font-bold text-content-primary mb-1.5">Tanggal Acara*</label>
               <input 
-                type="number" 
-                id="custom-budget" 
-                name="budget" 
-                placeholder="Contoh: 30000" 
-                class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none"
+                type="date" 
+                id="event-date" 
+                name="eventDate" 
+                class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
+                required
               />
             </div>
           </div>
 
-          <div>
-            <label for="custom-notes" class="block text-xs font-bold text-brand-dark mb-1">Catatan Tambahan / Kebutuhan Khusus (Opsional)</label>
-            <textarea 
-              id="custom-notes" 
-              name="notes" 
-              rows="2" 
-              placeholder="Contoh: Butuh kartu ucapan 'Selamat Hari Jadi', pisahkan sambal/cabai rawit..."
-              class="w-full text-sm p-3 rounded-xl border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown outline-none resize-none"
-            ></textarea>
-          </div>
-        </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="delivery-area" class="block text-xs font-bold text-content-primary mb-1.5">Metode & Lokasi Pengiriman*</label>
+              <select 
+                id="delivery-area" 
+                name="deliveryArea" 
+                class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
+                required
+              >
+                <option value="Diantar - Kota Surakarta (Solo)">Diantar - Kota Surakarta (Solo)</option>
+                <option value="Diantar - Kabupaten Sukoharjo">Diantar - Kabupaten Sukoharjo</option>
+                <option value="Ambil Sendiri (Pick-Up di Dapur)">Ambil Sendiri (Pick-Up di Dapur)</option>
+                <option value="Area Solo Raya Lainnya (Konfirmasi Admin)">Area Solo Raya Lainnya (Konfirmasi Admin)</option>
+              </select>
+            </div>
 
-        <!-- Budget Estimator Box (Section 10) -->
-        <div class="p-5 rounded-2xl bg-brand-cream/60 border border-brand-cream-dark space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-brand-gold">Estimasi Anggaran</span>
-            <span class="text-[11px] text-brand-muted">Transparan & dapat disesuaikan</span>
+            <div>
+              <label for="custom-notes" class="block text-xs font-bold text-content-primary mb-1.5">Catatan Tambahan (Opsional)</label>
+              <input 
+                type="text" 
+                id="custom-notes" 
+                name="customNotes" 
+                placeholder="Misal: Tambah air mineral cup, jam 08.00 pagi, dsb." 
+                class="w-full min-h-[48px] text-sm p-3.5 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown outline-none"
+              />
+            </div>
           </div>
-          <div class="flex items-baseline justify-between pt-1">
-            <span class="text-xs text-brand-dark/80">Perkiraan Subtotal Kue:</span>
-            <span id="estimated-total" class="font-serif text-2xl font-bold text-brand-brown">
-              Rp 0
-            </span>
-          </div>
-          <p class="text-[11px] text-brand-muted italic leading-relaxed pt-1 border-t border-brand-cream-dark/60">
-            *Catatan: Nilai ini merupakan <strong>estimasi sementara</strong> berdasarkan pilihan kue dan jumlah box. Biaya kemasan khusus, diskon volume, dan ongkos kirim akan dikonfirmasi secara final oleh admin Rasanesia melalui WhatsApp.
+          
+          <p id="custom-policy-note" class="text-xs text-content-secondary italic m-0">
+            * {defaultCustomSnackConfig.notes}
           </p>
-        </div>
+        </fieldset>
 
-        <!-- Notice Box Penjadwalan (Section 9 & Section 11.5) -->
-        <div class="p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-amber-900 space-y-1">
-          <p class="font-bold flex items-center gap-1.5">
-            <span>⚠️</span> Informasi Penjadwalan Pesanan:
-          </p>
-          <p>
-            Pengiriman formulir ini akan membuka chat WhatsApp dengan draf pesan siap kirim. Formulir ini merupakan <strong>permintaan inquiry</strong> dan <strong>bukan booking otomatis</strong>. Pesanan Anda baru terkonfirmasi resmi setelah staf kami memeriksa slot dapur dan menyetujui ketersediaan tanggal acara Anda.
-          </p>
-        </div>
+        <!-- Dynamic Estimate Output & Submit Footer -->
+        <footer class="p-6 rounded-2xl bg-surface-primary border-2 border-line-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
+          <dl class="m-0">
+            <dt class="text-xs text-brand-gold uppercase font-bold tracking-wider">Estimasi Anggaran</dt>
+            <dd class="m-0">
+              <output for="box-qty" id="live-estimate" aria-live="polite" class="font-serif text-2xl font-bold text-content-primary mt-0.5 tabular-price block">
+                Rp 0 <span class="text-xs font-sans font-normal text-content-secondary">(Pilih kue di atas)</span>
+              </output>
+            </dd>
+          </dl>
 
-        <!-- Submit Button -->
-        <div class="pt-4 border-t border-brand-cream-dark">
           <button 
             type="submit" 
-            class="w-full bg-brand-green hover:bg-brand-green-dark text-brand-white font-bold py-4 rounded-full shadow-soft hover:shadow-hover transition-all flex items-center justify-center gap-2 text-base transform hover:-translate-y-0.5"
+            class="w-full sm:w-auto min-h-[48px] bg-action-whatsapp hover:bg-action-whatsapp-hover text-content-inverse font-semibold px-8 py-3.5 rounded-full shadow-soft hover:shadow-hover transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
           >
-            <span>Kirim Ringkasan Permintaan ke WhatsApp</span>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+            <span>Kirim Rincian Custom ke WhatsApp</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </button>
-          <p class="text-[11px] text-center text-brand-muted mt-2">
-            Konsultasi gratis tanpa biaya pemesanan awal. Pesan WhatsApp dapat Anda tinjau kembali sebelum dikirim.
-          </p>
-        </div>
+        </footer>
 
       </form>
 
@@ -284,150 +257,169 @@ const products = await getProducts();
 </BaseLayout>
 
 <script>
+  import { getStoredConfig, getStoredProducts, getStoredCustomConfig } from '../../utils/store';
   import { initClientSync } from '../../utils/clientSync';
-  import { siteConfig } from '../../data/siteConfig';
 
-  // Run live sync
   initClientSync();
 
-  const form = document.getElementById('custom-snack-form');
-  const qtyInput = document.getElementById('custom-qty') as HTMLInputElement | null;
-  const totalDisplay = document.getElementById('estimated-total');
+  const form = document.getElementById('custom-snack-form') as HTMLFormElement;
+  const estimateEl = document.getElementById('live-estimate');
+  const qtyInput = document.getElementById('box-qty') as HTMLInputElement;
+  const packagingGrid = document.getElementById('custom-packaging-grid');
+  const snacksGrid = document.getElementById('custom-snacks-grid');
 
-  function calculateEstimate() {
-    const qty = parseInt(qtyInput?.value || '0', 10);
-    const checkedCheckboxes = Array.from(document.querySelectorAll('.snack-checkbox:checked'));
-    
-    let snackSum = 0;
-    checkedCheckboxes.forEach(cb => {
-      const price = parseInt(cb.getAttribute('data-snack-price') || '0', 10);
-      snackSum += price;
+  function hydrateCustomPage() {
+    const customCfg = getStoredCustomConfig();
+    const products = getStoredProducts().filter(p => p.available !== false);
+
+    const minSnacksLabel = document.getElementById('label-min-snacks');
+    const maxSnacksLabel = document.getElementById('label-max-snacks');
+    const minOrderLabel = document.getElementById('label-min-order');
+    const policyNote = document.getElementById('custom-policy-note');
+
+    if (minSnacksLabel) minSnacksLabel.textContent = String(customCfg.minSnacks);
+    if (maxSnacksLabel) maxSnacksLabel.textContent = String(customCfg.maxSnacks);
+    if (minOrderLabel) minOrderLabel.textContent = `Min ${customCfg.minOrderBoxes}`;
+    if (policyNote) policyNote.textContent = `* ${customCfg.notes}`;
+    if (qtyInput) {
+      qtyInput.min = String(customCfg.minOrderBoxes);
+      if (parseInt(qtyInput.value, 10) < customCfg.minOrderBoxes) {
+        qtyInput.value = String(customCfg.minOrderBoxes);
+      }
+    }
+
+    if (packagingGrid && customCfg.packagingOptions.length > 0) {
+      packagingGrid.innerHTML = customCfg.packagingOptions.map((pack, idx) => `
+        <label class="cursor-pointer border-2 ${idx === 0 ? 'border-brand-brown' : 'border-brand-cream-dark'} rounded-2xl p-4 bg-surface-primary flex flex-col justify-between hover:border-brand-brown transition-all packaging-radio-label min-h-[110px]">
+          <div>
+            <div class="flex items-center justify-between gap-2">
+              <input 
+                type="radio" 
+                name="boxType" 
+                value="${pack.name} (${pack.extraPrice > 0 ? '+Rp ' + pack.extraPrice.toLocaleString('id-ID') : 'Termasuk'})" 
+                data-extra-price="${pack.extraPrice}"
+                ${idx === 0 ? 'checked' : ''} 
+                class="w-5 h-5 text-brand-brown focus:ring-brand-brown" 
+              />
+              <span class="text-xs font-bold text-brand-gold tabular-price">
+                ${pack.extraPrice > 0 ? '+Rp ' + pack.extraPrice.toLocaleString('id-ID') : 'Termasuk'}
+              </span>
+            </div>
+            <p class="font-bold text-sm text-content-primary mt-2 m-0">${pack.name}</p>
+          </div>
+          <p class="text-xs text-content-secondary mt-1 m-0">${pack.description}</p>
+        </label>
+      `).join('');
+    }
+
+    if (snacksGrid && products.length > 0) {
+      snacksGrid.innerHTML = products.map(product => `
+        <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-line-subtle bg-surface-primary hover:border-brand-brown cursor-pointer transition-colors">
+          <input 
+            type="checkbox" 
+            name="selectedSnacks" 
+            value="${product.name} (Rp ${product.price.toLocaleString('id-ID')})"
+            data-price="${product.price}"
+            class="w-5 h-5 text-brand-brown rounded focus:ring-brand-brown"
+          />
+          <img 
+            src="${product.image}" 
+            alt="${product.name}" 
+            width="48"
+            height="48"
+            loading="lazy"
+            class="w-12 h-12 rounded-xl object-cover border border-line-subtle shrink-0"
+          />
+          <div class="flex-1 min-w-0">
+            <p class="text-xs font-bold text-content-primary truncate m-0">${product.name}</p>
+            <p class="text-xs text-content-accent font-semibold tabular-price m-0">Rp ${product.price.toLocaleString('id-ID')}</p>
+          </div>
+          <span class="text-[10px] px-2.5 py-1 rounded-full bg-surface-subtle text-content-primary font-semibold">
+            ${product.tasteProfile}
+          </span>
+        </label>
+      `).join('');
+    }
+
+    document.querySelectorAll('input[name="boxType"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.packaging-radio-label').forEach(lbl => {
+          lbl.classList.remove('border-brand-brown');
+          lbl.classList.add('border-brand-cream-dark');
+        });
+        const parentLabel = radio.closest('.packaging-radio-label');
+        parentLabel?.classList.remove('border-brand-cream-dark');
+        parentLabel?.classList.add('border-brand-brown');
+        updateEstimate();
+      });
     });
 
-    const selectedPackRadio = document.querySelector('input[name="boxType"]:checked');
-    const packExtra = selectedPackRadio ? parseInt(selectedPackRadio.getAttribute('data-extra-price') || '0', 10) : 0;
+    document.querySelectorAll('input[name="selectedSnacks"]').forEach(cb => {
+      cb.addEventListener('change', updateEstimate);
+    });
+  }
 
-    const total = (snackSum + packExtra) * qty;
-    if (totalDisplay) {
-      totalDisplay.textContent = total > 0 ? `Rp ${total.toLocaleString('id-ID')}` : 'Rp 0 (Pilih Kue)';
+  function updateEstimate() {
+    if (!form || !estimateEl) return;
+    
+    const checkboxes = form.querySelectorAll('input[name="selectedSnacks"]:checked') as NodeListOf<HTMLInputElement>;
+    const selectedRadio = form.querySelector('input[name="boxType"]:checked') as HTMLInputElement;
+    const qty = parseInt(qtyInput?.value || '0', 10);
+    
+    let snackTotalPerBox = 0;
+    checkboxes.forEach(cb => {
+      snackTotalPerBox += parseInt(cb.getAttribute('data-price') || '0', 10);
+    });
+
+    const boxExtra = parseInt(selectedRadio?.getAttribute('data-extra-price') || '0', 10);
+    const pricePerBox = snackTotalPerBox + boxExtra;
+    const grandTotal = pricePerBox * (isNaN(qty) ? 0 : qty);
+
+    if (checkboxes.length === 0) {
+      estimateEl.innerHTML = `Rp 0 <span class="text-xs font-sans font-normal text-content-secondary">(Pilih minimal 1 kue)</span>`;
+    } else {
+      estimateEl.innerHTML = `Rp ${grandTotal.toLocaleString('id-ID')} <span class="text-xs font-sans font-normal text-content-secondary">(Rp ${pricePerBox.toLocaleString('id-ID')}/box × ${qty} box)</span>`;
     }
   }
 
-  // Sync client custom packaging if updated in admin
-  try {
-    const storedCustom = localStorage.getItem('rasanesia_store_custom_config');
-    if (storedCustom) {
-      const parsed = JSON.parse(storedCustom);
-      if (parsed.packagingOptions && Array.isArray(parsed.packagingOptions) && parsed.packagingOptions.length > 0) {
-        const grid = document.getElementById('custom-packaging-grid');
-        if (grid) {
-          grid.innerHTML = parsed.packagingOptions.map((pack: any, idx: number) => `
-            <label class="cursor-pointer border-2 ${idx === 0 ? 'border-brand-brown' : 'border-brand-cream-dark'} rounded-2xl p-4 bg-brand-white flex flex-col justify-between hover:border-brand-brown transition-all packaging-radio-label">
-              <div>
-                <div class="flex items-center justify-between">
-                  <input 
-                    type="radio" 
-                    name="boxType" 
-                    value="${pack.name} (${pack.extraPrice > 0 ? '+Rp ' + pack.extraPrice.toLocaleString('id-ID') : 'Termasuk'})" 
-                    data-extra-price="${pack.extraPrice}"
-                    ${idx === 0 ? 'checked' : ''} 
-                    class="text-brand-brown focus:ring-brand-brown" 
-                  />
-                  <span class="text-[11px] font-bold text-brand-gold">
-                    ${pack.extraPrice > 0 ? '+Rp ' + pack.extraPrice.toLocaleString('id-ID') : 'Termasuk'}
-                  </span>
-                </div>
-                <h3 class="font-serif font-bold text-sm text-brand-dark mt-2">${pack.name}</h3>
-                <p class="text-xs text-brand-muted mt-1 leading-relaxed">${pack.description || ''}</p>
-              </div>
-            </label>
-          `).join('');
+  hydrateCustomPage();
+  qtyInput?.addEventListener('input', updateEstimate);
 
-          // Re-bind change events for radios
-          grid.querySelectorAll('input[name="boxType"]').forEach(r => {
-            r.addEventListener('change', () => {
-              grid.querySelectorAll('.packaging-radio-label').forEach(lbl => {
-                lbl.classList.remove('border-brand-brown');
-                lbl.classList.add('border-brand-cream-dark');
-              });
-              r.closest('.packaging-radio-label')?.classList.add('border-brand-brown');
-              calculateEstimate();
-            });
-          });
-        }
-      }
-    }
-  } catch (e) {}
-
-  document.querySelectorAll('input[name="boxType"]').forEach(r => {
-    r.addEventListener('change', calculateEstimate);
-  });
-  document.querySelectorAll('.snack-checkbox').forEach(cb => {
-    cb.addEventListener('change', calculateEstimate);
-  });
-  qtyInput?.addEventListener('input', calculateEstimate);
-  calculateEstimate();
-  
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
+    const formData = new FormData(form);
+    const customerName = formData.get('customerName') as string;
+    const customerPhone = formData.get('customerPhone') as string;
+    const boxType = formData.get('boxType') as string;
+    const selectedSnacks = formData.getAll('selectedSnacks') as string[];
+    const boxQty = formData.get('boxQty') as string;
+    const budgetPerBox = formData.get('budgetPerBox') as string;
+    const eventDate = formData.get('eventDate') as string;
+    const deliveryArea = formData.get('deliveryArea') as string;
+    const customNotes = formData.get('customNotes') as string;
 
-    const customerName = (form.querySelector('#customer-name') as HTMLInputElement)?.value || '';
-    const customerPhone = (form.querySelector('#customer-phone') as HTMLInputElement)?.value || '';
-    const boxTypeEl = form.querySelector('input[name="boxType"]:checked') as HTMLInputElement | null;
-    const boxType = boxTypeEl ? boxTypeEl.value : 'Kraft Box';
-
-    const selectedSnacks = Array.from(form.querySelectorAll('input[name="selectedSnacks"]:checked'))
-      .map(cb => (cb as HTMLInputElement).value);
-
-    const qty = parseInt((form.querySelector('#custom-qty') as HTMLInputElement)?.value || '1', 10);
-    const eventDate = (form.querySelector('#custom-date') as HTMLInputElement)?.value || '';
-    const fulfillmentMethod = (form.querySelector('#custom-fulfillment') as HTMLSelectElement)?.value || '';
-    const area = (form.querySelector('#custom-area') as HTMLSelectElement)?.value || '';
-    const eventType = (form.querySelector('#event-type') as HTMLInputElement)?.value || '';
-    const budget = (form.querySelector('#custom-budget') as HTMLInputElement)?.value || '';
-    const notes = (form.querySelector('#custom-notes') as HTMLTextAreaElement)?.value || '';
-
-    if (qty <= 0) {
-      alert('Jumlah pesanan box harus lebih besar dari nol.');
+    if (selectedSnacks.length === 0) {
+      alert('Silakan pilih minimal 1 jenis jajanan untuk isian snack box Anda.');
       return;
     }
 
-    let message = `Halo Rasanesia, saya ingin mengajukan Permintaan Custom Snack Box:\n\n`;
-    message += `• Nama Pemesan: ${customerName}\n`;
-    message += `• Kontak Pemesan: ${customerPhone}\n`;
-    message += `• Tipe Kemasan: ${boxType}\n`;
-    message += `• Jumlah Pesanan: ${qty} box\n`;
-    message += `• Tanggal Kebutuhan: ${eventDate || 'Belum Ditentukan'}\n`;
-    message += `• Metode Pemenuhan: ${fulfillmentMethod}\n`;
-    message += `• Wilayah Acara: ${area}\n`;
-    if (eventType.trim()) {
-      message += `• Jenis Acara: ${eventType.trim()}\n`;
-    }
-    if (budget) {
-      message += `• Target Anggaran: Rp ${parseInt(budget).toLocaleString('id-ID')} / box\n`;
-    }
-    if (selectedSnacks.length > 0) {
-      message += `• Pilihan Isian Kue:\n`;
-      selectedSnacks.forEach((snack, idx) => {
-        message += `  ${idx + 1}. ${snack}\n`;
-      });
-    }
-    if (notes.trim()) {
-      message += `• Catatan Khusus: ${notes.trim()}\n`;
-    }
-    message += `\nMohon informasi ketersediaan slot produksi dan konfirmasi rincian penawarannya. Terima kasih!`;
+    const snackListText = selectedSnacks.map((s, i) => `  ${i + 1}. ${s}`).join('\n');
+    const estimateText = estimateEl?.textContent?.trim() || '-';
 
-    let activePhone = siteConfig.whatsappNumber;
-    try {
-      const storedConfig = localStorage.getItem('rasanesia_store_config');
-      if (storedConfig) {
-        const parsed = JSON.parse(storedConfig);
-        if (parsed.whatsappNumber) activePhone = parsed.whatsappNumber;
-      }
-    } catch (e) {}
+    const message = `Halo Admin *Rasanesia*, saya ingin memesan *Custom Snack Box*:\n\n` +
+      `👤 *Pemesan:* ${customerName} (${customerPhone})\n` +
+      `📦 *Kemasan:* ${boxType}\n` +
+      `🥟 *Pilihan Kue Isian:*\n${snackListText}\n` +
+      `🔢 *Jumlah Pesanan:* ${boxQty} Box\n` +
+      `💰 *Target Budget/Box:* ${budgetPerBox || 'Sesuai Pilihan'}\n` +
+      `📊 *Estimasi Total:* ${estimateText}\n` +
+      `📅 *Tanggal Acara:* ${eventDate}\n` +
+      `📍 *Pengiriman/Area:* ${deliveryArea}\n` +
+      `📝 *Catatan:* ${customNotes || '-'}\n\n` +
+      `Mohon konfirmasi ketersediaan slot produksi untuk jadwal tersebut. Terima kasih!`;
 
-    const cleanPhone = String(activePhone).replace(/[^0-9]/g, '');
-    const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
+    const currentConfig = getStoredConfig();
+    const waUrl = `https://wa.me/${currentConfig.whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, '_blank');
   });
 </script>

@@ -1,12 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// 18 featured gallery photos
 const galleryItems = [
   { id: 1, file: '/images/gallery/gallery-01.jpg', title: 'Produksi Snack Box Harian', tag: 'Snack Box' },
   { id: 2, file: '/images/gallery/gallery-02.jpg', title: 'Aneka Kue Basah Pilihan', tag: 'Jajanan' },
-  { id: 3, file: '/images/gallery/gallery-03.jpg', title: 'Packing Rapi & Higienis', tag: 'Dapur' },
-  { id: 4, file: '/images/gallery/gallery-04.jpg', title: 'Sajian Kue Tampah Bambu', tag: 'Tampah' },
+  { id: 3, file: '/images/gallery/gallery-03.jpg', title: 'Packing Rapi & Higienis', tag: 'Tampah & Custom' },
+  { id: 4, file: '/images/gallery/gallery-04.jpg', title: 'Sajian Kue Tampah Bambu', tag: 'Tampah & Custom' },
   { id: 5, file: '/images/gallery/gallery-05.jpg', title: 'Bolu Gulung & Pastel Gurih', tag: 'Jajanan' },
   { id: 6, file: '/images/gallery/gallery-06.jpg', title: 'Sosis Solo Khas Surakarta', tag: 'Jajanan' },
   { id: 7, file: '/images/gallery/gallery-07.jpg', title: 'Kue Nona Manis Santan Pandan', tag: 'Jajanan' },
@@ -15,10 +14,10 @@ const galleryItems = [
   { id: 10, file: '/images/gallery/gallery-10.jpg', title: 'Lemper Ayam Daun Pisang Segar', tag: 'Jajanan' },
   { id: 11, file: '/images/gallery/gallery-11.jpg', title: 'Kue Ku Kacang Hijau Merah', tag: 'Jajanan' },
   { id: 12, file: '/images/gallery/gallery-12.jpg', title: 'Kue Lumpur Kentang Lumer', tag: 'Jajanan' },
-  { id: 13, file: '/images/gallery/gallery-13.jpg', title: 'Tampah Hias Daun Pisang', tag: 'Tampah' },
+  { id: 13, file: '/images/gallery/gallery-13.jpg', title: 'Tampah Hias Daun Pisang', tag: 'Tampah & Custom' },
   { id: 14, file: '/images/gallery/gallery-14.jpg', title: 'Pesanan Syukuran & Hajatan', tag: 'Snack Box' },
   { id: 15, file: '/images/gallery/gallery-15.jpg', title: 'Koleksi Jajanan Pasar Tradisional', tag: 'Jajanan' },
-  { id: 16, file: '/images/gallery/gallery-16.jpg', title: 'Pengemasan Besek Modern', tag: 'Custom' },
+  { id: 16, file: '/images/gallery/gallery-16.jpg', title: 'Pengemasan Besek Modern', tag: 'Tampah & Custom' },
   { id: 17, file: '/images/gallery/gallery-17.jpg', title: 'Konsumsi Seminar & Workshop', tag: 'Snack Box' },
   { id: 18, file: '/images/gallery/gallery-18.jpg', title: 'Detail Tekstur Kue Basah Rasanesia', tag: 'Jajanan' }
 ];
@@ -28,51 +27,251 @@ const galleryItems = [
   title="Galeri Dokumentasi Produk | Rasanesia"
   description="Dokumentasi asli produksi jajanan tradisional, penyusunan snack box, dan sajian tampah dari dapur Rasanesia di Solo & Sukoharjo."
 >
-  <!-- Header -->
-  <section class="bg-brand-cream/40 border-b border-brand-cream-dark py-12 lg:py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <nav class="flex justify-center items-center gap-2 text-xs text-brand-muted mb-3" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-brand-brown">Beranda</a>
-        <span>/</span>
-        <span class="text-brand-brown font-semibold">Galeri</span>
-      </nav>
-      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-brand-dark">
-        Galeri Dapur & Produk Kami
-      </h1>
-      <p class="text-sm sm:text-base text-brand-muted mt-3 max-w-2xl mx-auto">
-        Kumpulan foto dokumentasi nyata proses produksi, penataan kue tampah, dan pengemasan snack box harian Rasanesia.
-      </p>
-    </div>
-  </section>
-
-  <!-- Gallery Grid -->
-  <section class="py-16 bg-brand-white">
+  <!-- Semantic Page Header -->
+  <header aria-labelledby="gallery-page-heading" class="page-header-banner">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {galleryItems.map(item => (
-          <div class="group relative rounded-2xl overflow-hidden border border-brand-cream-dark bg-brand-cream shadow-xs hover:shadow-card transition-all duration-300">
-            <div class="aspect-square overflow-hidden">
-              <img 
-                src={item.file} 
-                alt={item.title} 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-                width="400"
-                height="400"
-              />
-            </div>
-            <!-- Overlay Info -->
-            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-end">
-              <span class="text-[10px] uppercase font-bold tracking-wider text-brand-gold">
-                {item.tag}
-              </span>
-              <p class="text-xs font-semibold text-brand-white leading-snug">
-                {item.title}
-              </p>
-            </div>
-          </div>
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="/" class="breadcrumb-link">Beranda</a></li>
+          <li aria-current="page" class="breadcrumb-current">Galeri</li>
+        </ol>
+      </nav>
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div>
+          <span class="editorial-kicker">Arsip Visual Dapur</span>
+          <h1 id="gallery-page-heading" class="font-serif text-3xl sm:text-5xl font-bold text-content-primary mt-2">
+            Galeri Dapur & Produk Kami
+          </h1>
+          <p class="text-sm sm:text-base text-content-secondary mt-3 max-w-2xl leading-relaxed m-0">
+            Kumpulan foto dokumentasi nyata proses produksi, penataan kue tampah, dan pengemasan snack box harian Rasanesia. Klik foto untuk melihat detail ukuran penuh.
+          </p>
+        </div>
+
+        <!-- Category Filters -->
+        <nav aria-label="Filter kategori galeri" class="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            data-gallery-filter="all"
+            aria-pressed="true"
+            class="gallery-filter-btn min-h-[44px] px-5 py-2.5 rounded-full text-xs font-bold bg-action-primary text-content-inverse shadow-soft transition-all"
+          >
+            Semua ({galleryItems.length})
+          </button>
+          <button
+            type="button"
+            data-gallery-filter="Jajanan"
+            aria-pressed="false"
+            class="gallery-filter-btn min-h-[44px] px-5 py-2.5 rounded-full text-xs font-bold bg-surface-primary text-content-primary border border-line-subtle hover:border-brand-brown transition-all"
+          >
+            Jajanan Pasar
+          </button>
+          <button
+            type="button"
+            data-gallery-filter="Snack Box"
+            aria-pressed="false"
+            class="gallery-filter-btn min-h-[44px] px-5 py-2.5 rounded-full text-xs font-bold bg-surface-primary text-content-primary border border-line-subtle hover:border-brand-brown transition-all"
+          >
+            Snack Box
+          </button>
+          <button
+            type="button"
+            data-gallery-filter="Tampah & Custom"
+            aria-pressed="false"
+            class="gallery-filter-btn min-h-[44px] px-5 py-2.5 rounded-full text-xs font-bold bg-surface-primary text-content-primary border border-line-subtle hover:border-brand-brown transition-all"
+          >
+            Tampah & Custom
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Gallery Grid Section -->
+  <section aria-label="Koleksi foto dokumentasi dapur dan produk" class="py-16 bg-surface-primary">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {galleryItems.map((item, idx) => (
+          <article
+            data-gallery-card
+            data-gallery-tag={item.tag}
+            class="group rounded-2xl overflow-hidden border border-line-subtle bg-surface-primary shadow-xs hover:shadow-card transition-all duration-300 flex flex-col"
+          >
+            <figure class="m-0 flex-1 flex flex-col">
+              <button
+                type="button"
+                data-lightbox-open={idx}
+                aria-label={`Perbesar foto ${item.title}`}
+                class="relative aspect-square overflow-hidden bg-surface-subtle w-full text-left focus:outline-none"
+              >
+                <img 
+                  src={item.file} 
+                  alt={item.title} 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading={idx < 4 ? "eager" : "lazy"}
+                  width="400"
+                  height="400"
+                />
+                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-surface-primary/95 text-content-primary font-mono text-[10px] font-bold border border-line-subtle shadow-xs">
+                  #{String(item.id).padStart(2, '0')}
+                </span>
+              </button>
+              <figcaption class="p-4 bg-surface-primary border-t border-line-subtle/60 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-[10px] uppercase font-bold tracking-wider text-brand-gold block">
+                    {item.tag}
+                  </span>
+                  <h2 class="text-xs sm:text-sm font-bold text-content-primary leading-snug mt-0.5">
+                    {item.title}
+                  </h2>
+                </div>
+                <span class="w-8 h-8 rounded-full bg-surface-subtle/80 text-content-accent flex items-center justify-center text-xs shrink-0 group-hover:bg-action-primary group-hover:text-content-inverse transition-colors" aria-hidden="true">
+                  ↗
+                </span>
+              </figcaption>
+            </figure>
+          </article>
         ))}
       </div>
     </div>
   </section>
+
+  <!-- Semantic Accessible Lightbox Modal -->
+  <aside
+    id="gallery-lightbox"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-surface-inverse/90 backdrop-blur-xs p-4 sm:p-6"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="lightbox-caption-title"
+  >
+    <div class="relative max-w-3xl w-full bg-surface-primary rounded-3xl overflow-hidden border border-line-subtle shadow-2xl">
+      <header class="flex items-center justify-between px-5 py-3.5 border-b border-line-subtle bg-surface-subtle/50">
+        <div>
+          <span id="lightbox-caption-tag" class="text-[10px] font-bold uppercase tracking-widest text-brand-gold block">Galeri</span>
+          <h3 id="lightbox-caption-title" class="font-serif text-base sm:text-lg font-bold text-content-primary">Dokumentasi Rasanesia</h3>
+        </div>
+        <button
+          type="button"
+          id="lightbox-close-btn"
+          aria-label="Tutup pratinjau foto"
+          class="min-w-[44px] min-h-[44px] rounded-full bg-surface-primary hover:bg-surface-subtle text-content-primary flex items-center justify-center font-bold border border-line-subtle transition-colors"
+        >
+          ✕
+        </button>
+      </header>
+      <figure class="aspect-[4/3] bg-surface-inverse flex items-center justify-center overflow-hidden m-0">
+        <img
+          id="lightbox-img"
+          src="/images/gallery/gallery-01.jpg"
+          alt="Pratinjau Dokumentasi Rasanesia"
+          class="w-full h-full object-contain"
+          width="800"
+          height="600"
+        />
+      </figure>
+      <footer class="flex items-center justify-between px-5 py-3 bg-surface-primary border-t border-line-subtle">
+        <button
+          type="button"
+          id="lightbox-prev-btn"
+          class="min-h-[44px] px-4 py-2 rounded-full bg-surface-subtle hover:bg-brand-cream-dark text-content-primary text-xs font-bold transition-colors"
+        >
+          ← Foto Sebelumnya
+        </button>
+        <output id="lightbox-counter" class="font-mono text-xs font-semibold text-content-secondary">1 / 18</output>
+        <button
+          type="button"
+          id="lightbox-next-btn"
+          class="min-h-[44px] px-4 py-2 rounded-full bg-surface-subtle hover:bg-brand-cream-dark text-content-primary text-xs font-bold transition-colors"
+        >
+          Foto Berikutnya →
+        </button>
+      </footer>
+    </div>
+  </aside>
 </BaseLayout>
+
+<script define:vars={{ galleryItems }}>
+  const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+  const cards = document.querySelectorAll('[data-gallery-card]');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const selectedTag = btn.getAttribute('data-gallery-filter') || 'all';
+      filterBtns.forEach((b) => {
+        b.setAttribute('aria-pressed', 'false');
+        b.classList.remove('bg-action-primary', 'text-content-inverse', 'shadow-soft');
+        b.classList.add('bg-surface-primary', 'text-content-primary');
+      });
+      btn.setAttribute('aria-pressed', 'true');
+      btn.classList.add('bg-action-primary', 'text-content-inverse', 'shadow-soft');
+      btn.classList.remove('bg-surface-primary', 'text-content-primary');
+
+      cards.forEach((card) => {
+        const tag = card.getAttribute('data-gallery-tag');
+        if (selectedTag === 'all' || tag === selectedTag) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  const lightbox = document.getElementById('gallery-lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbTitle = document.getElementById('lightbox-caption-title');
+  const lbTag = document.getElementById('lightbox-caption-tag');
+  const lbCounter = document.getElementById('lightbox-counter');
+  const closeBtn = document.getElementById('lightbox-close-btn');
+  const prevBtn = document.getElementById('lightbox-prev-btn');
+  const nextBtn = document.getElementById('lightbox-next-btn');
+
+  let currentIdx = 0;
+
+  function renderLightbox(idx) {
+    currentIdx = (idx + galleryItems.length) % galleryItems.length;
+    const item = galleryItems[currentIdx];
+    if (!item) return;
+    if (lbImg) {
+      lbImg.setAttribute('src', item.file);
+      lbImg.setAttribute('alt', item.title);
+    }
+    if (lbTitle) lbTitle.textContent = item.title;
+    if (lbTag) lbTag.textContent = item.tag;
+    if (lbCounter) lbCounter.textContent = `${currentIdx + 1} / ${galleryItems.length}`;
+  }
+
+  function openLightbox(idx) {
+    renderLightbox(idx);
+    lightbox?.classList.remove('hidden');
+    lightbox?.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox?.classList.add('hidden');
+    lightbox?.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-lightbox-open]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.getAttribute('data-lightbox-open') || '0', 10);
+      openLightbox(idx);
+    });
+  });
+
+  closeBtn?.addEventListener('click', closeLightbox);
+  prevBtn?.addEventListener('click', () => renderLightbox(currentIdx - 1));
+  nextBtn?.addEventListener('click', () => renderLightbox(currentIdx + 1));
+
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lightbox?.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') renderLightbox(currentIdx - 1);
+    if (e.key === 'ArrowRight') renderLightbox(currentIdx + 1);
+  });
+</script>

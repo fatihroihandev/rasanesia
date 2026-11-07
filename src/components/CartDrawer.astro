@@ -2,112 +2,123 @@
 import { siteConfig } from '../data/siteConfig';
 ---
 
-<!-- Cart Drawer Container -->
-<div 
+<!-- Semantic Slide-Over Cart Drawer -->
+<aside 
   id="cart-drawer-root" 
-  class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0"
+  aria-label="Panel keranjang pesanan"
+  class="fixed inset-0 z-50 pointer-events-none invisible transition-all duration-300 opacity-0"
   aria-hidden="true"
 >
   <!-- Backdrop Overlay -->
   <div 
     id="cart-backdrop" 
-    class="absolute inset-0 bg-brand-dark/50 backdrop-blur-sm cursor-pointer"
+    class="absolute inset-0 bg-brand-dark/60 backdrop-blur-xs cursor-pointer"
+    aria-hidden="true"
   ></div>
 
-  <!-- Slide-out Drawer Panel -->
+  <!-- Slide-out Dialog Panel -->
   <div 
     id="cart-panel"
-    class="absolute top-0 right-0 h-full w-full max-w-md bg-brand-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-out border-l border-brand-cream-dark pointer-events-auto"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cart-drawer-title"
+    class="absolute top-0 right-0 h-full w-full max-w-md bg-surface-primary shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-out border-l border-line-subtle pointer-events-auto"
   >
-    <!-- Header -->
-    <div class="p-5 border-b border-brand-cream-dark flex items-center justify-between bg-brand-cream/40">
-      <div class="flex items-center gap-2">
-        <svg class="w-6 h-6 text-brand-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-        </svg>
-        <h2 class="font-serif text-xl font-bold text-brand-dark">Keranjang Belanja</h2>
+    <!-- Drawer Header -->
+    <header class="p-5 border-b border-line-subtle flex items-center justify-between bg-surface-subtle/50">
+      <div class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-full bg-brand-brown/10 text-content-accent flex items-center justify-center" aria-hidden="true">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+        </span>
+        <div>
+          <h2 id="cart-drawer-title" class="font-serif text-xl font-bold text-content-primary leading-tight">Keranjang Pesanan</h2>
+          <p class="text-[11px] text-content-secondary">Diteruskan langsung ke WhatsApp resmi</p>
+        </div>
       </div>
       <button 
         id="cart-close-btn" 
         type="button" 
-        class="p-2 rounded-full text-brand-muted hover:bg-brand-cream hover:text-brand-dark transition-colors"
+        class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-full text-content-secondary hover:bg-surface-subtle hover:text-content-primary transition-colors"
         aria-label="Tutup Keranjang"
       >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
-    </div>
+    </header>
 
     <!-- Items List Body -->
-    <div id="cart-items-container" class="flex-1 overflow-y-auto p-5 space-y-4">
+    <section id="cart-items-container" aria-label="Daftar produk di keranjang" class="flex-1 overflow-y-auto p-5 space-y-3.5" aria-live="polite">
       <!-- Items dynamically populated via JavaScript -->
-    </div>
+    </section>
 
     <!-- Empty State (Shown when 0 items) -->
-    <div id="cart-empty-state" class="hidden flex-1 flex flex-col items-center justify-center p-6 text-center">
-      <div class="w-20 h-20 bg-brand-cream rounded-full flex items-center justify-center mb-4 text-brand-brown">
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <section id="cart-empty-state" aria-label="Status keranjang kosong" class="hidden flex-1 flex flex-col items-center justify-center p-6 text-center">
+      <div class="w-20 h-20 bg-surface-subtle rounded-full flex items-center justify-center mb-4 text-content-accent" aria-hidden="true">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
         </svg>
       </div>
-      <h3 class="font-serif text-lg font-bold text-brand-dark mb-1">Keranjang Masih Kosong</h3>
-      <p class="text-sm text-brand-muted mb-5 max-w-xs">
-        Pilih jajanan tradisional atau paket snack box favorit Anda dan tambahkan ke sini.
+      <h3 class="font-serif text-lg font-bold text-content-primary mb-1">Keranjang Masih Kosong</h3>
+      <p class="text-sm text-content-secondary mb-6 max-w-xs leading-relaxed">
+        Pilih jajanan tradisional atau paket snack box favorit Anda dan tambahkan ke daftar pesanan ini.
       </p>
       <a 
         href="/menu/" 
         id="cart-explore-btn"
-        class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white text-sm font-semibold px-6 py-2.5 rounded-full transition-colors"
+        class="bg-action-primary hover:bg-action-primary-hover text-content-inverse text-sm font-semibold px-6 min-h-[44px] inline-flex items-center justify-center rounded-full transition-colors"
       >
-        Lihat Menu Jajanan
+        Jelajahi Katalog Jajanan
       </a>
-    </div>
+    </section>
 
     <!-- Footer Summary & WhatsApp Checkout -->
-    <div id="cart-footer" class="p-5 border-t border-brand-cream-dark bg-brand-cream/30 space-y-4 safe-bottom">
+    <footer id="cart-footer" class="p-5 border-t border-line-subtle bg-surface-subtle/35 space-y-4 safe-bottom">
       <!-- Order Notes / Event Date Input -->
       <div>
-        <label for="cart-notes" class="block text-xs font-semibold text-brand-dark mb-1">
+        <label for="cart-notes" class="block text-xs font-bold text-content-primary mb-1.5">
           Catatan Tambahan / Tanggal Acara (Opsional):
         </label>
         <textarea 
           id="cart-notes" 
           rows="2" 
           placeholder="Contoh: Acara rapat tgl 28 Okt, dikirim jam 09.00 pagi ke Solo Baru..."
-          class="w-full text-xs p-2.5 rounded-lg border border-brand-cream-dark bg-brand-white text-brand-dark focus:ring-2 focus:ring-brand-brown focus:border-transparent outline-none resize-none"
+          class="w-full text-xs p-3 rounded-xl border border-line-subtle bg-surface-primary text-content-primary focus:ring-2 focus:ring-brand-brown focus:border-transparent outline-none resize-none"
         ></textarea>
       </div>
 
       <!-- Subtotal -->
-      <div class="flex items-center justify-between pt-2 border-t border-brand-cream-dark/60">
-        <span class="text-sm font-medium text-brand-muted">Subtotal Estimasi:</span>
-        <span id="cart-subtotal" class="font-serif text-xl font-bold text-brand-brown">
-          Rp 0
-        </span>
-      </div>
+      <dl class="flex items-center justify-between pt-2 border-t border-line-subtle/60 m-0">
+        <dt class="text-sm font-medium text-content-secondary">Subtotal Estimasi:</dt>
+        <dd class="m-0">
+          <output id="cart-subtotal" aria-live="polite" class="font-serif text-xl font-bold text-content-accent tabular-price">
+            Rp 0
+          </output>
+        </dd>
+      </dl>
 
       <!-- Checkout WhatsApp Button -->
       <button 
         id="cart-checkout-btn" 
         type="button" 
-        class="w-full flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-dark text-brand-white font-semibold py-3.5 rounded-full shadow-soft hover:shadow-hover transition-all text-sm transform hover:-translate-y-0.5"
+        class="w-full min-h-[48px] flex items-center justify-center gap-2 bg-action-whatsapp hover:bg-action-whatsapp-hover text-content-inverse font-semibold py-3.5 rounded-full shadow-soft hover:shadow-hover transition-all text-sm transform hover:-translate-y-0.5"
       >
         <span>Lanjutkan ke WhatsApp</span>
-        <svg class="w-5 h-5 text-brand-white" fill="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 text-brand-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
         </svg>
       </button>
 
-      <p class="text-[11px] text-center text-brand-muted">
+      <p class="text-[11px] text-center text-content-secondary">
         Konfirmasi ketersediaan & ongkir akan dilayani langsung via chat WhatsApp.
       </p>
-    </div>
+    </footer>
   </div>
-</div>
+</aside>
 
 <script define:vars={{ whatsappNumber: siteConfig.whatsappNumber }}>
-  // Cart Client State Management
   const CART_KEY = 'rasanesia_cart_items';
 
   function getCart() {
@@ -176,60 +187,65 @@ import { siteConfig } from '../data/siteConfig';
       const itemSubtotal = item.price * item.quantity;
       subtotal += itemSubtotal;
       return `
-        <div class="flex items-center gap-3 p-3 bg-brand-white border border-brand-cream-dark rounded-xl shadow-xs">
+        <article class="flex items-center gap-3 p-3.5 bg-surface-primary border border-line-subtle rounded-2xl shadow-xs">
           ${item.image ? `
-            <img 
-              src="${item.image}" 
-              alt="${item.name}" 
-              class="w-16 h-16 rounded-lg object-cover border border-brand-cream-dark shrink-0" 
-            />
+            <figure class="m-0 shrink-0">
+              <img 
+                src="${item.image}" 
+                alt="${item.name}" 
+                width="64"
+                height="64"
+                class="w-16 h-16 rounded-xl object-cover border border-line-subtle" 
+              />
+            </figure>
           ` : `
-            <div class="w-16 h-16 rounded-lg bg-brand-cream flex items-center justify-center shrink-0 text-brand-brown">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-16 h-16 rounded-xl bg-surface-subtle flex items-center justify-center shrink-0 text-content-accent" aria-hidden="true">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </div>
           `}
           <div class="flex-1 min-w-0">
-            <h4 class="text-sm font-semibold text-brand-dark truncate">${item.name}</h4>
-            <p class="text-xs text-brand-muted">Rp ${item.price.toLocaleString('id-ID')} / ${item.unit || 'pcs'}</p>
-            <div class="flex items-center gap-3 mt-2">
-              <div class="flex items-center border border-brand-cream-dark rounded-md bg-brand-cream-light">
+            <h3 class="text-sm font-semibold text-content-primary truncate">${item.name}</h3>
+            <p class="text-xs text-content-secondary tabular-price">Rp ${item.price.toLocaleString('id-ID')} / ${item.unit || 'pcs'}</p>
+            <div class="flex items-center justify-between gap-2 mt-2">
+              <div class="inline-flex items-center border border-line-subtle rounded-full bg-surface-canvas p-0.5" role="group" aria-label="Atur jumlah ${item.name}">
                 <button 
                   type="button" 
                   data-cart-action="decrement" 
                   data-index="${index}" 
-                  class="w-6 h-6 flex items-center justify-center text-xs text-brand-dark hover:bg-brand-cream rounded-l transition-colors"
-                >-</button>
-                <span class="w-8 text-center text-xs font-semibold text-brand-dark">${item.quantity}</span>
+                  aria-label="Kurangi jumlah ${item.name}"
+                  class="w-8 h-8 flex items-center justify-center text-sm font-bold text-content-primary hover:bg-surface-subtle rounded-full transition-colors"
+                >−</button>
+                <output class="w-8 text-center text-xs font-bold text-content-primary tabular-price">${item.quantity}</output>
                 <button 
                   type="button" 
                   data-cart-action="increment" 
                   data-index="${index}" 
-                  class="w-6 h-6 flex items-center justify-center text-xs text-brand-dark hover:bg-brand-cream rounded-r transition-colors"
+                  aria-label="Tambah jumlah ${item.name}"
+                  class="w-8 h-8 flex items-center justify-center text-sm font-bold text-content-primary hover:bg-surface-subtle rounded-full transition-colors"
                 >+</button>
               </div>
-              <span class="text-xs font-bold text-brand-brown">Rp ${itemSubtotal.toLocaleString('id-ID')}</span>
+              <output class="text-xs font-bold text-content-accent tabular-price">Rp ${itemSubtotal.toLocaleString('id-ID')}</output>
             </div>
           </div>
           <button 
             type="button" 
             data-cart-action="remove" 
             data-index="${index}" 
-            class="p-1.5 text-brand-muted hover:text-red-600 transition-colors rounded-lg"
-            aria-label="Hapus item"
+            class="w-10 h-10 inline-flex items-center justify-center text-content-secondary hover:text-status-danger hover:bg-red-50 transition-colors rounded-full shrink-0"
+            aria-label="Hapus ${item.name} dari keranjang"
           >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
             </svg>
           </button>
-        </div>
+        </article>
       `;
     }).join('');
 
     subtotalEl.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
 
-    // Add action listeners
     container.querySelectorAll('[data-cart-action]').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const target = e.currentTarget;
@@ -254,7 +270,6 @@ import { siteConfig } from '../data/siteConfig';
     });
   }
 
-  // Drawer Open/Close controls
   const root = document.getElementById('cart-drawer-root');
   const panel = document.getElementById('cart-panel');
   const backdrop = document.getElementById('cart-backdrop');
@@ -264,7 +279,7 @@ import { siteConfig } from '../data/siteConfig';
   function openCart() {
     renderCartItems();
     if (!root || !panel) return;
-    root.classList.remove('opacity-0', 'pointer-events-none');
+    root.classList.remove('opacity-0', 'pointer-events-none', 'invisible');
     root.classList.add('opacity-100');
     root.setAttribute('aria-hidden', 'false');
     panel.classList.remove('translate-x-full');
@@ -275,7 +290,7 @@ import { siteConfig } from '../data/siteConfig';
     if (!root || !panel) return;
     panel.classList.add('translate-x-full');
     root.classList.remove('opacity-100');
-    root.classList.add('opacity-0', 'pointer-events-none');
+    root.classList.add('opacity-0', 'pointer-events-none', 'invisible');
     root.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
@@ -286,7 +301,12 @@ import { siteConfig } from '../data/siteConfig';
   closeBtn?.addEventListener('click', closeCart);
   exploreBtn?.addEventListener('click', closeCart);
 
-  // Global Add To Cart Listener
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && root?.getAttribute('aria-hidden') === 'false') {
+      closeCart();
+    }
+  });
+
   window.addEventListener('add-to-cart', (e) => {
     const item = e.detail;
     const cart = getCart();
@@ -309,7 +329,6 @@ import { siteConfig } from '../data/siteConfig';
     openCart();
   });
 
-  // Checkout WhatsApp Action
   document.getElementById('cart-checkout-btn')?.addEventListener('click', () => {
     const cart = getCart();
     if (cart.length === 0) return;
@@ -345,7 +364,6 @@ import { siteConfig } from '../data/siteConfig';
     window.open(waUrl, '_blank', 'noopener,noreferrer');
   });
 
-  // Initialize on load
   document.addEventListener('DOMContentLoaded', () => {
     updateBadge();
   });

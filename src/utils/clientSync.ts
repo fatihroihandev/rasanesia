@@ -2,7 +2,7 @@
  * Client-Side Live Sync Helper
  * Memastikan penambahan produk, snack box, katering, serta perubahan harga dan nomor WhatsApp
  * yang disimpan pemilik toko di /admin/ langsung terlihat secara reaktif di seluruh halaman website
- * tanpa memerlukan build ulang.
+ * dengan struktur HTML5 Semantik (<article>, <figure>, <header>, <dl>, <footer>).
  */
 
 import { 
@@ -33,13 +33,16 @@ export function initClientSync(): void {
       });
     }
 
-    // 1b. Sync Google Maps embed URL, address, and direct map links
+    // 1b. Sync Google Maps embed URL, address, and direct map links (with deferred IntersectionObserver loading)
     if (config) {
       if (config.locationMapEmbedUrl) {
         document.querySelectorAll('iframe[data-sync-map], iframe[src*="google.com/maps"]').forEach(el => {
           const iframe = el as HTMLIFrameElement;
-          if (iframe.getAttribute('src') !== config.locationMapEmbedUrl) {
-            iframe.setAttribute('src', config.locationMapEmbedUrl);
+          iframe.setAttribute('data-map-src', config.locationMapEmbedUrl);
+          if (iframe.getAttribute('src') && iframe.getAttribute('src') !== 'about:blank') {
+            if (iframe.getAttribute('src') !== config.locationMapEmbedUrl) {
+              iframe.setAttribute('src', config.locationMapEmbedUrl);
+            }
           }
         });
       }
@@ -55,6 +58,25 @@ export function initClientSync(): void {
       }
     }
 
+    // Hydrate deferred map iframes when scrolled into view
+    const mapIframes = document.querySelectorAll('iframe[data-sync-map]');
+    if (mapIframes.length > 0 && 'IntersectionObserver' in window) {
+      const mapObs = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const iframe = entry.target as HTMLIFrameElement;
+            const targetSrc = iframe.getAttribute('data-map-src') || config.locationMapEmbedUrl;
+            if (targetSrc && (!iframe.getAttribute('src') || iframe.getAttribute('src') === 'about:blank')) {
+              iframe.setAttribute('src', targetSrc);
+            }
+            obs.unobserve(iframe);
+          }
+        });
+      }, { rootMargin: '250px 0px' });
+
+      mapIframes.forEach(iframe => mapObs.observe(iframe));
+    }
+
     // 2. Sync Products (Jajanan Pasar)
     const productGrid = document.getElementById('product-grid');
     const storedProducts = getStoredProducts();
@@ -64,7 +86,6 @@ export function initClientSync(): void {
         const existingEl = document.querySelector(`[data-sync-product-price="${prod.id}"]`);
 
         if (existingEl) {
-          // Update existing item
           if (prod.price) {
             existingEl.textContent = `Rp ${prod.price.toLocaleString('id-ID')}`;
           } else {
@@ -90,37 +111,45 @@ export function initClientSync(): void {
             }
           });
         } else if (productGrid && prod.id.startsWith('prod-custom-')) {
-          // Render newly added product dynamically
-          const card = document.createElement('div');
+          const card = document.createElement('article');
           card.setAttribute('data-product-item', '');
+          card.setAttribute('data-taste', prod.tasteProfile || 'Tradisional');
+          card.setAttribute('data-name-search', (prod.name || '').toLowerCase());
           card.setAttribute('data-category', prod.category || 'jajanan');
-          card.className = 'bg-brand-white border border-brand-cream-dark rounded-3xl overflow-hidden shadow-card hover:border-brand-gold/60 transition-all duration-300 flex flex-col justify-between group';
+          card.className = 'semantic-card flex flex-col justify-between group';
 
           card.innerHTML = `
             <div>
-              <div class="aspect-[4/3] overflow-hidden bg-brand-cream relative">
+              <figure class="aspect-square overflow-hidden bg-surface-subtle relative m-0">
                 <img 
                   src="${prod.image}" 
                   alt="${prod.name}" 
+                  width="400"
+                  height="400"
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
-                <span class="absolute top-3 right-3 bg-brand-white/90 backdrop-blur-xs text-brand-brown text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
+                <figcaption class="absolute top-3 left-3 bg-surface-primary/95 text-content-accent text-[11px] font-bold px-3 py-1 rounded-full shadow-xs">
                   ${prod.tasteProfile || 'Tradisional'}
-                </span>
-              </div>
+                </figcaption>
+              </figure>
               <div class="p-5">
-                <h3 class="font-serif font-bold text-base text-brand-dark mb-1 line-clamp-1">${prod.name}</h3>
-                <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed mb-4">${prod.description}</p>
-                <div class="mb-4">
-                  <span data-sync-product-price="${prod.id}" class="font-serif text-xl font-bold text-brand-brown">
-                    Rp ${prod.price.toLocaleString('id-ID')}
-                  </span>
-                  <span class="text-xs text-brand-muted">/${prod.priceUnit || 'pcs'}</span>
-                </div>
+                <header>
+                  <h2 class="font-serif font-bold text-lg text-content-primary mb-1 line-clamp-1">${prod.name}</h2>
+                </header>
+                <p class="text-xs text-content-secondary line-clamp-2 leading-relaxed mb-4">${prod.description}</p>
+                <dl class="mb-2 m-0">
+                  <dt class="sr-only">Harga</dt>
+                  <dd class="m-0">
+                    <span data-sync-product-price="${prod.id}" class="font-serif text-xl font-bold text-content-accent tabular-price">
+                      Rp ${prod.price.toLocaleString('id-ID')}
+                    </span>
+                    <span class="text-xs text-content-secondary">/${prod.priceUnit || 'pcs'}</span>
+                  </dd>
+                </dl>
               </div>
             </div>
-            <div class="p-5 pt-0">
+            <footer class="p-5 pt-0">
               <button 
                 type="button"
                 data-add-to-cart
@@ -129,17 +158,15 @@ export function initClientSync(): void {
                 data-price="${prod.price}"
                 data-unit="${prod.priceUnit || 'pcs'}"
                 data-image="${prod.image}"
-                class="w-full bg-brand-brown hover:bg-brand-brown-dark text-brand-white text-xs font-semibold py-2.5 rounded-full shadow-xs transition-colors"
+                class="w-full min-h-[44px] bg-action-primary hover:bg-action-primary-hover text-content-inverse text-xs font-semibold py-2.5 rounded-full shadow-xs transition-colors"
               >
                 + Keranjang
               </button>
-            </div>
+            </footer>
           `;
 
-          // Add to top of grid
           productGrid.prepend(card);
 
-          // Bind add-to-cart event
           card.querySelector('[data-add-to-cart]')?.addEventListener('click', () => {
             window.dispatchEvent(new CustomEvent('add-to-cart', {
               detail: {
@@ -173,41 +200,44 @@ export function initClientSync(): void {
             btn.setAttribute('data-price', String(box.price));
           });
         } else if (snackGrid && box.id.startsWith('box-custom-')) {
-          // Render newly added snackbox dynamically
-          const card = document.createElement('div');
-          card.className = 'bg-brand-white border border-brand-cream-dark rounded-3xl overflow-hidden shadow-card flex flex-col justify-between group hover:border-brand-gold/60 transition-all duration-300';
+          const card = document.createElement('article');
+          card.className = 'semantic-card flex flex-col justify-between group';
 
           card.innerHTML = `
             <div>
-              <div class="aspect-[16/10] overflow-hidden bg-brand-cream relative">
+              <figure class="aspect-[16/10] overflow-hidden bg-surface-subtle relative m-0">
                 <img 
                   src="${box.image}" 
                   alt="${box.name}" 
+                  width="500"
+                  height="320"
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
-                <span data-sync-snackbox-min="${box.id}" class="absolute top-3 right-3 bg-brand-white/95 text-brand-brown text-xs font-bold px-3 py-1 rounded-full shadow-xs">
+                <figcaption data-sync-snackbox-min="${box.id}" class="absolute top-3 right-3 bg-surface-primary/95 text-content-accent text-xs font-bold px-3 py-1 rounded-full shadow-xs">
                   Min ${box.minOrder || 15} box
-                </span>
-              </div>
+                </figcaption>
+              </figure>
               <div class="p-6">
-                <h3 class="font-serif text-xl font-bold text-brand-dark mb-2">${box.name}</h3>
-                <p class="text-xs text-brand-muted leading-relaxed mb-4">${box.description}</p>
-                <div class="space-y-1.5 mb-5 p-3.5 bg-brand-cream-light rounded-2xl border border-brand-cream-dark">
-                  <span class="text-[11px] font-bold text-brand-gold uppercase tracking-wider block">Isian Kue:</span>
-                  <ul class="text-xs text-brand-dark space-y-1">
-                    ${(box.includes || []).map(inc => `<li class="flex items-center gap-1.5"><span class="text-brand-green font-bold">✓</span> ${inc}</li>`).join('')}
+                <header>
+                  <h2 class="font-serif text-xl font-bold text-content-primary mb-2">${box.name}</h2>
+                </header>
+                <p class="text-xs text-content-secondary leading-relaxed mb-4">${box.description}</p>
+                <section aria-label="Komposisi kue dalam box" class="space-y-1.5 mb-5 p-3.5 bg-surface-canvas rounded-2xl border border-line-subtle">
+                  <h3 class="text-[11px] font-bold text-brand-gold uppercase tracking-wider block">Isian Kue:</h3>
+                  <ul class="text-xs text-content-primary space-y-1 list-none m-0 p-0">
+                    ${(box.includes || []).map(inc => `<li class="flex items-center gap-1.5"><span class="text-brand-green font-bold" aria-hidden="true">✓</span> <span>${inc}</span></li>`).join('')}
                   </ul>
-                </div>
+                </section>
               </div>
             </div>
-            <div class="p-6 pt-0 border-t border-brand-cream-dark flex items-center justify-between">
-              <div>
-                <span class="text-[11px] text-brand-muted block">Harga per box:</span>
-                <span data-sync-snackbox-price="${box.id}" class="font-serif text-xl font-bold text-brand-brown">
+            <footer class="p-6 pt-3 border-t border-line-subtle flex items-center justify-between">
+              <dl class="m-0">
+                <dt class="text-[11px] text-content-secondary block">Harga per box:</dt>
+                <dd data-sync-snackbox-price="${box.id}" class="font-serif text-xl font-bold text-content-accent tabular-price m-0">
                   Rp ${box.price.toLocaleString('id-ID')}
-                </span>
-              </div>
+                </dd>
+              </dl>
               <button 
                 type="button"
                 data-add-to-cart
@@ -216,11 +246,11 @@ export function initClientSync(): void {
                 data-price="${box.price}"
                 data-unit="box"
                 data-image="${box.image}"
-                class="bg-brand-brown hover:bg-brand-brown-dark text-brand-white text-xs font-semibold py-2.5 px-5 rounded-full shadow-xs transition-colors"
+                class="min-h-[44px] bg-action-primary hover:bg-action-primary-hover text-content-inverse text-xs font-semibold py-2.5 px-5 rounded-full shadow-xs transition-colors"
               >
                 + Keranjang
               </button>
-            </div>
+            </footer>
           `;
 
           snackGrid.prepend(card);
@@ -255,53 +285,58 @@ export function initClientSync(): void {
             el.textContent = `Min ${cat.minPax} pax`;
           });
         } else if (cateringGrid && cat.id.startsWith('cat-custom-')) {
-          // Render newly added catering package dynamically
-          const card = document.createElement('div');
-          card.className = 'bg-brand-cream-light/60 border border-brand-cream-dark rounded-3xl overflow-hidden shadow-card flex flex-col justify-between hover:border-brand-gold/60 transition-all duration-300';
+          const card = document.createElement('article');
+          card.className = 'semantic-card flex flex-col justify-between';
 
           card.innerHTML = `
             <div>
-              <div class="aspect-[16/10] overflow-hidden bg-brand-cream relative">
+              <figure class="aspect-[16/10] overflow-hidden bg-surface-subtle relative m-0">
                 <img 
                   src="${cat.image}" 
                   alt="${cat.name}" 
+                  width="500"
+                  height="320"
                   class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
-                <span data-sync-catering-min="${cat.id}" class="absolute top-3 right-3 bg-brand-white/95 text-brand-brown text-xs font-bold px-3 py-1 rounded-full shadow-xs">
+                <figcaption data-sync-catering-min="${cat.id}" class="absolute top-3 right-3 bg-surface-primary/95 text-content-accent text-xs font-bold px-3 py-1 rounded-full shadow-xs">
                   Min ${cat.minPax} pax
-                </span>
-              </div>
+                </figcaption>
+              </figure>
               <div class="p-6">
-                <span class="px-3 py-1 rounded-full bg-brand-brown/10 text-brand-brown text-xs font-semibold">
-                  ${cat.categoryLabel || 'Catering'}
-                </span>
-                <h2 class="font-serif text-2xl font-bold text-brand-dark mt-2 mb-2">${cat.name}</h2>
-                <div class="mb-3">
-                  <span class="text-[11px] text-brand-muted block">Mulai dari:</span>
-                  <span data-sync-catering-price="${cat.id}" class="font-serif text-2xl font-bold text-brand-brown">
-                    Rp ${cat.pricePerPax.toLocaleString('id-ID')}
+                <header>
+                  <span class="px-3 py-1 rounded-full bg-brand-brown/10 text-content-accent text-xs font-semibold">
+                    ${cat.categoryLabel || 'Catering'}
                   </span>
-                  <span class="text-xs text-brand-muted"> / pax</span>
-                </div>
-                <p class="text-xs text-brand-muted leading-relaxed mb-4">${cat.description}</p>
-                <div class="p-4 bg-brand-white rounded-2xl border border-brand-cream-dark/60 space-y-1.5 mb-4">
-                  <span class="text-[11px] font-bold text-brand-gold uppercase tracking-wider block mb-1">Rincian Menu:</span>
-                  <ul class="space-y-1 text-xs text-brand-dark/90">
-                    ${(cat.includes || []).map(inc => `<li class="flex items-start gap-2"><span class="text-brand-green font-bold shrink-0">✓</span> <span>${inc}</span></li>`).join('')}
+                  <h2 class="font-serif text-2xl font-bold text-content-primary mt-2 mb-2">${cat.name}</h2>
+                </header>
+                <dl class="mb-3 m-0">
+                  <dt class="text-[11px] text-content-secondary block">Mulai dari:</dt>
+                  <dd class="m-0">
+                    <span data-sync-catering-price="${cat.id}" class="font-serif text-2xl font-bold text-content-accent tabular-price">
+                      Rp ${cat.pricePerPax.toLocaleString('id-ID')}
+                    </span>
+                    <span class="text-xs text-content-secondary"> / pax</span>
+                  </dd>
+                </dl>
+                <p class="text-xs text-content-secondary leading-relaxed mb-4">${cat.description}</p>
+                <section aria-label="Rincian menu hidangan" class="p-4 bg-surface-canvas rounded-2xl border border-line-subtle/60 space-y-1.5 mb-4">
+                  <h3 class="text-[11px] font-bold text-brand-gold uppercase tracking-wider block mb-1">Rincian Menu:</h3>
+                  <ul class="space-y-1 text-xs text-content-primary/90 list-none m-0 p-0">
+                    ${(cat.includes || []).map(inc => `<li class="flex items-start gap-2"><span class="text-brand-green font-bold shrink-0" aria-hidden="true">✓</span> <span>${inc}</span></li>`).join('')}
                   </ul>
-                </div>
+                </section>
               </div>
             </div>
-            <div class="p-6 pt-0">
+            <footer class="p-6 pt-0">
               <a 
                 href="#catering-inquiry-form" 
                 data-select-catering="${cat.name}"
-                class="block w-full py-3 rounded-full text-center bg-brand-brown hover:bg-brand-brown-dark text-brand-white font-semibold text-xs shadow-soft transition-colors"
+                class="min-h-[44px] flex items-center justify-center w-full py-3 rounded-full text-center bg-action-primary hover:bg-action-primary-hover text-content-inverse font-semibold text-xs shadow-soft transition-colors"
               >
                 Ajukan Penawaran Paket Ini
               </a>
-            </div>
+            </footer>
           `;
 
           cateringGrid.prepend(card);

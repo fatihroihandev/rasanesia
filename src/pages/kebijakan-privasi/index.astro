@@ -7,52 +7,64 @@ import { siteConfig } from '../../data/siteConfig';
   title="Kebijakan Privasi | Rasanesia"
   description="Kebijakan privasi dan perlindungan data pelanggan kuliner Rasanesia."
 >
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-    <nav class="flex items-center gap-2 text-xs text-brand-muted mb-6" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-brand-brown">Beranda</a>
-      <span>/</span>
-      <span class="text-brand-brown font-semibold">Kebijakan Privasi</span>
-    </nav>
-
-    <h1 class="font-serif text-3xl sm:text-4xl font-bold text-brand-dark mb-8">
-      Kebijakan Privasi Rasanesia
-    </h1>
-
-    <div class="prose prose-brand text-sm text-brand-dark/90 space-y-6 leading-relaxed">
-      <p>
-        Di <strong>{siteConfig.brandName}</strong>, kami menghormati privasi setiap pelanggan kami. Dokumen kebijakan ini menjelaskan bagaimana informasi pribadi Anda diperlakukan saat Anda menggunakan website dan layanan pemesanan kami.
-      </p>
-
-      <h2 class="font-serif text-xl font-bold text-brand-dark pt-4">1. Data yang Kami Terima</h2>
-      <p>
-        Kami hanya menerima informasi yang Anda berikan secara sukarela melalui formulir konsultasi custom atau percakapan WhatsApp Business resmi kami, meliputi:
-      </p>
-      <ul class="list-disc pl-5 space-y-1">
-        <li>Nama pemesan / instansi pemesan.</li>
-        <li>Nomor kontak WhatsApp atau telepon seluler.</li>
-        <li>Alamat pengantaran pesanan di wilayah Surakarta dan Sukoharjo.</li>
-        <li>Tanggal, waktu, dan rincian kebutuhan konsumsi acara Anda.</li>
-      </ul>
-
-      <h2 class="font-serif text-xl font-bold text-brand-dark pt-4">2. Penggunaan Informasi</h2>
-      <p>
-        Informasi yang kami kumpulkan digunakan secara eksklusif untuk:
-      </p>
-      <ul class="list-disc pl-5 space-y-1">
-        <li>Memproses jadwal produksi jajanan pasar dan pesanan snack box Anda.</li>
-        <li>Melakukan koordinasi pengiriman oleh kurir internal atau armada pengantaran rekanan.</li>
-        <li>Menyampaikan konfirmasi invoice dan status pengantaran melalui WhatsApp.</li>
-      </ul>
-
-      <h2 class="font-serif text-xl font-bold text-brand-dark pt-4">3. Keamanan & Keranjang Belanja</h2>
-      <p>
-        Data keranjang belanja website disimpan secara lokal pada peramban perangkat Anda (<em>localStorage</em>) untuk kenyamanan memilih produk dan tidak diunggah ke server pihak ketiga manapun. Kami tidak pernah menjual, menyewakan, atau membagikan data nomor telepon atau alamat pelanggan kepada pihak pemasaran pihak ketiga.
-      </p>
-
-      <h2 class="font-serif text-xl font-bold text-brand-dark pt-4">4. Hubungi Kami</h2>
-      <p>
-        Jika Anda memiliki pertanyaan seputar perlakuan privasi data pelanggan, Anda dapat menghubungi kami melalui nomor WhatsApp resmi Rasanesia: <strong>{siteConfig.whatsappDisplay}</strong>.
+  <header aria-labelledby="privacy-page-heading" class="page-header-banner">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="/" class="breadcrumb-link">Beranda</a></li>
+          <li aria-current="page" class="breadcrumb-current">Kebijakan Privasi</li>
+        </ol>
+      </nav>
+      <span class="editorial-kicker">Perlindungan Pelanggan</span>
+      <h1 id="privacy-page-heading" class="font-serif text-3xl sm:text-4xl font-bold text-content-primary mt-2">
+        Kebijakan Privasi Rasanesia
+      </h1>
+      <p class="text-sm text-content-secondary mt-3 leading-relaxed m-0">
+        Di <strong class="text-content-primary">{siteConfig.brandName}</strong>, kami menghormati privasi setiap pelanggan kami. Dokumen kebijakan ini menjelaskan bagaimana informasi pribadi Anda diperlakukan saat menggunakan website dan layanan pemesanan kami.
       </p>
     </div>
-  </div>
+  </header>
+
+  <article class="py-14 bg-surface-primary">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section aria-labelledby="privacy-sec-1" class="semantic-panel space-y-3">
+        <h2 id="privacy-sec-1" class="font-serif text-xl font-bold text-content-primary">1. Data yang Kami Terima</h2>
+        <p class="text-sm text-content-primary/90 leading-relaxed m-0">
+          Kami hanya menerima informasi yang Anda berikan secara sukarela melalui formulir konsultasi custom atau percakapan WhatsApp Business resmi kami, meliputi:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-sm text-content-primary/90 leading-relaxed m-0">
+          <li>Nama pemesan / instansi pemesan.</li>
+          <li>Nomor kontak WhatsApp atau telepon seluler.</li>
+          <li>Alamat pengantaran pesanan di wilayah Surakarta dan Sukoharjo.</li>
+          <li>Tanggal, waktu, dan rincian kebutuhan konsumsi acara Anda.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="privacy-sec-2" class="semantic-panel space-y-3">
+        <h2 id="privacy-sec-2" class="font-serif text-xl font-bold text-content-primary">2. Penggunaan Informasi</h2>
+        <p class="text-sm text-content-primary/90 leading-relaxed m-0">
+          Informasi yang kami kumpulkan digunakan secara eksklusif untuk:
+        </p>
+        <ul class="list-disc pl-5 space-y-1.5 text-sm text-content-primary/90 leading-relaxed m-0">
+          <li>Memproses jadwal produksi jajanan pasar dan pesanan snack box Anda.</li>
+          <li>Melakukan koordinasi pengiriman oleh kurir internal atau armada pengantaran rekanan.</li>
+          <li>Menyampaikan konfirmasi invoice dan status pengantaran melalui WhatsApp.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="privacy-sec-3" class="semantic-panel space-y-3">
+        <h2 id="privacy-sec-3" class="font-serif text-xl font-bold text-content-primary">3. Keamanan & Keranjang Belanja</h2>
+        <p class="text-sm text-content-primary/90 leading-relaxed m-0">
+          Data keranjang belanja website disimpan secara lokal pada peramban perangkat Anda (<em>localStorage</em>) untuk kenyamanan memilih produk dan tidak diunggah ke server pihak ketiga manapun. Kami tidak pernah menjual, menyewakan, atau membagikan data nomor telepon atau alamat pelanggan kepada pihak pemasaran pihak ketiga.
+        </p>
+      </section>
+
+      <section aria-labelledby="privacy-sec-4" class="semantic-panel space-y-3">
+        <h2 id="privacy-sec-4" class="font-serif text-xl font-bold text-content-primary">4. Hubungi Kami</h2>
+        <p class="text-sm text-content-primary/90 leading-relaxed m-0">
+          Jika Anda memiliki pertanyaan seputar perlakuan privasi data pelanggan, Anda dapat menghubungi kami melalui nomor WhatsApp resmi Rasanesia: <strong class="text-content-primary">{siteConfig.whatsappDisplay}</strong>.
+        </p>
+      </section>
+    </div>
+  </article>
 </BaseLayout>
